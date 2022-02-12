@@ -400,7 +400,7 @@ $B$ и $C$.
         \item не происходит ни $A$, ни $B$, но происходит $C$.
     \end{enumerate}
 
-    Попробуем записать через элементарные события:
+    Попробуем записать через элементарные исходы:
     \begin{enumerate}
         \item $\omega \in A, \omega \notin B, \omega \notin C \Leftrightarrow \omega \in A, \omega \in \overline{B}, \omega \in \overline{C} \Leftrightarrow \omega \in A \cdot \overline{B} \cdot \overline{C}$
         \item $\omega \notin A, \omega \in B, \omega \notin C \Leftrightarrow \omega \in \overline{A}, \omega \in B, \omega \in \overline{C} \Leftrightarrow \omega \in \overline{A} \cdot B \cdot \overline{C}$
@@ -474,7 +474,7 @@ $B$ и $C$.
     \item $F = A \cdot B \cdot \overline{C} + A \cdot \overline{B} \cdot C + \overline{A} \cdot B \cdot C + A \cdot B \cdot C .$
 \end{enumerate}
 
-\subsection*{Задача 39}
+\section*{Задача 18.39}
 
 Электрическая цепь составлена по схеме, приведенной на рисунке. \\
 \begin{figure}[h]
@@ -508,24 +508,24 @@ $B$ и $C$.
 \end{figure}
 
 Событие $A_k = \event{\text{элемент с номером } k \text{ вышел из строя}}$, $k = 1, 2, 3, 4$. Событие
-$B = \text{разрыв цепи}$. Выразить событие $B$ в алгебре событий $A_1$, $A_2$, $A_3$, $A_4$.
+$B = \event{\text{разрыв цепи}}$. Выразить событие $B$ в алгебре событий $A_1$, $A_2$, $A_3$, $A_4$.
 
 \subsection*{Решение}
 
 В схеме элемент 1, группа 2-3 и элемент 4 расположены последовательно, поэтому разрыв цепи произойдет, если вышел из строя элемент 1 или группа элементов 2-3 или
 элемент 4:
-\[
+\begin{equation}
     B = A_1 + B_{2-3} + A_4 ,
-\]
+\end{equation}
 где $B_{2-3}$ --- событие "вышла из строя группа элементов 2-3". В группе элементов "2-3"{} элементы соединены параллельно, поэтому отказ группы происходит, если отказывают
 одновременно и элемент 2, и элемент 3:
-\[
-    B_{2,3} = A_2 \cdot A_3.
-\]
-Подставляя выражение для $B_{2,3}$ получим:
-\[
+\begin{equation}
+    B_{2-3} = A_2 \cdot A_3.
+\end{equation}
+Подставляя выражение для $B_{2-3}$ получим:
+\begin{equation}
     B = A_1 + A_2 \cdot A_3 + A_4.
-\]
+\end{equation}
 
 \subsection*{Ответ:}
 $B = A_1 + A_2 \cdot A_3 + A_4$.
@@ -539,27 +539,29 @@ $B = A_1 + A_2 \cdot A_3 + A_4$.
 
 Множество $\Omega$ состоит из следующих элементарных исходов:
 
-\begin{tabular}{|c|c|c|c|c|}
-    \hline
-    Исход    & Выстрел 1 & Выстрел 2 & Выстрел 3 & Представление                                              \\
-    \hline
-    \omega_0 &           &           &           & $\overline{A_1} \cdot \overline{A_2} \cdot \overline{A_3}$ \\
-    \hline
-    \omega_1 &           & $\bullet$ &           & $\overline{A_1} \cdot A_2 \cdot \overline{A_3}$            \\
-    \hline
-    \omega_2 &           &           & $\bullet$ & $\overline{A_1} \cdot \overline{A_2} \cdot A_3$            \\
-    \hline
-    \omega_3 &           & $\bullet$ & $\bullet$ & $\overline{A_1} \cdot A_2 \cdot A_3$                       \\
-    \hline
-    \omega_4 & $\bullet$ &           &           & $A_1 \cdot \overline{A_2} \cdot \overline{A_3}$            \\
-    \hline
-    \omega_5 & $\bullet$ & $\bullet$ &           & $A_1 \cdot A_2 \cdot \overline{A_3}$                       \\
-    \hline
-    \omega_6 & $\bullet$ &           & $\bullet$ & $A_1 \cdot \overline{A_2} \cdot A_3$                       \\
-    \hline
-    \omega_7 & $\bullet$ & $\bullet$ & $\bullet$ & $A_1 \cdot A_2 \cdot A_3$                                  \\
-    \hline
-\end{tabular}
+\begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        Исход    & Выстрел 1 & Выстрел 2 & Выстрел 3 & Представление                                              \\
+        \hline
+        \omega_0 &           &           &           & $\overline{A_1} \cdot \overline{A_2} \cdot \overline{A_3}$ \\
+        \hline
+        \omega_1 &           & $\bullet$ &           & $\overline{A_1} \cdot A_2 \cdot \overline{A_3}$            \\
+        \hline
+        \omega_2 &           &           & $\bullet$ & $\overline{A_1} \cdot \overline{A_2} \cdot A_3$            \\
+        \hline
+        \omega_3 &           & $\bullet$ & $\bullet$ & $\overline{A_1} \cdot A_2 \cdot A_3$                       \\
+        \hline
+        \omega_4 & $\bullet$ &           &           & $A_1 \cdot \overline{A_2} \cdot \overline{A_3}$            \\
+        \hline
+        \omega_5 & $\bullet$ & $\bullet$ &           & $A_1 \cdot A_2 \cdot \overline{A_3}$                       \\
+        \hline
+        \omega_6 & $\bullet$ &           & $\bullet$ & $A_1 \cdot \overline{A_2} \cdot A_3$                       \\
+        \hline
+        \omega_7 & $\bullet$ & $\bullet$ & $\bullet$ & $A_1 \cdot A_2 \cdot A_3$                                  \\
+        \hline
+    \end{tabular}
+\end{center}
 
 \section*{Задача 18.42 (полная группа)}
 
@@ -583,7 +585,6 @@ $B = A_1 + A_2 \cdot A_3 + A_4$.
 \[
     B_0 \cup B_1 \cup B_2 \cup B_3 = \bigcup_{i=0}^7 \omega_i = \Omega .
 \]
-
 \section*{Задачи для самостоятельного решения}
 
 Из раздела 18 сборника задач Ефимова и Поспелова.
