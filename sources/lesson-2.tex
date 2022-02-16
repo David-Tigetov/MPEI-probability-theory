@@ -292,3 +292,81 @@ $\frac{1}{720}$.
     \item $\probability{B} = \frac{2}{91}$,
     \item $\probability{C} = \frac{12}{143}$.
 \end{enumerate}
+
+\section*{Задача 18.88}
+
+Числа 1, 2, \dots, 9 записываются в случайном порядке. Найти вероятности событий:
+\begin{enumerate}
+    \item $B = \event{\text{числа 1 и 2 будут стоять рядом и в порядке возрастания}}$,
+    \item $C = \event{\text{числа 3, 6 и 9 будут стоять рядом}}$.
+\end{enumerate}
+
+\subsection*{Решение:}
+\begin{enumerate}
+    \item
+    Подсчитаем количество возможных вариантов записи цифр (элементарных исходов): первую позицию может занимать любая из 9 цифр, вторую позицию --- любая из оставшихся 8 цифр,
+    \item третью позицию --- любая из оставшихся 7 цифр, и так далее, для последней позиции останется 1 цифра. Таким образом, всего вариантов записи цифр:
+    \begin{equation}
+        \modulus{\Omega} = 9 \cdot 8 \cdot 7 \cdot \dots \cdot 1 = 9!
+    \end{equation}
+
+    \item
+    Считаем количество вариантов записи цифр в событии $B$.
+    \begin{equation}
+        \begin{array}{ccccccccccr}
+            1        & 2        & \diamond & \diamond & \diamond & \diamond & \diamond & \diamond & \diamond & 7! \\
+            \diamond & 1        & 2        & \diamond & \diamond & \diamond & \diamond & \diamond & \diamond & 7! \\
+            \diamond & \diamond & 1        & 2        & \diamond & \diamond & \diamond & \diamond & \diamond & 7! \\
+            \dots    &          &          &          &          &          &          &          &          &    \\
+            \diamond & \diamond & \diamond & \diamond & \diamond & \diamond & \diamond & 1        & 2        & 7! \\
+        \end{array}
+    \end{equation}
+
+    Всего 8 вариантов расположения цифр 1 и 2, и на каждый вариант приходится еще $7!$ вариантов записи остальных цифр. Итого,
+    \begin{equation}
+        \modulus{B} = 8 \cdot 7!
+    \end{equation}
+    Вероятность события $B$
+    \begin{equation}
+        \probability{B} = \frac{\modulus{B}}{\modulus{\Omega}} = \frac{8 \cdot 7!}{9!} = \frac{1}{9} .
+    \end{equation}
+
+    \item
+    Считаем количество вариантов записи цифр в событии $C$.
+    \begin{equation}
+        \begin{array}{lccccccccccr}
+            & 3        & 6        & 9        & \diamond & \diamond & \diamond & \diamond & \diamond & \diamond & 6! \\
+            3! & \dots    &          &          &          &          &          &          &          &          &    \\
+            & 9        & 6        & 3        & \diamond & \diamond & \diamond & \diamond & \diamond & \diamond & 6! \\
+            & \diamond & 3        & 6        & 9        & \diamond & \diamond & \diamond & \diamond & \diamond & 6! \\
+            3! & \dots    &          &          &          &          &          &          &          &          &    \\
+            & \diamond & 9        & 6        & 3        & \diamond & \diamond & \diamond & \diamond & \diamond & 6! \\
+            & \dots    &          &          &          &          &          &          &          &          &    \\
+            & \diamond & \diamond & \diamond & \diamond & \diamond & \diamond & 3        & 6        & 9        & 6! \\
+            3! & \dots    &          &          &          &          &          &          &          &          &    \\
+            & \diamond & \diamond & \diamond & \diamond & \diamond & \diamond & 3        & 6        & 9        & 6! \\
+        \end{array}
+    \end{equation}
+    Группа цифр $\left \{ 3, 6, 9 \right \}$ может занимать 7 различных местоположений, на каждое местоположение приходится $3!$ вариантов расположения цифр внутри группы,
+    \item и на каждый такой вариант еще $6!$ вариантов расположения остальных шести цифр. Таким образом,
+    \begin{equation}
+        \modulus{C} = 7 \cdot 3! \cdot 6!
+    \end{equation}
+    Вероятность события $C$:
+    \begin{equation}
+        \probability{C}
+        = \frac{\modulus{C}}{\modulus{\Omega}}
+        = \frac{7 \cdot 3! \cdot 6!}{9!}
+        = \frac{7 \cdot 3!}{9 \cdot 8 \cdot 7}
+        = \frac{3!}{9 \cdot 8}
+        = \frac{3 \cdot 2}{9 \cdot 8}
+        = \frac{1}{3 \cdot 4}
+        = \frac{1}{12} .
+    \end{equation}
+\end{enumerate}
+
+\subsection*{Ответ:}
+\begin{enumerate}
+    \item $\probability{B} = \frac{1}{9}$,
+    \item $\probability{C} = \frac{1}{12}$.
+\end{enumerate}
