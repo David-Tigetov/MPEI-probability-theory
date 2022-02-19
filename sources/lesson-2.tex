@@ -369,3 +369,77 @@ $\frac{1}{720}$.
     \item $\probability{B} = \frac{1}{9}$,
     \item $\probability{C} = \frac{1}{12}$.
 \end{enumerate}
+
+\section*{Задача 18.100}
+
+Бросается 10 одинаковых игральных кубиков. Вычислить вероятности событий:
+\begin{enumerate}
+    \item $A = \event{\text{ни на одном кубике не выпадет 6}}$,
+    \item $B = \event{\text{хотя бы на одном кубике выпадет 6}}$,
+    \item $C = \event{\text{ровно на 3 кубиках выпадет 6}}$.
+\end{enumerate}
+
+\subsection*{Решение:}
+\begin{enumerate}
+    \item
+    Каждый элементарный исход будет представлять в виде вектора из 10 компонент: $i$-ая компонента обозначает число очков на кубике с номером $i$.
+    Общее количество всех таких векторов:
+    \begin{equation}
+        \modulus{\Omega} = \underbrace{6 \cdot 6 \cdot \dots 6}_{10} = 6^{10}.
+    \end{equation}
+
+    \item
+    Событие $A$ образовано элементарными исходами (векторами), в которых нет 6, то есть количество допустимых очков для каждого кубика всего 5,
+    поэтому количество элеметарных исходов в событии $A$:
+    \begin{equation}
+        \modulus{A} = \underbrace{5 \cdot 5 \cdot \dots 5}_{10} = 5^{10}.
+    \end{equation}
+    Вероятность события $A$:
+    \begin{equation}
+        \probability{A}
+        = \frac{\modulus{A}}{\modulus{\Omega}}
+        = \frac{5^{10}}{6^{10}}
+        = \left ( \frac{5}{6} \right )^{10} .
+    \end{equation}
+
+    \item
+    Для вычисления вероятности события $B$ заметим, что событие $B$, в котором выпадает хотя бы одна 6, является противоположным событию $A$,
+    в котором не выпадает ни одной 6:
+    \begin{equation}
+        B = \overline{A} .
+    \end{equation}
+    В силу известного свойства о вероятности противоположного события:
+    \begin{equation}
+        \probability{B} = \probability{\overline{A}} = 1 - \probability{A} = 1 - \left ( \frac{5}{6} \right )^{10} .
+    \end{equation}
+
+    \item
+    Событие $C$ образовано элементарными исходами (векторами), в которых 3 любые компоненты равны 6, а остальные компоненты ---
+    не равны 6. Значит нужно выбрать 3 компоненты из 10, которые будут равны 6, --- это можно сделать количеством способов, равным $C_{10}^3$,
+    в остальных 7 компонентах нельзя выбирать число очков равное 6, значит для каждой осталось только 5 вариантов:
+    \begin{equation}
+        \modulus{C} = C_{10}^3 \cdot 5^7 .
+    \end{equation}
+    Вероятность события $C$:
+    \begin{multline}
+        \probability{C}
+        = \frac{\modulus{C}}{\modulus{\Omega}}
+        = \frac{C_{10}^3 \cdot 5^7}{6^{10}}
+        = \frac{\frac{10!}{3!7!} \cdot 5^7}{6^{10}} = \\
+        %
+        = \frac{\frac{10 \cdot 9 \cdot 8}{3 \cdot 2}  \cdot 5^7}{6^{10}}
+        = \frac{10 \cdot 9 \cdot 8}{3 \cdot 2 \cdot 6^3} \cdot \left ( \frac{5}{6} \right )^7
+        = \frac{10 \cdot 3 \cdot 4}{6 \cdot 6 \cdot 6} \cdot \left ( \frac{5}{6} \right )^7
+        = \frac{2 \cdot 5 \cdot 3 \cdot 2 \cdot 2}{2 \cdot 3 \cdot 2 \cdot 3 \cdot 2 \cdot 3} \cdot \left ( \frac{5}{6} \right )^7 = \\
+        %
+        = \frac{5}{3 \cdot 3} \cdot \left ( \frac{5}{6} \right )^7
+        = \frac{5}{9} \cdot \left ( \frac{5}{6} \right )^7 .
+    \end{multline}
+\end{enumerate}
+
+\subsection*{Ответ:}
+\begin{enumerate}
+    \item $\probability{A} = \left ( \frac{5}{6} \right )^{10}$,
+    \item $\probability{B} = 1 - \left ( \frac{5}{6} \right )^{10}$,
+    \item $\probability{C} = \frac{5}{9} \cdot \left ( \frac{5}{6} \right )^7$.
+\end{enumerate}
