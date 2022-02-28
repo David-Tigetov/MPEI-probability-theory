@@ -107,8 +107,206 @@ $
 \left \{
 \begin{array}{ll}
     a \left ( 1 - \ln a \right ), & 0 < a \le 1 \\
-    1,         & 1 < a
+    1,                            & 1 < a
 \end{array}
 \right .
 .
 $
+
+\section*{Задача 18.143}
+
+Какова вероятность того, что сумма трех наудачу взятых отрезков, длина каждого из которых не превосходит $l$, будет больше $l$.
+
+\subsection*{Решение:}
+
+Пусть $x$, $y$, $z$ обозначают длины отрезков. Множество всех элементарных исходов:
+\begin{equation}
+    \Omega = \set{(x, y, z) : 0 \le x, y, z \le l}
+\end{equation}
+представляет собой куб с длиной ребра равной $l$.
+
+В качестве геометрической меры $\mu$ возьмем объём. При таком определении геометрическая мера $\Omega$:
+\begin{equation}
+    \mu \left ( \Omega \right ) = l^3.
+\end{equation}
+
+Пусть $A$ обозначает событие, при котором сумма длин отрезков больше $l$. В терминах принятых элементарных исходов:
+\begin{equation}
+    A = \set{(x,y,z) : x + y + z > l, 0 \le x, y, z \le l}.
+\end{equation}
+
+Для вычисления геометрической меры $A$ удобно использовать дополнительное событие --- $\overline{A}$:
+\begin{gather}
+    A + \overline{A} = \Omega , \\
+    \mu \left ( A + \overline{A} \right ) = \mu \left ( \Omega \right ), \\
+    \mu \left ( A \right ) + \mu \left ( \overline{A} \right ) = \mu \left ( \Omega \right ), \\
+    \mu \left ( A \right ) = \mu \left ( \Omega \right ) - \mu \left ( \overline{A} \right ) .
+\end{gather}
+
+Событие $\overline{A}$:
+\begin{equation}
+    \overline{A} = \set{(x,y,z): x + y + z \le l, 0 \le x, y, z \le l} .
+\end{equation}
+представляет собой треугольную пирамиду, образованную плоскостями (рисунок \ref{figure:lesson_3:143:cube}):
+\begin{gather}
+    x + y + z = l, \\
+    x = 0, \\
+    y = 0, \\
+    z = 0 .
+\end{gather}
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[scale=3]
+        \def \Ax {0.36};
+        \def \Ay {-0.72};
+        \def \Bx {1};
+        \def \By {0.2};
+        \def \Cx {0};
+        \def \Cy {1};
+
+        % грань
+        \path [fill=gray!20] (\Ax, \Ay) -- ( \Bx, \By ) -- ( \Cx, \Cy );
+
+        % оси
+        \draw [->] ( 0, 0 ) -- ( 0.5, -1 ) node [left] at ( 0.5, -1 ) {$X$};
+        \draw [dashed] ( 0, 0 ) -- ( \Bx, \By );
+        \draw [->] ( \Bx, \By ) -- ( 1.3, 0.26 ) node [below left] at ( 1.3, 0.23 ) {$Y$};
+        \draw [->] ( 0, 0 ) -- ( 0, 1.2 ) node [left] at ( 0, 1.2 ) {$Z$};
+
+        % нижние рёбра
+        \draw ( \Ax, \Ay ) -- ( \Ax + \Bx, \Ay + \By ) -- ( \Bx, \By );
+        % верхние рёбра
+        \draw ( \Cx, \Cy ) -- ( \Cx + \Ax, \Cy + \Ay ) -- ( \Cx + \Ax + \Bx, \Cy + \Ay + \By ) -- ( \Cx + \Bx, \Cy + \By ) -- ( \Cx, \Cy );
+        % вертикальные рёбра
+        \draw [dashed] ( \Bx, \By ) -- ( \Bx + \Cx, \By + \Cy );
+        \draw ( \Ax, \Ay ) -- ( \Ax + \Cx, \Ay + \Cy );
+        \draw ( \Ax + \Bx, \Ay + \By ) -- ( \Ax + \Bx + \Cx, \Ay + \By + \Cy );
+
+        % cобытия
+        \draw ( 1.1, 0.8 ) -- ( 1.4, 1 ) node [right] at ( 1.4, 1 ) {$A$};
+        \draw ( 0.1, 0.1 ) -- ( -0.2, -0.1 ) node [left] at ( -0.2, -0.1 ) {$\overline{A}$};
+    \end{tikzpicture}
+    \caption{Множества $A$ и $\overline{A}$.}
+    \label{figure:lesson_3:143:cube}
+\end{figure}
+
+Геометрическая мера $\mu \left ( \overline{A} \right )$ представляет собой объём пирамиды $OABC$ (рисунок \ref{figure:lesson_3:143:pyramid}}):
+\begin{equation}
+    \mu \left ( \overline{A} \right )
+    = \frac{1}{3} \cdot S_{ABC} \cdot \modulus{OH} ,
+\end{equation}
+где $S_{ABC}$ --- площадь основания пирамиды (треугольника $\triangle ABC$) и $OH$ --- её высота.
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[scale=3]
+        \def \Ax {0.36};
+        \def \Ay {-0.72};
+        \def \Bx {1};
+        \def \By {0.2};
+        \def \Cx {0};
+        \def \Cy {1};
+        \def \Dx {0.5*\Ax + 0.5*\Bx};
+        \def \Dy {0.5*\Ay+ 0.5*\By};
+        \def \Hx {0.44};
+        \def \Hy {0.18};
+
+        % грань
+        \path [fill=gray!20] ( \Ax, \Ay ) -- ( \Bx, \By ) -- ( \Cx, \Cy );
+
+        % оси
+        \draw [->] ( 0, 0 ) -- ( 0.5, -1 ) node [left] at ( 0.5, -1 ) {$X$};
+        \draw [dashed] ( 0, 0 ) -- ( \Bx, \By );
+        \draw [->] ( \Bx, \By ) -- ( 1.3, 0.26 ) node [below left] at ( 1.3, 0.23 ) {$Y$};
+        \draw [->] ( 0, 0 ) -- ( 0, 1.2 ) node [left] at ( 0, 1.2 ) {$Z$};
+
+        % основание
+        \draw ( \Ax, \Ay ) -- ( \Bx, \By ) -- ( \Cx, \Cy ) -- ( \Ax, \Ay );
+
+        % образующая
+        \node [left] at ( 0.15, -0.4 ) {$l$};
+        % сторона основания
+        \node [right] at ( 0.45, -0.55 ) {$\sqrt{2} l$};
+
+        % точки
+        \draw [fill] ( 0, 0 ) circle [ radius = 0.01 ] node [ left ] at ( 0, 0 ) {$O$};
+        \draw [fill] ( \Ax, \Ay ) circle [ radius = 0.01 ] node [ left ] at ( \Ax, \Ay ) {$A$};
+        \draw [fill] ( \Bx, \By ) circle [ radius = 0.01 ] node [ above ] at ( \Bx, \By ) {$B$};
+        \draw [fill] ( \Cx, \Cy ) circle [ radius = 0.01 ] node [ left ] at ( \Cx, \Cy ) {$C$};
+        \draw [fill] ( \Dx, \Dy ) circle [ radius = 0.01 ] node [ right ] at ( \Dx, \Dy ) {$D$};
+        \draw [fill] ( \Hx, \Hy ) circle [ radius = 0.01 ] node [ right ] at ( \Hx, \Hy ) {$H$};
+
+        % высота в основании
+        \draw ( \Cx, \Cy ) -- ( \Dx, \Dy );
+        % высота в пирамиде
+        \draw ( 0, 0 ) -- ( \Hx, \Hy );
+    \end{tikzpicture}
+    \caption{Пирамида $\overline{A}$.}
+    \label{figure:lesson_3:143:pyramid}
+\end{figure}
+
+Основание пирамиды --- равносторонний треугольник $\triangle ABC$, длину стороны можно вычислить из прямоугольного треугольника $\triangle AOB$,
+в котором катеты $AO$ и $BO$ имеют длину $l$, а искомая гипотенуза $AB$ имеет длину:
+\begin{equation}
+    \modulus{AB} = \sqrt{ \modulus{AO}^2 + \modulus{BO}^2 } = \sqrt{2} l.
+\end{equation}
+Высота $CD$ в равностороннем треугольнике $\triangle ABC$ имеет длину:
+\begin{equation}
+    \modulus{CD}
+    = \frac{\sqrt{3}}{2} \cdot \modulus{AB}
+    = \frac{\sqrt{3}}{2} \cdot \sqrt{2} l .
+\end{equation}
+Таким образом, площадь основания:
+\begin{equation}
+    S_{ABC}
+    = \frac{1}{2} \cdot \modulus{AB} \cdot \modulus{CD}
+    = \frac{1}{2} \cdot \sqrt{2} l \cdot \frac{\sqrt{3}}{2} \sqrt{2} l
+    = \frac{\sqrt{3}}{2} l^2 .
+\end{equation}
+Длина высоты $OH$ пирамиды определяется из прямоугольного треугольника $\triangle CHO$, в котором гипотенуза $OC$ имеет длину $l$ и катет $CH$
+имеет длину $\frac{2}{3} \cdot \modulus{CD}$:
+\begin{equation}
+    \modulus{OH}
+    = \sqrt{l^2 - \left ( \frac{2}{3} \frac{\sqrt{3}}{2} \sqrt{2} l  \right )^2}
+    = \sqrt{l^2 - \frac{4}{9} \frac{3}{4} 2 l^2}
+    = l \sqrt{1 - \frac{6}{9}}
+    = l \sqrt{1 - \frac{2}{3}}
+    = l \sqrt{\frac{1}{3}}
+    = \frac{l}{\sqrt{3}} .
+\end{equation}
+
+Таким образом, объём пирамиды:
+\begin{equation}
+    \mu \left( \overline{A} \right)
+    = \frac{1}{3} \cdot \frac{\sqrt{3}}{2} l^2 \cdot \frac{l}{\sqrt{3}}
+    = \frac{1}{6} l^3 ,
+\end{equation}
+и объём множества $A$:
+\begin{equation}
+    \mu \left ( A \right )
+    = \mu \left ( \Omega \right ) - \mu \left ( \overline{A} \right )
+    = l^3 - \frac{1}{6} l^3
+    = \frac{5}{6} l^3 .
+\end{equation}
+
+Вероятность события $A$:
+\begin{equation}
+    \probability{A}
+    = \frac{\mu \left ( A \right )}{\mu \left ( \Omega \right )}
+    = \frac{\frac{5}{6} l^3}{l^3}
+    = \frac{5}{6} .
+\end{equation}
+
+\subsection*{Ответ:}
+$\frac{5}{6}$.
+
+\section*{Задачи для самостоятельного решения}
+
+Из раздела 18 сборника задач Ефимова и Поспелова.
+\begin{enumerate}
+    \item На занятии: 144, 151, 158.
+    \item Дома: 139, 145, 147, 154, 157.
+\end{enumerate}
+
+Из сборника задач типового расчёта Чудесенко: 5, 6, 7.
