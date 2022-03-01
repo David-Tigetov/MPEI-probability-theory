@@ -1,0 +1,41 @@
+\chapter{Вычисление вероятностей}
+
+\section*{Введение}
+
+Вычисление вероятности события --- одна из основных задач в теории вероятностей. Обычно, эта задача формулируется в следующем виде: заданы события с известными вероятностями,
+требуется вычислить вероятность некоторого другого события, которое с ними связано, то есть выражается через события с известными вероятностями с помощью операций объединения,
+произведения, дополнения, разности.
+
+Решение задач подобного типа состоит из двух частей: в первой части необходимо получить выражение для события с неизвестной вероятностью, во второй части
+вычислить вероятность с использованием известных соотношений, к которым относятся:
+\begin{enumerate}
+    \item вероятность дополнительного события:
+    \begin{equation}
+        \probability{\overline{A}} = 1 - \probability{A} ,
+    \end{equation}
+
+    \item формула сложения:
+    \begin{equation}
+        \probability{A + B} = \probability{A} + \probability{B} - \probability{A B} ,
+    \end{equation}
+
+    \item формула умножения:
+    \begin{equation}
+        \probability{A \cdot B} = \probability{A} \cdot \conditionalprobability{B}{A},
+    \end{equation}
+
+    \item формула полной вероятности:
+    \begin{equation}
+        \probability{B} = \sum_{i=1}^n \probability{A_i} \cdot \conditionalprobability{B}{A_i} ,
+    \end{equation}
+    где $A_1$, \dots, $A_n$ --- полная группа событий.
+
+    \item формула Байеса:
+    \begin{equation}
+        \conditionalprobability{A_i}{B}
+        = \frac{\probability{A_iB}}{\probability{B}}
+        = \frac{\probability{A_i} \cdot \conditionalprobability{B}{A_i}}{\sum_{i=1}^n \probability{A_i} \cdot \conditionalprobability{B}{A_i}} ,
+    \end{equation}
+    где $A_1$, \dots, $A_n$ --- полная группа событий.
+\end{enumerate}
+
