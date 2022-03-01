@@ -39,3 +39,50 @@
     где $A_1$, \dots, $A_n$ --- полная группа событий.
 \end{enumerate}
 
+\section*{Задача 18.163}
+
+Один раз подбрасывается игральный кубик. Заданы события:
+\begin{itemize}
+    \item $A = \event{\text{выпало простое число очков}}$ ,
+    \item $B = \event{\text{выпало чётное число очков}}$ .
+\end{itemize}
+Вычислить условную вероятность $\conditionalprobability{A}{B}$.
+
+\section*{Решение:}
+
+Согласно определению условной вероятности:
+\begin{equation}
+    \conditionalprobability{A}{B} = \frac{\probability{A B}}{\probability{B}} .
+\end{equation}
+
+Вероятности $\probability{A B}$ и $\probability{B}$ вычислим, используя классическое определение вероятности. Элементарные исходы представляем число выпавших очков. При одном
+подбрасывании кубика получим 6 элементарных исходов:
+\begin{equation}
+    \Omega = \set{1, 2, 3, 4, 5, 6}
+\end{equation}
+В событии $A B$ один элементарный исход:
+\begin{equation}
+    A B = \set { 2 } ,
+\end{equation}
+поэтому вероятность:
+\begin{equation}
+    \probability{A B} = \frac{\modulus{AB}}{\modulus{\Omega}} = \frac{1}{6} .
+\end{equation}
+В событии $B$ три элементарных исхода:
+\begin{equation}
+    B = \set { 2, 4, 6 } ,
+\end{equation}
+и вероятность:
+\begin{equation}
+    \probability{B} = \frac{\modulus{B}}{\modulus{\Omega}} = \frac{3}{6}.
+\end{equation}
+Таким образом, условная вероятность:
+\begin{equation}
+    \conditionalprobability{A}{B} = \frac{\frac{1}{6}}{\frac{3}{6}} = \frac{1}{3} .
+\end{equation}
+
+\section*{Ответ:}
+$\frac{1}{3} .$
+
+
+% 167
