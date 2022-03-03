@@ -48,7 +48,7 @@
 \end{itemize}
 Вычислить условную вероятность $\conditionalprobability{A}{B}$.
 
-\section*{Решение:}
+\subsection*{Решение:}
 
 Согласно определению условной вероятности:
 \begin{equation}
@@ -81,8 +81,77 @@
     \conditionalprobability{A}{B} = \frac{\frac{1}{6}}{\frac{3}{6}} = \frac{1}{3} .
 \end{equation}
 
-\section*{Ответ:}
+\subsection*{Ответ:}
 $\frac{1}{3} .$
 
+\section*{Задача 18.178}
 
-% 167
+Тетраэдр, три грани которого окрашены соответственно в красный, желтный и синий цвета, а четвертая грань содержит все три цвета, бросается наудачу. События:
+\begin{itemize}
+    \item $K = \event{\text{тетраэдр упал на грань, содержащую красный цвет}}$ ,
+    \item $G = \event{\text{тетраэдр упал на грань, содержащую желтый цвет}}$ ,
+    \item $S = \event{\text{тетраэдр упал на грань, содержащую синий цвет}}$ .
+\end{itemize}
+
+Показать, что указанные события попарно независимы, но не являются независимыми в совокупности.
+
+\subsection*{Решение:}
+
+Множество элементарных исходов содержит четыре элемента $\Omega = \set{\omega_1, \omega_2, \omega_3, \omega_4}$. Каждый исход соответствует грани, на которую падает тетраэдр:
+\begin{itemize}
+    \item $\omega_1$ --- грань красного цвета,
+    \item $\omega_2$ --- грань желтого цвета,
+    \item $\omega_3$ --- грань синего цвета,
+    \item $\omega_4$ --- грань, содержащая все три цвета.
+\end{itemize}
+
+События:
+\begin{gather}
+    K = \set{\omega_1, \omega_4} , \\
+    G = \set{\omega_2, \omega_4} , \\
+    S = \set{\omega_3, \omega_4} .
+\end{gather}
+их вероятности:
+\begin{gather}
+    \probability{K} = \frac{\modulus{K}}{\modulus{\Omega}} = \frac{2}{4} = \frac{1}{2} , \\
+    \probability{G} = \frac{\modulus{G}}{\modulus{\Omega}} = \frac{2}{4} = \frac{1}{2} , \\
+    \probability{S} = \frac{\modulus{S}}{\modulus{\Omega}} = \frac{2}{4} = \frac{1}{2} .
+\end{gather}
+
+Попарные произведения событий:
+\begin{gather}
+    KG = \set{\omega_4} , \\
+    KS = \set{\omega_4} , \\
+    GS = \set{\omega_4} .
+\end{gather}
+и их вероятности:
+\begin{gather}
+    \probability{KG} = \frac{\modulus{KG}}{\modulus{\Omega}} = \frac{1}{4} , \\
+    \probability{KS} = \frac{\modulus{KS}}{\modulus{\Omega}} = \frac{1}{4} , \\
+    \probability{GS} = \frac{\modulus{GS}}{\modulus{\Omega}} = \frac{1}{4} .
+\end{gather}
+
+Проверяем условия попарной независимости --- вероятность произведения должна быть равна произведению вероятностей:
+\begin{gather}
+    \frac{1}{4} = \probability{KG} = \probability{K} \cdot \probability{G} = \frac{1}{2} \cdot \frac{1}{2} , \\
+    \frac{1}{4} = \probability{KS} = \probability{K} \cdot \probability{S} = \frac{1}{2} \cdot \frac{1}{2} , \\
+    \frac{1}{4} = \probability{GS} = \probability{G} \cdot \probability{S} = \frac{1}{2} \cdot \frac{1}{2} .
+\end{gather}
+Равенства выполняются --- все события попарно независимы.
+
+Событие произведения всех событий:
+\begin{equation}
+    KGS = \set{\omega_4}
+\end{equation}
+и его вероятность:
+\begin{equation}
+    \probability{KGS} = \frac{\modulus{KGS}}{\modulus{\Omega}} = \frac{1}{4} .
+\end{equation}
+
+Проверяем условие независимости в совокупности:
+\begin{equation}
+    \frac{1}{4} = \probability{KGS} \neq \probability{K} \cdot \probability{G} \cdot \probability{S} = \frac{1}{2} \cdot \frac{1}{2} \cdot \frac{1}{2} = \frac{1}{8} .
+\end{equation}
+Равенство не выполняется --- события не являются независимыми в совокупности.
+
+% 167 179
