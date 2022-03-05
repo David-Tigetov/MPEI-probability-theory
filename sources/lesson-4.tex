@@ -243,16 +243,17 @@ $\probability{\cdot}$:
 \begin{equation}
     \Omega^\prime = \set{\left ( i, j \right ): i, j \in \set{1, \dots, 12, 13, \dots, 20}} ,
 \end{equation}
-но в нём нет номеров, соответствующих шарам синего цвета. Общее количество элементарных исходов:
+и все исходы в нём равновероятны, но в нём нет номеров, соответствующих шарам синего цвета. Общее количество элементарных исходов:
 \begin{equation}
     \modulus{\Omega^\prime} = 20 \cdot 19 .
 \end{equation}
 
 Рассматривается событие $A^\prime = \set{\text{извлечены шары разных цветов}}$. Оно образовано парами, в которых один номер соответствует шару красного цвета, а другой - зеленого
 (событие $A^\prime$ является аналогом события $AB$ из варианта I):
-\begin{equation}
-    A^\prime = \set{\left ( i, j \right ): i \in \set{1, \dots, 12}, j \in \set{13, \dots, 20}} + \set{\left ( i, j \right ): i \in \set{13, \dots, 20}, j \in \set{1, \dots, 12}} .
-\end{equation}
+\begin{multline}
+    A^\prime = \set{\left ( i, j \right ): i \in \set{1, \dots, 12}, j \in \set{13, \dots, 20}} + \\
+    + \set{\left ( i, j \right ): i \in \set{13, \dots, 20}, j \in \set{1, \dots, 12}} .
+\end{multline}
 Количество элементарных исходов:
 \begin{equation}
     \modulus{A^\prime} = 12 \cdot 8 + 8 \cdot 12 .
