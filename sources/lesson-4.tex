@@ -154,4 +154,119 @@ $\frac{1}{3} .$
 \end{equation}
 Равенство не выполняется --- события не являются независимыми в совокупности.
 
+\section*{Задача 18.182}
+
+В ящике лежат 12 красных, 8 зеленых и 10 синих шаров. Наудачу вынимают два шара. Найти вероятность того, что будут вынуты шары разного цвета, при условии, что не вынут синий шар.
+
+\subsection*{Решение}
+
+\subsubsection{Вариант I}
+
+Нас интересуют два события: $A = \event{\text{извлечены шары разных цветов}}$ и $B = \event{\text{не вынут синий шар}}$. Как связаны между собой события $A$ и $B$?
+
+Подумаем о том, какие события могут происходить в нашем эксперименте. Очевидно, что происходит только одно из следующих событий:
+\begin{itemize}
+    \item KK --- извлечены два красных шара,
+    \item KС --- извлечены красный и синий шары,
+    \item KЗ --- извлечены красный и зелёный шары,
+    \item СС --- извлечены два синих шара,
+    \item СЗ --- извлечены синий и зеленый шары,
+    \item ЗЗ --- извлечены два зеленых шара.
+\end{itemize}
+В этих событиях порядок извлечения не учитывается, например, в событие КС попадают и элементарные исходы, в которых первый извлеченный шар красный, а второй синий,
+и элементарные исходы, в которых первым оказался синий шар, а второй красный.
+
+Легко видеть, что события $A$ и $B$ имеют следующее представление:
+\begin{gather}
+    A = \text{КС} + \text{КЗ} + \text{СЗ} , \\
+    B = \text{KK} + \text{КЗ} + \text{ЗЗ} .
+\end{gather}
+Отсюда
+\begin{equation}
+    A B = \text{КЗ} ,
+\end{equation}
+а искомая условная вероятность
+\begin{equation}
+    \conditionalprobability{A}{B}
+    = \frac{\probability{AB}}{\probability{B}}
+    = \frac{\probability{\text{КЗ}}}{\probability{\text{КК} + \text{КЗ} + \text{ЗЗ}}} .
+\end{equation}
+
+Заметим, что события КК, КЗ и ЗЗ несовместны (не могут происходит одновременно, не содержат общих элементарных исходов), поэтому по аксиоме аддитивности меры
+$\probability{\cdot}$:
+\begin{equation}
+    \probability{\text{КК} + \text{КЗ} + \text{ЗЗ}} = \probability{\text{КК}} + \probability{\text{КЗ}} + \probability{\text{ЗЗ}}.
+\end{equation}
+
+Таким образом,
+\begin{equation}
+    \conditionalprobability{A}{B}
+    = \frac{\probability{\text{КЗ}}}{\probability{\text{КК}} + \probability{\text{КЗ}} + \probability{\text{ЗЗ}}}
+\end{equation}
+и осталось вычислить вероятности событий КК, КЗ и ЗЗ. Это нужно сделать путём определения множества всех элементарных исходов и определения их вероятностей.
+
+Занумеруем все шары в ящике: красные шары имеют номера 1 -- 12, синие шары --- 13 -- 20, зелёные --- 21 -- 30. Элементарные исходы представляем в виде пары двух чисел,
+соответствующих тем номерам шаров, которые были извлечены из ящика:
+\begin{equation}
+    \Omega = \set{\left ( i, j \right ): i, j \in \set{1, \dots, 30}, i \neq j}.
+\end{equation}
+При таком представлении все элементарные исходы являются равновероятными, это значит, что для вычисления вероятностей событий достаточно всего лишь посчитать количества
+элементарных исходов в каждом событии. Всего элементарных исходов:
+\begin{equation}
+    \modulus{\Omega} = 30 \cdot 29.
+\end{equation}
+А в событиях:
+\begin{align}
+    \modulus{\text{КК}} = 12 \cdot 11 & \rightarrow \probability{\text{КК}} = \frac{\modulus{\text{КК}}}{\modulus{\Omega}} = \frac{12 \cdot 11}{30 \cdot 29} , \\
+    \modulus{\text{КЗ}} = 12 \cdot 8 + 8 \cdot 12 & \rightarrow \probability{\text{КЗ}} = \frac{\modulus{\text{КЗ}}}{\modulus{\Omega}} = \frac{12 \cdot 8 + 8 \cdot 12}{30 \cdot 29} , \\
+    \modulus{\text{ЗЗ}} = 8 \cdot 7 & \rightarrow \probability{\text{ЗЗ}} = \frac{\modulus{\text{ЗК}}}{\modulus{\Omega}} = \frac{8 \cdot 7}{30 \cdot 29} .
+\end{align}
+
+Искомая условная вероятность:
+\begin{multline}
+    \conditionalprobability{A}{B}
+    = \frac{\frac{12 \cdot 8 + 8 \cdot 12}{30 \cdot 29}}{\frac{12 \cdot 11}{30 \cdot 29} + \frac{12 \cdot 8 + 8 \cdot 12}{30 \cdot 29} + \frac{8 \cdot 7}{30 \cdot 29}}
+    = \frac{12 \cdot 8 + 8 \cdot 12}{12 \cdot 11 + 12 \cdot 8 + 8 \cdot 12 + 8 \cdot 7} = \\
+    %
+    = \frac{3 \cdot 8 + 8 \cdot 3}{3 \cdot 11 + 3 \cdot 8 + 8 \cdot 3 + 2 \cdot 7}
+    = \frac{48}{33 + 48 + 14}
+    = \frac{48}{95} .
+\end{multline}
+
+\subsubsection*{Вариант II}
+
+Сократим множество всех элементарных исходов до множества $B$:
+\begin{equation}
+    \Omega \rightarrow \Omega^\prime = B .
+\end{equation}
+Сокращенное множество элементарных исходов $\Omega^\prime$ по-прежнему представляется множеством пар:
+\begin{equation}
+    \Omega^\prime = \set{\left ( i, j \right ): i, j \in \set{1, \dots, 12, 13, \dots, 20}} ,
+\end{equation}
+но в нём нет номеров, соответствующих шарам синего цвета. Общее количество элементарных исходов:
+\begin{equation}
+    \modulus{\Omega^\prime} = 20 \cdot 19 .
+\end{equation}
+
+Рассматривается событие $A^\prime = \set{\text{извлечены шары разных цветов}}$. Оно образовано парами, в которых один номер соответствует шару красного цвета, а другой - зеленого
+(событие $A^\prime$ является аналогом события $AB$ из варианта I):
+\begin{equation}
+    A^\prime = \set{\left ( i, j \right ): i \in \set{1, \dots, 12}, j \in \set{13, \dots, 20}} + \set{\left ( i, j \right ): i \in \set{13, \dots, 20}, j \in \set{1, \dots, 12}} .
+\end{equation}
+Количество элементарных исходов:
+\begin{equation}
+    \modulus{A^\prime} = 12 \cdot 8 + 8 \cdot 12 .
+\end{equation}
+Таким образом, вероятность
+\begin{equation}
+    \probability{A^\prime}
+    = \frac{\modulus{A^\prime}}{\modulus{\Omega^\prime}}
+    = \frac{12 \cdot 8 + 8 \cdot 12}{20 \cdot 19}
+    = \frac{3 \cdot 8 + 8 \cdot 3}{5 \cdot 19}
+    = \frac{48}{95} .
+\end{equation}
+
+\subsection*{Ответ:}
+$\frac{48}{95}$
+
 % 167 179
