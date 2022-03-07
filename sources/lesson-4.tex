@@ -338,4 +338,94 @@ $\frac{48}{95}$
 \subsection*{Ответ:}
 а) $0.216$, б) $\frac{1}{6}$.
 
+\section*{Задача 18.210}
+
+Имеется схема элементов, представленная на рисунке.
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        % вход
+        \draw ( -0.5, 0.5 ) -- ( 0, 0.5 );
+
+        % 1
+        \draw ( 0, 0 ) -- ( 0, 1 ) -- ( 1, 1 ) -- ( 1, 0 ) -- ( 0, 0 ) node at ( 0.5, 0.5 ) {$1$};
+        % 1-[2,3]
+        \draw ( 1, 0.5 ) -- ( 2, 0.5 ) -- ( 2, 1.5 ) -- ( 3, 1.5 );
+        \draw ( 2, 0.5 ) -- ( 2, -0.5 ) -- ( 3, -0.5 );
+
+        % 2
+        \draw ( 3, 2 ) -- ( 4, 2 ) -- ( 4, 1 ) -- ( 3, 1 ) -- ( 3, 2 ) node at ( 3.5, 1.5 ) {$2$};
+        % 3
+        \draw ( 3, 0 ) -- ( 4, 0 ) -- ( 4, -1 ) -- ( 3, -1 ) -- ( 3, 0 ) node at ( 3.5, -0.5 ) {$3$};
+
+        % [2,3]-4
+        \draw ( 4, 1.5 ) -- ( 5, 1.5 ) -- ( 5, 0.5 ) -- ( 6, 0.5 );
+        \draw ( 4, -0.5 ) -- ( 5, -0.5 ) -- ( 5, 0.5 );
+
+        % 4
+        \draw ( 6, 1 ) -- ( 7, 1 ) -- ( 7, 0 ) -- ( 6, 0 ) -- ( 6, 1 ) node at ( 6.5, 0.5 ) {$4$};
+
+        % выход
+        \draw ( 7, 0.5 ) -- ( 7.5, 0.5 );
+    \end{tikzpicture}
+    \caption{Схема.}
+\end{figure}
+
+Отказы элементов являются независимыми в совокупности событиями. Для каждого элемента с номером $k$ известна его надежность
+(вероятность безотказной работы) $p_k$. Соответственно, вероятность отказа $q_k = 1 - p_k$. Определить надежность схемы
+(вероятность безотказной работы).
+
+\subsection*{Решение:}
+Пусть событие $C_k = \event{\text{нет отказа в элементе с номером }k}$ и событие $C = \event{\text{нет отказа схемы}}$:
+\begin{equation}
+    C
+    = C_1 \left ( C_2 + C_3 \right ) C_4 .
+\end{equation}
+Вероятность события $C$ по формуле умножения:
+\begin{equation}
+    \probability{C}
+    = \probability{C_1 \left ( C_2 + C_3 \right ) C_4}
+    = \probability{C_1} \conditionalprobability{C_2 + C_3}{C_1} \conditionalprobability{C_4}{C_1 \left ( C_2 + C_3 \right )}.
+\end{equation}
+
+По условию задачи события $C_1$, $C_2$, $C_3$, $C_4$ независимы в совокупности, отсюда следуют независимость в совокупности событий $C_1$,
+$C_2 + C_3$, $C_4$. Для независимых в совокупности событий условные вероятности равны безусловным:
+\begin{equation}
+    \probability{C}
+    = \probability{C_1} \probability{C_2 + C_3} \probability{C_4}.
+\end{equation}
+По формуле сложения для центрального множителя:
+\begin{multline}
+    \probability{C}
+    = \probability{C_1} \left ( \probability{C_2} + \probability{C_3} - \probability{C_2 C_3} \right ) \probability{C_4} = \\
+    %
+    = \probability{C_1} \left ( \probability{C_2} + \probability{C_3} - \probability{C_2} \conditionalprobability{C_3}{C_2} \right ) \probability{C_4}.
+\end{multline}
+В силу независимости событий $C_2$ и $C_3$:
+\begin{equation}
+    \probability{C}
+    = \probability{C_1} \left ( \probability{C_2} + \probability{C_3} - \probability{C_2} \probability{C_3} \right ) \probability{C_4}.
+\end{equation}
+В обозначениях, принятых в условии задачи:
+\begin{equation}
+    \probability{C_k} = p_k ,
+\end{equation}
+тогда
+\begin{equation}
+    \probability{C}
+    = p_1 \left ( p_2 + p_3 - p_2 p_3 \right ) p_4.
+\end{equation}
+Используя вероятности отказов $q_k$:
+\begin{multline}
+    \probability{C}
+    = p_1 \left ( 1 - q_2 + 1 - q_3 - \left ( 1 - q_2 \right ) \left ( 1 - q_3 \right ) \right ) p_4 = \\
+    %
+    = p_1 \left ( 1 - q_2 + 1 - q_3 - 1 + q_2 + q_3 - q_2 q_3 \right ) \right ) p_4
+    = p_1 \left ( 1 - q_2 q_3 \right ) \right ) p_4.
+\end{multline}
+
+\subsection*{Ответ:}
+$p_1 \left ( 1 - q_2 q_3 \right ) \right ) p_4 .$
+
 % 167 179
