@@ -1,0 +1,62 @@
+\chapter{Распределения Бернулли и Пуассона.}
+
+\section*{Введение}
+
+Случайная величина $\xi(\omega)$ --- это числовая функция, определенная на множестве элементарных исходов:
+\begin{equation}
+    \xi : \Omega \rightarrow \mathbb{R}.
+\end{equation}
+
+Примем краткое обозначение для $A \subseteq \mathbb{R}$:
+\begin{equation}
+    \xi \in A = \event{\omega : \xi(\omega) \in A}.
+\end{equation}
+
+Исчерпывающей характеристикой случайной величины является функция распределения:
+\begin{equation}
+    F_\xi(x) = \probability{\xi < x}.
+\end{equation}
+
+Случайные величины подразделяются на типы в зависимости от множества значений. Дискретные случайные величины имеют
+конечное или счетное множество значений.
+
+Если случайная величина дискретного типа принимает значения $x_i$ с вероятностями $p_i$, то закон распределения такой случайной величины удобно представлять в виде таблицы:
+\begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        $x_1$ & $x_2$ & \dots & $x_k$ & \dots \\
+        \hline
+        $p_1$ & $p_2$ & \dots & $p_k$ & \dots \\
+        \hline
+    \end{tabular}
+\end{center}
+
+Основные числовые характеристики случайной величины $\xi$:
+\begin{itemize}
+    \item математическое ожидание
+    \begin{equation}
+        \expectation{\xi} = \sum_{i=1}^{\infty} x_i p_i ,
+    \end{equation}
+    \item дисперсия
+    \begin{equation}
+        \expectation{\xi} = \sum_{i=1}^{\infty} \left ( x_i - \expectation{\xi} \right )^2 p_i ,
+    \end{equation}
+    \item среднеквадратическое отклонение
+    \begin{equation}
+        \sigma_\xi = \sqrt{\variance{\xi}} .
+    \end{equation}
+\end{itemize}
+
+Схема Бернулли: $n$ независимых испытаний, в каждом из которых с вероятностью $p$ можно происходить событие "успех"{}.
+Случайная величина $\xi$ количества успехов имеет распределение Бернулли (биномиальное распределение) $\xi \sim B(n,p)$:
+\begin{gather}
+    \xi \in \set{0, 1, \dots, n} \notag, \\
+    \probability{\xi = k} = C_n^k p^k (1-p)^{n-k} .
+\end{gather}
+
+Случайная величина $\xi$ имеет распределение Пуассона $\xi \sim P(\lambda)$:
+\begin{gather}
+    \xi \in \mathbb{N}, \\
+    \probability{\xi = k} = \frac{\lambda^k}{k!} e^{-\lambda} .
+\end{gather}
+
