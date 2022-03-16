@@ -59,3 +59,122 @@
     \probability{\xi = k} = \frac{\lambda^k}{k!} e^{-\lambda} .
 \end{gather}
 
+\section*{Задачи 18.258, 18.259, 18.260}
+
+Закон распределения случайной величины $\xi$ дискретного типа задан таблицей:
+\begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        $x_i$ & 1              & 2             & 3             & 4              \\
+        \hline
+        $p_i$ & $\frac{1}{16}$ & $\frac{1}{4}$ & $\frac{1}{2}$ & $\frac{3}{16}$ \\
+        \hline
+    \end{tabular}
+\end{center}
+
+Найти:
+\begin{enumerate}
+    \item вероятность $\probability{\xi > 2}$,
+    \item математическое ожидание $\expectation{\xi}$,
+    \item дисперсию $\variance{\xi}$,
+    \item среднеквадратическое отклонение $\sigma_\xi$ .
+\end{enumerate}
+
+Построить график функции распределения $F_\xi(x)$.
+
+\subsection*{Решение:}
+
+Вероятность:
+\begin{multline}
+    \probability{\xi > 2}
+    = \probability{\left ( \xi = 3 \right ) + \left ( \xi = 4 \right )} = \\
+    %
+    = \probability{\xi = 3} + \probability{\xi = 4} - \probability{\left ( \xi = 3 \right ) \left ( \xi = 4 \right )} = \\
+    %
+    = \frac{1}{2} + \frac{3}{16} - 0
+    = \frac{8}{16} + \frac{3}{16}
+    = \frac{11}{16} .
+\end{multline}
+Математическое ожидание:
+\begin{equation}
+    \expectation{\xi}
+    = \sum_{i=1}^4 x_i p_i
+    = 1 \cdot \frac{1}{16} + 2 \cdot \frac{1}{4} + 3 \cdot \frac{1}{2} + 4 \cdot \frac{3}{16}
+    = \frac{1}{16} + \frac{8}{16} + \frac{24}{16} + \frac{12}{16}
+    = \frac{45}{16} .
+\end{equation}
+Дисперсия:
+\begin{multline}
+    \variance{\xi}
+    = \sum_{i=1}^4 \left ( x_i - \expectation{\xi} \right )^2 p_i = \\
+    %
+    = \left ( 1 - \frac{45}{16} \right )^2 \cdot \frac{1}{16} + \left ( 2 - \frac{45}{16} \right )^2 \cdot \frac{1}{4} + \left ( 3 - \frac{45}{16} \right )^2 \cdot \frac{1}{2} + \left ( 4 - \frac{45}{16} \right )^2 \cdot \frac{3}{16} = \\
+    %
+    = \left ( - \frac{29}{16} \right )^2 \cdot \frac{1}{16} + \left ( - \frac{13}{16} \right )^2 \cdot \frac{1}{4} + \left ( \frac{3}{16} \right )^2 \cdot \frac{1}{2} + \left ( \frac{19}{16} \right )^2 \cdot \frac{3}{16} = \\
+    %
+    = \frac{29^2}{16^2} \cdot \frac{1}{16} + \frac{13^2}{16^2} \cdot \frac{4}{16} + \frac{3^2}{16^2} \cdot \frac{8}{16} + \frac{19^2}{16^2} \cdot \frac{3}{16} = \\
+    %
+    = \frac{841 + 676 + 72 + 1083}{16^2 \cdot 16}
+    = \frac{2672}{16^2 \cdot 16}
+    = \frac{167}{256} .
+\end{multline}
+
+Среднеквадратическое отклонение:
+\begin{equation}
+    \sigma_\xi
+    = \sqrt{\frac{167}{256}}
+    = \frac{\sqrt{167}}{16} .
+\end{equation}
+
+Для вычисления значений функции распределения $F_\xi(x)$ случайных величин дискретного типа необходимо найти все значения величины, которые строго меньше $x$, и просуммировать
+их вероятности:
+\begin{equation}
+    F_\xi(x)
+    = \probability{\xi < x}
+    = \sum_{x_i < x} p_i .
+\end{equation}
+
+У случайных величин дискретного типа функция распределения является кусочно-постоянной функцией.
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[yscale=6]
+        % оси
+        \draw [->] ( -1, 0 ) -- ( 5, 0 ) node [below] at ( 5, 0 ) {$X$};
+        \draw [->] ( 0, -0.1 ) -- ( 0, 1.1 ) node [left] at ( 0, 1.1 ) {$Y$};
+
+        % значения
+        \draw ( 1, 0.01 ) -- ( 1, -0.01 ) node [ below ] at ( 1, 0 ) {$1$};
+        \draw ( 2, 0.01 ) -- ( 2, -0.01 ) node [ below ] at ( 2, 0 ) {$2$};
+        \draw ( 3, 0.01 ) -- ( 3, -0.01 ) node [ below ] at ( 3, 0 ) {$3$};
+        \draw ( 4, 0.01 ) -- ( 4, -0.01 ) node [ below ] at ( 4, 0 ) {$4$};
+
+        % вероятности
+        \draw ( -0.1, 1/16 ) -- ( 0.1, 1/16 ) node [ left ] at ( -0.1, 1/16 ) {$\frac{1}{16}$};
+        \draw ( -0.1, 5/16 ) -- ( 0.1, 5/16 ) node [ left ] at ( -0.1, 5/16 ) {$\frac{5}{16}$};
+        \draw ( -0.1, 13/16 ) -- ( 0.1, 13/16 ) node [ left ] at ( -0.1, 13/16 ) {$\frac{13}{16}$};
+        \draw ( -0.1, 1 ) -- ( 0.1, 1 ) node [ left ] at ( -0.1, 1 ) {$1$};
+
+        % уровни функции
+        \draw [ultra thick] ( -1, 0 ) -- ( 1, 0 );
+        \draw [<-, ultra thick] ( 1, 1/16 ) -- ( 2, 1/16 );
+        \draw [<-, ultra thick] ( 2, 5/16 ) -- ( 3, 5/16 ) node [ right ] at ( 2, 3/16 ) {$\frac{1}{4}$};
+        \draw [<-, ultra thick] ( 3, 13/16 ) -- ( 4, 13/16 ) node [ right ] at ( 3, 9/16 ) {$\frac{1}{2}$};
+        \draw [<-, ultra thick] ( 4, 1 ) -- ( 5, 1 ) node [ right ] at ( 4, 14.5/16 ) {$\frac{3}{16}$};
+
+        % пунктиры
+        \draw [dashed] ( 1, 0 ) -- ( 1, 1/16 );
+        \draw [dashed] ( 2, 1/16 ) -- ( 2, 5/16 );
+        \draw [dashed] ( 3, 5/16 ) -- ( 3, 13/16 );
+        \draw [dashed] ( 4, 13/16 ) -- ( 4, 1 );
+    \end{tikzpicture}
+    \caption{График функции распределения $F_\xi(x)$.}
+\end{figure}
+
+\subsection*{Ответ:}
+\begin{enumerate}
+    \item $\probability{\xi > 2} = \frac{11}{16}$,
+    \item $\expectation{\xi} = \frac{45}{16}$,
+    \item $\variance{\xi} = \frac{167}{256}$,
+    \item $\sigma_\xi = \frac{\sqrt{167}}{16}$.
+\end{enumerate}
