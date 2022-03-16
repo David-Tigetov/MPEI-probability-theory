@@ -198,11 +198,86 @@
 \end{equation}
 
 Вероятность события $A$:
-\begin{equation}
+\begin{multline}
     \probability{A}
     = \probability{\xi = 1}
     = C_n^1 p^1 \left ( 1 - p \right )^{n-1}
-    = n p \left ( 1 - p \right )^{n-1}
     = 5 \frac{1}{4} \left ( 1 - \frac{1}{4} \right )^{5-1}
-    = 5 \frac{1}{4} \left ( \frac{3}{4} \right )^4 .
-\end{equation}
+    = 5 \frac{1}{4} \left ( \frac{3}{4} \right )^4 = \\
+    %
+    = \frac{5 \cdot 3^4}{4^5}
+    = \frac{5 \cdot 81}{2^{10}}
+    = \frac{405}{1024}.
+\end{multline}
+
+Вероятность события $B$:
+\begin{multline}
+    \probability{B}
+    = \probability{\xi = 2}
+    = C_n^2 p^2 \left ( 1 - p \right )^{n-2} = \\
+    %
+    = \frac{5 \cdot 4}{2} \left ( \frac{1}{4} \right )^2 \left ( 1 - \frac{1}{4} \right )^{5-2}
+    = \frac{5 \cdot 4}{2} \left ( \frac{1}{4} \right )^2 \left ( \frac{3}{4} \right )^{3}
+    = \frac{5 \cdot 4 \cdot 3^3}{2 \cdot 4^5}
+    = \frac{5 \cdot 3^3}{2 \cdot 4^4}
+    = \frac{5 \cdot 27}{2^{9}}
+    = \frac{135}{512} .
+\end{multline}
+
+Вероятность события $C$:
+\begin{multline}
+    \probability{C}
+    = \probability{\xi \ge 1}
+    = 1 - \probability{\xi < 1}
+    = 1 - \probability{\xi = 0} = \\
+    %
+    = 1 - C_n^0 p^0 \left ( 1 - p \right )^{n-0}
+    = 1 - \left ( 1 - p \right )^n = \\
+    %
+    = 1 - \left ( 1 - \frac{1}{4} \right )^5
+    = 1 - \left ( \frac{3}{4} \right )^5
+    = \frac{4^5 - 3^5}{4^5}
+    = \frac{2^{10} - 3^5}{2^{10}}
+    = \frac{1024 - 243}{1024}
+    = \frac{781}{1024} .
+\end{multline}
+
+Вероятность события $D$:
+\begin{multline}
+    \probability{D}
+    = \probability{\xi \ge 3}
+    = \probability{\left ( \xi = 3 \right ) + \left ( \xi = 4 \right ) + \left ( \xi = 5 \right )} = \\
+    %
+    \shoveleft{= \probability{\xi = 3} + \probability{\xi = 4} + \probability{\xi = 5} -} \\
+        - \probability{\left ( \xi = 3 \right ) \left ( \xi = 4 \right )}
+        - \probability{\left ( \xi = 3 \right ) \left ( \xi = 5 \right )}
+        - \probability{\left ( \xi = 4 \right ) \left ( \xi = 5 \right )} + \\
+    \shoveright{+ \probability{\left ( \xi = 3 \right ) \left ( \xi = 4 \right ) \left ( \xi = 5 \right )} =} \\
+    = \probability{\xi = 3} + \probability{\xi = 4} + \probability{\xi = 5} = \\
+    %
+    = C_n^3 p^3 \left ( 1 - p \right )^{n-3} + C_n^4 p^4 \left ( 1 - p \right )^{n-4} + C_n^5 p^5 \left ( 1 - p \right )^{n-5} = \\
+    %
+    = \frac{5 \cdot 4}{2!} \left ( \frac{1}{4} \right )^3 \left ( 1 - \frac{1}{4} \right )^2
+        + 5 \left ( \frac{1}{4} \right )^4 \left ( 1 - \frac{1}{4} \right )
+        + \left ( \frac{1}{4} \right )^5 = \\
+    %
+    = \frac{5 \cdot 4}{2!} \left ( \frac{1}{4} \right )^3 \left ( \frac{3}{4} \right )^2
+        + 5 \left ( \frac{1}{4} \right )^4 \left ( \frac{3}{4} \right )
+        + \left ( \frac{3}{4} \right )^5 = \\
+    %
+    = \frac{5 \cdot 4 \cdot 3^2}{2 \cdot 4^5} + \frac{5 \cdot 3}{4^5} + \frac{1}{4^5}
+    = \frac{5 \cdot 2 \cdot 3^2}{4^5} + \frac{5 \cdot 3}{4^5} + \frac{1}{4^5}
+    = \frac{5 \cdot 2 \cdot 3^2 + 5 \cdot 3 + 1}{4^5}
+    = \frac{5 \cdot 3 \cdot 7 + 1}{4^5} = \\
+    %
+    = \frac{105 + 1}{2^{10}}
+    = \frac{106}{1024} .
+\end{multline}
+
+\subsection*{Ответ:}
+\begin{enumerate}
+    \item $\probability{A} = \frac{405}{1024}$,
+    \item $\probability{B} = \frac{135}{512}$,
+    \item $\probability{C} = \frac{781}{1024}$,
+    \item $\probability{D} = \frac{106}{1024}$.
+\end{enumerate}
