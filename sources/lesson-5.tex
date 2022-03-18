@@ -281,3 +281,103 @@
     \item $\probability{C} = \frac{781}{1024}$,
     \item $\probability{D} = \frac{106}{1024}$.
 \end{enumerate}
+
+\section*{Задача 18.325}
+
+На контроль поступила партия деталей из цеха. Известно, что 5\% всех деталей не удовлетворяет стандарту. Сколько нужно испытать деталей, чтобы с вероятностью не менее 0.95
+обнаружить хотя бы одну нестандартную деталь?
+
+\subsection*{Решение:}
+
+Пусть $n$ --- искомое количество деталей, $p=0.05$ --- вероятность того, что деталь не является стандартной, тогда количество нестандартных деталей $\xi$ имеет распределение
+Бернулли:
+\begin{equation}
+    \xi \sim B \left ( n, p \right ).
+\end{equation}
+
+Событие $\xi \ge 1$ эквивалентно событию "хотя бы одна нестандартная деталь", и вероятность этого события:
+\begin{equation}
+    \probability{\xi \ge 1}
+    = 1 - \probability{\xi < 1}
+    = 1 - \probability{\xi = 0}
+    = 1 - C_n^0 p^0 (1 - p)^n
+    = 1 - (1 - p)^n .
+\end{equation}
+По условию задачи необходимо подобрать $n$ таким образом, чтобы вероятность получить хотя бы одну нестандартную деталь была не менее 0.95:
+\begin{gather}
+    1 - (1 - p)^n \ge 0.95 , \\
+    0.05 \ge (1 - p)^n , \\
+    \ln 0.05 \ge n \cdot \ln (1 - p), \\
+    \frac{\ln 0.05}{\ln (1-p)} \le n .
+\end{gather}
+Подставляя числовые значения,  получим:
+\begin{equation}
+    n
+    \ge \frac{\ln 0.05}{\ln (1-0.05)}
+    = \frac{\ln 0.05}{\ln 0.95}
+    \approx 58.4 .
+\end{equation}
+
+\subsection*{Ответ:}
+Не менее 59.
+
+\section*{Задача 18.352}
+
+Аппаратура состоит из 1000 элементов, каждый из которых независимо от остальных выходит из строя за время $T$ с вероятностью $p = 5 \cdot 10^{-4}$. Найти вероятности следующих
+событий:
+\begin{enumerate}
+    \item $A = \event{\text{за время } T \text{ откажет ровно 3 элемента}}$,
+    \item $B = \event{\text{за время } T \text{ откажет хотя бы один элемент}}$,
+    \item $C = \event{\text{за время } T \text{ откажет не более 3 элементов}}$.
+\end{enumerate}
+
+Считать, что количество отказов $\eta$ за время $T$ имеет распределение Пуассона.
+
+\subsection*{Решение:}
+
+Интенсивность потока отказов элементов $\lambda$ (параметр распределения Пуассона), связана с количеством $n$ и вероятностью отказа $p$ равенством:
+\begin{equation}
+    \lambda = n \cdot p = 1000 \cdot 5 \cdot 10^{-4} = 0.5 .
+\end{equation}
+
+Вероятность события $A$:
+\begin{equation}
+    \probability{A}
+    = \probability{\xi = 3}
+    = \frac{\lambda^3}{3!} e^{-\lambda}
+    = \frac{0.5^3}{3!} e^{-0.5}
+    \approx 0.0126 .
+\end{equation}
+
+Вероятность события $B$:
+\begin{multline}
+    \probability{B}
+    = \probability{\xi \ge 1}
+    = 1 - \probability{\xi < 1}
+    = 1 - \probability{\xi = 0} = \\
+    %
+    = 1 - \frac{\lambda^0}{0!} e^{-\lambda}
+    = 1 - \frac{0.5^0}{0!} e^{-0.5}
+    \approx 0.3935 .
+\end{multline}
+
+Вероятность события $C$:
+\begin{multline}
+    \probability{C}
+    = \probability{\xi \le 3}
+    = \probability{\left ( \xi = 0 \right ) + \left ( \xi = 1 \right ) + \left ( \xi = 2 \right ) + \left ( \xi = 3 \right )} = \\
+    %
+    = \probability{\xi = 0} + \probability{\xi = 1} + \probability{\xi = 2} + \probability{\xi = 3} = \\
+    %
+    = \frac{\lambda^0}{0!} e^{-\lambda} + \frac{\lambda^1}{1!} e^{-\lambda} + \frac{\lambda^2}{2!} e^{-\lambda} + \frac{\lambda^3}{3!} e^{-\lambda} = \\
+    %
+    = \frac{0.5^0}{0!} e^{-0.5} + \frac{0.5^1}{1!} e^{-0.5} + \frac{0.5^2}{2!} e^{-0.5} + \frac{0.5^3}{3!} e^{-0.5}
+    = 0.9982 .
+\end{multline}
+
+\subsection*{Ответ:}
+\begin{enumerate}
+    \item $\probability{A} = 0.0126$,
+    \item $\probability{B} = 0.3935$,
+    \item $\probability{C} = 0.9982$.
+\end{enumerate}
