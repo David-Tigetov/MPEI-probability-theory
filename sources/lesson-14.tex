@@ -1,0 +1,322 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage[margin=2cm]{geometry}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+
+\input{commands.tex}
+
+\begin{document}
+
+    \title{Предельные теоремы}
+    \author{Тигетов Давид}
+    \maketitle
+
+
+    \section{Введение}
+    В ряде задач рассматриваемую случайную величину $X$ удается представить в виде суммы случайных величин $X_k$:
+    \begin{equation}
+        X = \sum_{k=1}^n X_k .
+    \end{equation}
+    При достаточно широких условиях (например, независимости величин $X_k$, имеющих конечные математические ожидания и дисперсии) распределение величины $X$
+    стремится к нормальному распределению с увеличением $n$:
+    \begin{gather}
+        X \sim \mathcal{N} \left ( \expectation{X}, \variance{X} \right ) , \\
+        \text{при } \; n \rightarrow \infty \notag.
+    \end{gather}
+    Этот теоретический результат известен как \textbf{центральная предельная теорема} (ЦПТ).
+
+    На практике использование ЦПТ заключается в замене неизвестного распределения величины $X$ на нормальное распределение. При этом предварительно необходимо
+    убедиться, что:
+    \begin{itemize}
+        \item вклад каждой величины $X_k$ в общую сумму является достаточно малым,
+        \item общее количество $n$ является достаточно большим.
+    \end{itemize}
+    В некоторых случаях хорошее приближение можно получить уже при $n \sim 10$ величин.
+
+    Замена распределения $X$ позволяет приближенно вычислять вероятности событий $\event{l < X < r}$:
+    \begin{equation}
+        \probability{l < X < r}
+        \approx \Phi \left ( \frac{r - \expectation{X}}{\variance{X}} \right ) - \Phi \left ( \frac{l - \expectation{X}}{\variance{X}} \right ) .
+    \end{equation}
+
+    В случае симметричного относительно $\expectation{X}$ интервала, получим:
+    \begin{multline}
+        \probability{\modulus{X - \expectation{X}} < \Delta}
+        = \probability{\expectation{X} - \Delta < X < \expectation{X} + \Delta} \approx \\
+        \approx \Phi \left ( \frac{\expectation{X} + \Delta - \expectation{X}}{\variance{X}} \right ) - \Phi \left ( \frac{\expectation{X} - \Delta - \expectation{X}}{\variance{X}} \right ) = \\
+        %
+        = \Phi \left ( \frac{\Delta}{\variance{X}} \right ) - \Phi \left ( \frac{-\Delta}{\variance{X}} \right )
+        = \Phi \left ( \frac{\Delta}{\variance{X}} \right ) - \left ( 1 - \Phi \left ( \frac{\Delta}{\variance{X}} \right ) \right )
+        = 2 \Phi \left ( \frac{\Delta}{\variance{X}} \right ) - 1 .
+    \end{multline}
+
+    Таким образом,
+    \begin{equation}
+        \label{introduction:approximation}
+        \probability{\modulus{X - \expectation{X}} < \Delta}
+        \approx 2 \Phi \left ( \frac{\Delta}{\variance{X}} \right ) - 1 .
+    \end{equation}
+
+    Еще один случай асимптотической нормальности имеет место для распределение Пуассона: если величина $X$ имеет распределение Пуассона с параметром $\lambda$, то
+    при возрастании $\lambda$ распределение нормированной величины стремится к стандартному нормальному распределению:
+    \begin{gather}
+        \frac{X - \expectation{X}}{\sqrt{\variance{X}}} \sim \mathcal{N} \left ( 0, 1 \right ) , \\
+        \frac{X - \lambda}{\sqrt{\lambda}} \sim \mathcal{N} \left ( 0, 1 \right ) , \\
+        \text{при } \; \lambda \rightarrow \infty \notag.
+    \end{gather}
+
+
+    \section{Пример 1}
+    \subsection*{Условие}
+    Симметричная монета подбрасывается 100 раз. Какова вероятность, что относительная частота выпадения герба отклонится от $p = 0.5$ менее чем на $\Delta = 0.1$?
+    \subsection*{Решение}
+    Пусть $X_k$ --- результат $k$-го подбрасывания монеты:
+    \begin{equation}
+        X_k =
+        \left \{
+        \begin{array}{ll}
+            0, & \text{с вероятностью 0.5} , \\
+            1, & \text{с вероятностью 0.5} .
+        \end{array}
+        \right .
+    \end{equation}
+
+    Относительная частота $X$ --- это количество выпадений герба, отнесенное к общему количеству подбрасываний $n$:
+    \begin{equation}
+        X = \frac{1}{n} \sum_{k=1}^n X_k .
+    \end{equation}
+
+    Распределение суммы величины $X_k$ в правой части является приближенно нормальным при больших $n$ и умножение на $\frac{1}{n}$ не изменяет распределения
+    (вообще, линейные преобразования величин --- умножение и прибавление чисел к величинам --- не изменяет их распределений, Вы теперь уже и сами можете это доказать),
+    поэтому распределение $X$ можно приближенно считать нормальным:
+    \begin{equation}
+        X \sim \mathcal{N} \left ( \expectation{X}, \variance{X} \right ) ,
+    \end{equation}
+    где математическое ожидание:
+    \begin{equation}
+        \label{1:expectation}
+        \expectation{X}
+        = \frac{1}{n} \expectation{\sum_{k=1}^n X_k}
+        = \frac{1}{n} \sum_{k=1}^n \expectation{X_k}
+        = \frac{1}{n} \sum_{k=1}^n p
+        = \frac{1}{n} n p = p ,
+    \end{equation}
+    и дисперсия (в силу \textbf{независимости} величин $X_k$ дисперсия их суммы равна сумме дисперсий):
+    \begin{multline}
+        \label{1:variance}
+        \variance{X}
+        = \variance{\frac{1}{n} \sum_{k=1}^n X_k}
+        = \frac{1}{n^2} \variance{\sum_{k=1}^n X_k}
+        = \frac{1}{n^2} \sum_{k=1}^n \variance{X_k} = \\
+        %
+        = \frac{1}{n^2} \sum_{k=1}^n p(1-p)
+        = \frac{1}{n^2} n p(1-p)
+        = \frac{p(1-p)}{n} .
+    \end{multline}
+
+    Требуемую вероятность отклонения величины $X$ от $p$ теперь можно вычислить приближенно, если принять нормальное распределение для $X$ и использовать приближенное
+    равенство \eqref{introduction:approximation}:
+    \begin{multline}
+        \probability{\modulus{X - p} < \Delta}
+        = \probability{\modulus{X - \expectation{X}} < \Delta} \approx \\
+        %
+        \approx 2 \Phi \left ( \frac{\Delta}{\sqrt{\variance{X}}} \right ) - 1
+        = 2 \Phi \left ( \frac{\Delta}{\sqrt{\frac{p (1-p)}{n}}} \right ) - 1 = \\
+        %
+        = 2 \Phi \left ( \frac{0.1}{\sqrt{\frac{0.5 (1-0.5)}{100}}} \right ) - 1
+        = 2 \Phi \left ( \frac{0.1}{\sqrt{\frac{0.5 \cdot 0.5}{100}}} \right ) - 1
+        = 2 \Phi \left ( \frac{0.1}{\frac{0.5}{10}} \right ) - 1
+        = 2 \Phi \left ( \frac{1}{0.5} \right ) - 1 = \\
+        %
+        = 2 \Phi \left ( 2 \right ) - 1
+        \approx 2 \cdot 0.977 - 1
+        \approx 0.955 .
+    \end{multline}
+
+    \subsection*{Ответ}
+    $\approx 0.955$
+
+
+    \section{Пример 2}
+    \subsection*{Условие}
+    Имеется $n = 1000$ мячиков, каждый из которых с вероятностью $p = 0.4$ имеет красный цвет, и с вероятностью $1 - p$ --- синий.
+    Случайная величина $X$ --- количество красных мячиков. Найти интервал, симметричный относительно математического ожидания величины $X$,
+    в который с вероятностью на менее $P_\text{д} = 0.95$ попадает количество красных мячиков.
+    \subsection*{Решение}
+    Введем случайные величины $X_k$, которые показывают цвета мячиков. Величина $X_k = 0$, если мячик с номером $k$ является синим, и $X_k = 1$, если красным:
+    \begin{equation}
+        X_k =
+        \left \{
+        \begin{array}{ll}
+            0, & \text{с вероятностью } 0.6 , \\
+            1, & \text{с вероятностью } 0.4 .
+        \end{array}
+        \right .
+    \end{equation}
+
+    Случайная величина количества красных мячиков $X$ является суммой:
+    \begin{equation}
+        X = \sum_{k=1}^n X_k ,
+    \end{equation}
+    где $n = 1000$ --- количество мячиков.
+
+    Величины $X_k$ являются независимыми, имеют конечные математическое ожидание и дисперсию, поэтому их сумма по ЦПТ имеет распределение близкое
+    к нормальному:
+    \begin{equation}
+        X = \sum_{k=1}^n X_k \sim \mathcal{N} \left ( \expectation{X}, \variance{X} \right ) .
+    \end{equation}
+
+    По условию задачи требуется найти интервал, симметричный относительно $\expectation{X}$, в который величина $X$ попадает с верояностью не менее $P_\text{д}$, то есть
+    требуется найти число $\Delta$, для которого выполняется неравенство:
+    \begin{equation}
+        \probability{\modulus{X - \expectation{X}} < \Delta} \ge P_\text{д} .
+    \end{equation}
+    Заменяя левую часть в соответствии с приближенным равенством \eqref{introduction:approximation}, получим неравенство:
+    \begin{gather}
+        2 \Phi \left ( \frac{\Delta}{\sqrt{\variance{X}}} \right ) - 1 \ge P_\text{д} , \\
+        \Phi \left ( \frac{\Delta}{\sqrt{\variance{X}}} \right ) \ge \frac{1 + P_\text{д}}{2} , \\
+        \frac{\Delta}{\sqrt{\variance{X}}} \ge \Phi^{-1} \left ( \frac{1 + P_\text{д}}{2} \right ), \\
+        \Delta \ge \sqrt{\variance{X}} \cdot \Phi^{-1} \left ( \frac{1 + P_\text{д}}{2} \right ).
+    \end{gather}
+
+    Вычислим дисперсию величины $X$ --- дисперсию суммы величин $X_k$, которая в силу \textbf{независимости} величин $X_k$ равна сумме дисперсий:
+    \begin{equation}
+        \variance{X} = \variance{\sum_{k=1}^n X_k} = \sum_{k=1}^n \variance{X_k} = \sum_{k=1}^n p ( 1 - p ) = n p (1 - p).
+    \end{equation}
+
+    Тогда
+    \begin{multline}
+        \Delta \ge \sqrt{n p ( 1 - p )} \cdot \Phi^{-1} \left ( \frac{1 + P_\text{д}}{2} \right ) = \\
+        %
+        = \sqrt{1000 \cdot 0.4 \cdot (1 - 0.4)} \cdot \Phi^{-1} \left ( \frac{1 + 0.95}{2} \right )
+        = \sqrt{240} \cdot \Phi^{-1} \left ( 0.975 \right ) \approx \\
+        %
+        \approx 15.49 \cdot 1.96
+        \approx 30.36 .
+    \end{multline}
+
+    Математическое ожидание $X$:
+    \begin{equation}
+        \expectation{X} = \expectation{\sum_{k=1}^n X_k} = \sum_{k=1}^n \expectation{X_k} = \sum_{k=1}^n 1 \cdot p = n \cdot p = 1000 \cdot 0.4 = 400 .
+    \end{equation}
+
+    Таким образом интервал:
+    \begin{equation}
+        \left ( \expectation{X} - \Delta ; \expectation{X} + \Delta \right )
+        = \left ( 400 - 30.36 ; 400 + 30.36 \right )
+        = \left ( 469.64 ; 430.36 \right ) .
+    \end{equation}
+    \subsection*{Ответ}
+    $\left ( 469.64 ; 430.36 \right )$
+
+
+    \section{Пример 3}
+    \subsection*{Условие}
+    Симметричный игральный кубик подбрасывают $n$ раз. При каком количестве подбрасываний $n$ относительная частота выпадения "4"{} отклоняется от своей вероятности
+    $p = \frac{1}{6}$ на величину менее $\Delta = 0.06$ с вероятностью $P_\text{д} = 0.97$.
+
+    \subsection*{Решение}
+    Пусть $X_k$ --- случайная величина, показывающая выпадение "4":
+
+    \begin{equation}
+        X_k =
+        \left \{
+        \begin{array}{ll}
+            0, & \text{с вероятностью } \frac{5}{6},  \\
+            1, & \text{с вероятностью } \frac{1}{6} .
+        \end{array}
+        \right .
+    \end{equation}
+    и случайная величина $X$ --- относительная частота выпадения "4":
+    \begin{equation}
+        X = \frac{1}{n} \sum_{k=1}^n X_k .
+    \end{equation}
+
+    Из примера 1 математическое ожидание величины $X$ определяется равенством \eqref{1:expectation} и дисперсия --- равенством \eqref{1:variance}:
+    \begin{gather}
+        \expectation{X} = p, \\
+        \variance{X} = \frac{p ( 1 - p )}{n} .
+    \end{gather}
+
+    Таким образом, для вероятности отклонения относительной частоты $X$ от вероятности $p$ справедливо приближенное равенство \eqref{introduction:approximation}:
+    \begin{gather}
+        \probability{\modulus{X - \expectation{X}} < \Delta} \approx 2 \Phi \left ( \frac{\Delta}{\variance{X}} \right ) - 1 , \\
+        \probability{\modulus{X - p} < \Delta} \approx 2 \Phi \left ( \frac{\Delta}{\sqrt{\frac{p(1-p)}{n}}} \right ) - 1 .
+    \end{gather}
+    и необходимо сделать так, чтобы эта вероятность оказалась больше $P_\text{д}$:
+    \begin{equation}
+        2 \Phi \left ( \frac{\Delta}{\sqrt{\frac{p(1-p)}{n}}} \right ) - 1 > P_\text{д} ,
+    \end{equation}
+    определив подходящее количество $n$:
+    \begin{gather}
+        2 \Phi \left ( \frac{\Delta}{\sqrt{\frac{p(1-p)}{n}}} \right ) - 1 > P_\text{д} , \\
+        \Phi \left ( \frac{\Delta}{\sqrt{\frac{p(1-p)}{n}}} \right ) > \frac{1 + P_\text{д}}{2} , \\
+        \frac{\Delta}{\sqrt{\frac{p(1-p)}{n}}} > \Phi^{-1} \left ( \frac{1 + P_\text{д}}{2} \right ) , \\
+        \frac{\Delta}{\sqrt{p(1-p)}} \sqrt{n} > \Phi^{-1} \left ( \frac{1 + P_\text{д}}{2} \right ) , \\
+        \sqrt{n} > \frac{\sqrt{p(1-p)}}{\Delta} \Phi^{-1} \left ( \frac{1 + P_\text{д}}{2} \right ) , \\
+        n > \frac{p(1-p)}{\Delta^2} \left [ \Phi^{-1} \left ( \frac{1 + P_\text{д}}{2} \right ) \right ]^2 .
+    \end{gather}
+
+    Подставляя данные из условия, получим:
+    \begin{multline}
+        n >
+        \frac{\frac{1}{6} \left ( 1 - \frac{1}{6} \right )}{0.06^2} \left [ \Phi^{-1} \left ( \frac{1 + 0.97}{2} \right ) \right ]^2
+        = \frac{\frac{1}{6} \cdot \frac{5}{6}}{\left ( \frac{6}{100} \right )^2} \left [ \Phi^{-1} \left ( 0.985 \right ) \right ]^2
+        = \frac{5}{36 \cdot \frac{36}{100^2}} 2.17^2 = \\
+        %
+        = 5 \cdot 100^2 \cdot 4.71
+        = 23.55 \cdot 10000
+        = 235500 .
+    \end{multline}
+    \subsection*{Ответ}
+    $n > 235500$.
+
+
+    \section{Пример 4}
+    \subsection*{Условие}
+    Известно, что среди абитуриентов около 10\% имеют 100 баллов ЕГЭ по математике. Оценить вероятность того, что среди 400 абитуриентов окажется не менее 12\%
+    абитуриентов, имеющих 100 баллов ЕГЭ по математике.
+
+    \subsection*{Решение}
+    Пусть $X$ --- случайное количество абитуриентов, имеющих 100 баллов ЕГЭ по математике, из общего количества 400 абитуриентов. Величина $X$ имеет распределение Пуассона
+    с параметром $\lambda$, который определяется средним:
+    \begin{equation}
+        \lambda = n \cdot p = 400 \cdot 0.1 = 40,
+    \end{equation}
+    где $n = 400$ абитуриентов и $p = 0.1$ --- вероятность того, что абитуриент имеет 100 баллов ЕГЭ по математике.
+
+    Поскольку $\lambda$ имеет достаточно большое значение, то нормированная величина имеет приближенно нормальное распределение:
+    \begin{equation}
+        \frac{X - \lambda}{\sqrt{\lambda}} \sim \mathcal{N} \left ( 0, 1 \right ) .
+    \end{equation}
+
+    Используя приближенную нормальность величины $X$, оценим вероятность:
+    \begin{multline}
+        \probability{X \ge 400 \cdot 12\%}
+        = \probability{X \ge 48}
+        = 1 - \probability{X < 48}
+        = 1 - \probability{\frac{X - \lambda}{\sqrt{\lambda}} < \frac{48 - \lambda}{\sqrt{\lambda}}} \approx \\
+        %
+        \approx 1 - \Phi \left ( \frac{48 - \lambda}{\sqrt{\lambda}} \right )
+        = 1 - \Phi \left ( \frac{48 - 40}{\sqrt{40}} \right )
+        \approx 1 - \Phi \left ( \frac{8}{6.32} \right )
+        \approx 1 - \Phi \left ( 1.266 \right ) \approx \\
+        %
+        \approx 1 - 0.897
+        = 0.128 .
+    \end{multline}
+
+    \subsection*{Ответ}
+    $\approx 0.128$
+
+
+    \section{Домашнее задание}
+    Типовой расчет 33.
+
+    Задачи 565, 569, 573, 574.
+\end{document}

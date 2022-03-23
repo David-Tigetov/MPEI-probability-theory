@@ -1,0 +1,267 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsmath}
+
+\input{commands.tex}
+
+\begin{document}
+
+    \title{Практическое занятие 11. \\ Свойства математического ожидания и дисперсии.}
+    \author{Тигетов Давид}
+    \maketitle
+
+
+    \section{Свойства}
+    Пусть $X$ и $Y$ --- случайные величины, и $a$, $b$ и $c$ --- числа.
+
+    Для математического ожидания справедливо свойство линейности:
+    \begin{equation}
+        \label{expectation}
+        \expectation{a \cdot X + b \cdot Y + c}
+        = a \cdot \expectation{X} + b \cdot \expectation{Y} + c
+    \end{equation}
+
+    Для дисперсии справедливо равенство:
+    \begin{equation}
+        \label{variance}
+        \variance{a \cdot X + b \cdot Y + c}
+        = a^2 \cdot \variance{X} + b^2 \cdot \variance{Y} + 2 a b \cdot \covariance{X}{Y}
+    \end{equation}
+
+    С использование свойств \eqref{expectation} и \eqref{variance} можно показать справедливость следующих выражений для дисперсии:
+    \begin{multline}
+        \variance{X}
+        = \expectation{\left ( X - \expectation{X} \right )^2}
+        = \expectation{X^2 - 2 X \cdot \expectation{X} + \expectation{X}^2} = \\
+        %
+        = \expectation{X^2} - 2 \expectation{X} \cdot \expectation{X} + \expectation{X}^2
+        = \expectation{X^2} - \expectation{X}^2
+    \end{multline}
+    и ковариации:
+    \begin{multline}
+        \label{covariance}
+        \covariance{X}{Y}
+        = \expectation{\left ( X - \expectation{X} \right ) \left ( Y - \expectation{Y} \right )}
+        = \expectation{ X Y - \expectation{X} Y - X \expectation{Y} + \expectation{X} \expectation{Y}} = \\
+        %
+        = \expectation{XY} - \expectation{X} \expectation{Y} - \expectation{X} \expectation{Y} + \expectation{X} \expectation{Y}
+        = \expectation{XY} - \expectation{X} \expectation{Y} .
+    \end{multline}
+
+
+    \section{Задача 18.437}
+    \section*{Условие}
+    Случайные величины $X$ и $Y$ независимы и имеют следующие характеристики: $m_X = 1$, $m_Y = 2$, $\sigma_X = 1$, $\sigma_Y = 2$.
+    Вычислить математические ожидания случайных величин:
+    \begin{enumerate}
+        \item $U = X^2 + 2 Y^2 - XY - 4X + Y + 4$,
+        \item $V = (X + Y - 1)^2$
+    \end{enumerate}
+    \section*{Решение}
+    \begin{enumerate}
+        \item По свойству линейности математического ожидания:
+        \begin{multline}
+            \label{437:U}
+            \expectation{U}
+            = \expectation{X^2 + 2 Y^2 - XY - 4X + Y + 4} = \\
+            = \expectation{X^2} + 2 \expectation{Y^2} - \expectation{XY} - 4 \expectation{X} + \expectation{Y} + \expectation{4}
+        \end{multline}
+
+        Для вычисления вторых начальных моментов используем известное соотношение для дисперсии:
+        \begin{gather}
+            \variance{X} = \expectation{X^2} - \left ( \expectation{X} \right )^2 , \\
+            \variance{X} + \left ( \expectation{X} \right )^2 = \expectation{X^2} \label{437:X_2}.
+        \end{gather}
+        и
+        \begin{equation}
+            \label{437:Y_2}
+            \expectation{Y^2} = \variance{Y} + \left ( \expectation{Y} \right )^2.
+        \end{equation}
+
+        По условию задачи величины $X$ и $Y$ \textbf{независимы}, поэтому:
+        \begin{gather}
+            \expectation{XY} = \expectation{X} \cdot \expectation{Y}
+        \end{gather}
+
+        Подставляя полученные выражения в равенство \eqref{437:U}, получим:
+        \begin{multline}
+            \expectation{U}
+            = \variance{X} + \left ( \expectation{X} \right )^2 + 2 \left ( \variance{Y} + \left ( \expectation{Y} \right )^2 \right ) - \expectation{X} \cdot \expectation{Y} - 4 \expectation{X} + \expectation{Y} + \expectation{4} = \\
+            = \sigma_X^2 + m_X^2 + 2 \left ( \sigma_Y^2 + m_Y^2 \right ) - m_X m_Y - 4 m_X + m_Y + 4 = \\
+            = 1^2 + 1^2 + 2 \left ( 2^2 + 2^2 \right ) - 1 \cdot 2 - 4 \cdot 1 + 2 + 4 = 18
+        \end{multline}
+
+        \item Заметим, что величина $V$ является квадратом выражения, и требуется найти второй начальный момент:
+        \begin{equation}
+            \label{437:expectation}
+            \expectation{V} = \expectation{\left ( X + Y - 1 \right )^2} = \variance{X + Y - 1} + \left ( \expectation{X + Y - 1} \right )^2 ,
+        \end{equation}
+        где в последнем равенстве использовалось выражение для второго момента через дисперсию и квадрат математического ожидания, как ранее, в выражениях \eqref{437:X_2}
+        и \eqref{437:Y_2}.
+        По свойствам дисперсии:
+        \begin{equation}
+            \label{437:variance}
+            \variance{X + Y - 1} = \variance{X} + \variance{Y} + 2 \covariance{X}{Y}
+        \end{equation}
+        Ковариация величин $X$ и $Y$ из равенства \eqref{covariance}:
+        \begin{equation}
+            \covariance{X}{Y} = \expectation{XY} - \expectation{X} \expectation{Y}.
+        \end{equation}
+        В силу \textbf{независимости} величин $X$ и $Y$:
+        \begin{equation}
+            \expectation{XY} = \expectation{X} \expectation{Y} ,
+        \end{equation}
+        поэтому ковариация равна 0:
+        \begin{equation}
+            \covariance{X}{Y} = \expectation{X} \expectation{Y} - \expectation{X} \expectation{Y} = 0 ,
+        \end{equation}
+        а выражение для дисперсии \eqref{437:variance} принимает вид:
+        \begin{equation}
+            \variance{X + Y - 1} = \variance{X} + \variance{Y} .
+        \end{equation}
+        и выражение \eqref{437:expectation}:
+        \begin{multline}
+            \expectation{V}
+            = \variance{X} + \variance{Y} + \left ( \expectation{X} + \expectation{Y} - 1 \right )^2 = \\
+            %
+            = \sigma_X^2 + \sigma_Y^2 + \left ( m_X + m_Y - 1 \right )^2
+            = 1^2
+            + 2^2 + \left ( 1 + 2 - 1 \right )^2
+            = 9
+        \end{multline}
+    \end{enumerate}
+    \section*{Ответ}
+    \begin{enumerate}
+        \item $\expectation{U} = 18$ ,
+        \item $\expectation{V} = 9$.
+    \end{enumerate}
+
+
+    \section{Задача 18.438}
+    \section*{Условие}
+    Случайная точка $\left ( X, Y \right )$ характеризуется центром рассеивания $(-1, 1)$ и ковариационной матрицей
+    $\begin{pmatrix}
+         3  & -2 \\
+         -2 & 4
+    \end{pmatrix}$.
+    Найти математическое ожидание и дисперсию случайной величины $Z = 2 X - 4 Y + 3$.
+
+    \section*{Решение}
+    Центр рассеивания:
+    \begin{equation}
+        \begin{pmatrix}
+            -1 \\
+            1
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            \expectation{X} \\
+            \expectation{Y}
+        \end{pmatrix}
+        .
+    \end{equation}
+
+    Ковариационная матрица
+    \begin{equation}
+        \begin{pmatrix}
+            3  & -2 \\
+            -2 & 4
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            \variance{X}      & \covariance{X}{Y} \\
+            \covariance{X}{Y} & \variance{Y}
+        \end{pmatrix}
+        .
+    \end{equation}
+
+    В силу линейности математического ожидания:
+    \begin{equation}
+        \expectation{Z}
+        = \expectation{2X - 4 Y + 3}
+        = 2 \expectation{X} - 4 \expectation{Y} + 3
+        = 2 \cdot (-1) - 4 \cdot 1 + 3
+        = -3
+        .
+    \end{equation}
+    и по свойствам дисперсии:
+    \begin{multline}
+        \variance{Z}
+        = \variance{2 X - 4 Y + 3}
+        = \variance{2 X + (-4) Y + 3} = \\
+        %
+        = 2^2 \cdot \variance{X} + (-4)^2 \cdot \variance{Y} + 2 \cdot 2 \cdot (-4) \cdot \covariance{X}{Y} = \\
+        %
+        = 4 \cdot 3 + 16 \cdot 4 - 16 \cdot (-2)
+        = 12 + 16 \cdot 6
+        = 12 + 96
+        = 108.
+    \end{multline}
+
+    \section*{Ответ}
+    $\expectation{Z} = -3$, $\variance{Z} = 108$.
+
+
+    \section{Задача 18.443}
+    \section*{Условие}
+    Случайная величина $X$ дискретного типа распределена по закону, определяемому таблицей:
+
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        $x_i$ & -1            & 0             & 1             \\
+        \hline
+        $p_i$ & $\frac{1}{6}$ & $\frac{1}{3}$ & $\frac{1}{2}$ \\
+        \hline
+    \end{tabular}
+
+    Найти коэффициент корреляции между $X$ и $X^2$.
+    \section*{Решение}
+    По определению коэффициент корреляции $\rho$:
+    \begin{equation}
+        \rho = \frac{\covariance{X}{X^2}}{\sqrt{\variance{X} \variance{X^2}}}
+    \end{equation}
+
+    Представим ковариацию с помощью моментов:
+    \begin{equation}
+        \covariance{X}{X^2}
+        = \expectation{X \cdot X^2} - \expectation{X} \cdot \expectation{X^2}
+        = \expectation{X^3} - \expectation{X} \cdot \expectation{X^2}
+    \end{equation}
+
+    Заметим, что у величины $X$ нечетные начальные моменты ($k=1,2,3,...$):
+    \begin{equation}
+        \expectation{X^{2k-1}} = \sum_{i=1}^3 x_i^{2k-1} \cdot p_i = (-1)^{2k-1} \cdot \frac{1}{6} + 0^{2k-1} \cdot \frac{1}{3} + 1^{2k-1} \cdot \frac{1}{2} = - \frac{1}{6} + \frac{1}{2} = \frac{1}{3} ,
+    \end{equation}
+    и чётные начальные моменты ($k=1,2,3,...$):
+    \begin{equation}
+        \expectation{X^{2k}} = \sum_{i=1}^3 x_i^{2k} \cdot p_i = (-1)^{2k} \cdot \frac{1}{6} + 0^{2k} \cdot \frac{1}{3} + 1^{2k} \cdot \frac{1}{2} = \frac{1}{6} + \frac{1}{2} = \frac{2}{3} .
+    \end{equation}
+
+    Таким образом, ковариация:
+    \begin{equation}
+        \covariance{X}{X^2} = \frac{1}{3} - \frac{1}{3} \cdot \frac{2}{3} = \frac{3}{9} - \frac{2}{9} = \frac{1}{9} .
+    \end{equation}
+
+    Вычислим дисперсии:
+    \begin{gather}
+        \variance{X} = \expectation{X^2} - \left ( \expectation{X} \right )^2 = \frac{2}{3} - \left ( \frac{1}{3} \right )^2 = \frac{6}{9} - \frac{1}{9} = \frac{5}{9} , \\
+        \variance{X^2} = \expectation{X^4} - \left ( \expectation{X^2} \right )^2 = \frac{2}{3} - \left ( \frac{2}{3} \right )^2 = \frac{6}{9} - \frac{4}{9} = \frac{2}{9}.
+    \end{gather}
+
+    Таким образом, коэффициент корреляции:
+    \begin{equation}
+        \rho = \frac{\frac{1}{9}}{\sqrt{\frac{5}{9} \frac{2}{9}}} = \frac{\frac{1}{9}}{\frac{1}{9} \sqrt{10}} = \frac{1}{\sqrt{10}} .
+    \end{equation}
+
+    \section*{Ответ}
+    $\frac{1}{\sqrt{10}}$
+
+
+    \section{Домашнее задание}
+
+    Задачи 436, 437, 439, 441, 444.
+
+\end{document}
