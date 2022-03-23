@@ -1,267 +1,714 @@
-\documentclass[a4paper,12pt]{article}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[english,russian]{babel}
-\usepackage[margin=2cm]{geometry}
-\usepackage{amsmath}
-
-\input{commands.tex}
-
-\begin{document}
-
-    \title{Практическое занятие 11. \\ Свойства математического ожидания и дисперсии.}
-    \author{Тигетов Давид}
-    \maketitle
+\chapter{Предельные теоремы}
 
 
-    \section{Свойства}
-    Пусть $X$ и $Y$ --- случайные величины, и $a$, $b$ и $c$ --- числа.
+\section{Введение}
 
-    Для математического ожидания справедливо свойство линейности:
-    \begin{equation}
-        \label{expectation}
-        \expectation{a \cdot X + b \cdot Y + c}
-        = a \cdot \expectation{X} + b \cdot \expectation{Y} + c
-    \end{equation}
+Если случайная величина $X$ имеет конечный первый абсолютный момент ($\expectation{\modulus{X}} < \infty$), то для случайной величины $X$ справедливо
+\textbf{первое неравенство Чебышева}:
+\begin{equation}
+    \forall \varepsilon > 0 : \probability{ \modulus{X} \ge \varepsilon } \le \frac{\expectation{\modulus{X}}}{\varepsilon} .
+\end{equation}
 
-    Для дисперсии справедливо равенство:
-    \begin{equation}
-        \label{variance}
-        \variance{a \cdot X + b \cdot Y + c}
-        = a^2 \cdot \variance{X} + b^2 \cdot \variance{Y} + 2 a b \cdot \covariance{X}{Y}
-    \end{equation}
+Если случайная величина $X$ имеет конечный второй момент ($\expectation{X^2} < \infty$), то для случайной величины $X$ справедливо \textbf{второе неравенство Чебышева}:
+\begin{equation}
+    \forall \varepsilon > 0 : \probability{ X \ge \varepsilon } \le \frac{\expectation{X^2}}{\varepsilon^2} .
+\end{equation}
 
-    С использование свойств \eqref{expectation} и \eqref{variance} можно показать справедливость следующих выражений для дисперсии:
-    \begin{multline}
-        \variance{X}
-        = \expectation{\left ( X - \expectation{X} \right )^2}
-        = \expectation{X^2 - 2 X \cdot \expectation{X} + \expectation{X}^2} = \\
-        %
-        = \expectation{X^2} - 2 \expectation{X} \cdot \expectation{X} + \expectation{X}^2
-        = \expectation{X^2} - \expectation{X}^2
-    \end{multline}
-    и ковариации:
-    \begin{multline}
-        \label{covariance}
-        \covariance{X}{Y}
-        = \expectation{\left ( X - \expectation{X} \right ) \left ( Y - \expectation{Y} \right )}
-        = \expectation{ X Y - \expectation{X} Y - X \expectation{Y} + \expectation{X} \expectation{Y}} = \\
-        %
-        = \expectation{XY} - \expectation{X} \expectation{Y} - \expectation{X} \expectation{Y} + \expectation{X} \expectation{Y}
-        = \expectation{XY} - \expectation{X} \expectation{Y} .
-    \end{multline}
+Если во втором неравенстве Чебышева в качестве величины $X$ использовать величину $\modulus{X - \expectation{X}}$, то оно преобразуется к виду:
+\begin{equation}
+    \forall \varepsilon > 0 : \probability{ \modulus{X - \expectation{X}} \ge \varepsilon } \le \frac{\expectation{\modulus{X - \expectation{X}}^2}}{\varepsilon^2} = \frac{\variance{X}}{\varepsilon^2} ,
+\end{equation}
 
+Для последовательности $\sequence{X_n}$ случайных величин выполняется \textbf{закон больших чисел}, если последовательность среднеарифметических от
+случайных величин:
+\begin{equation}
+    S_n = \frac{1}{n} \sum_{k=1}^n X_k
+\end{equation}
+сходится по вероятности к последовательности среднеарифметических от математических ожиданий:
+\begin{equation}
+    M_n = \frac{1}{n} \sum_{k=1}^n \expectation{X_k} .
+\end{equation}
+В краткой форме записывают:
+\begin{equation}
+    S_n \stackrel{P}{\longrightarrow} M_n
+\end{equation}
+формально сходимость обозначает:
+\begin{equation}
+    \forall \varepsilon > 0: \lim_{n \rightarrow \infty} \probability{ \modulus{ S_n - M_n } \ge \varepsilon } = 0 .
+\end{equation}
 
-    \section{Задача 18.437}
-    \section*{Условие}
-    Случайные величины $X$ и $Y$ независимы и имеют следующие характеристики: $m_X = 1$, $m_Y = 2$, $\sigma_X = 1$, $\sigma_Y = 2$.
-    Вычислить математические ожидания случайных величин:
-    \begin{enumerate}
-        \item $U = X^2 + 2 Y^2 - XY - 4X + Y + 4$,
-        \item $V = (X + Y - 1)^2$
-    \end{enumerate}
-    \section*{Решение}
-    \begin{enumerate}
-        \item По свойству линейности математического ожидания:
-        \begin{multline}
-            \label{437:U}
-            \expectation{U}
-            = \expectation{X^2 + 2 Y^2 - XY - 4X + Y + 4} = \\
-            = \expectation{X^2} + 2 \expectation{Y^2} - \expectation{XY} - 4 \expectation{X} + \expectation{Y} + \expectation{4}
-        \end{multline}
-
-        Для вычисления вторых начальных моментов используем известное соотношение для дисперсии:
-        \begin{gather}
-            \variance{X} = \expectation{X^2} - \left ( \expectation{X} \right )^2 , \\
-            \variance{X} + \left ( \expectation{X} \right )^2 = \expectation{X^2} \label{437:X_2}.
-        \end{gather}
-        и
-        \begin{equation}
-            \label{437:Y_2}
-            \expectation{Y^2} = \variance{Y} + \left ( \expectation{Y} \right )^2.
-        \end{equation}
-
-        По условию задачи величины $X$ и $Y$ \textbf{независимы}, поэтому:
-        \begin{gather}
-            \expectation{XY} = \expectation{X} \cdot \expectation{Y}
-        \end{gather}
-
-        Подставляя полученные выражения в равенство \eqref{437:U}, получим:
-        \begin{multline}
-            \expectation{U}
-            = \variance{X} + \left ( \expectation{X} \right )^2 + 2 \left ( \variance{Y} + \left ( \expectation{Y} \right )^2 \right ) - \expectation{X} \cdot \expectation{Y} - 4 \expectation{X} + \expectation{Y} + \expectation{4} = \\
-            = \sigma_X^2 + m_X^2 + 2 \left ( \sigma_Y^2 + m_Y^2 \right ) - m_X m_Y - 4 m_X + m_Y + 4 = \\
-            = 1^2 + 1^2 + 2 \left ( 2^2 + 2^2 \right ) - 1 \cdot 2 - 4 \cdot 1 + 2 + 4 = 18
-        \end{multline}
-
-        \item Заметим, что величина $V$ является квадратом выражения, и требуется найти второй начальный момент:
-        \begin{equation}
-            \label{437:expectation}
-            \expectation{V} = \expectation{\left ( X + Y - 1 \right )^2} = \variance{X + Y - 1} + \left ( \expectation{X + Y - 1} \right )^2 ,
-        \end{equation}
-        где в последнем равенстве использовалось выражение для второго момента через дисперсию и квадрат математического ожидания, как ранее, в выражениях \eqref{437:X_2}
-        и \eqref{437:Y_2}.
-        По свойствам дисперсии:
-        \begin{equation}
-            \label{437:variance}
-            \variance{X + Y - 1} = \variance{X} + \variance{Y} + 2 \covariance{X}{Y}
-        \end{equation}
-        Ковариация величин $X$ и $Y$ из равенства \eqref{covariance}:
-        \begin{equation}
-            \covariance{X}{Y} = \expectation{XY} - \expectation{X} \expectation{Y}.
-        \end{equation}
-        В силу \textbf{независимости} величин $X$ и $Y$:
-        \begin{equation}
-            \expectation{XY} = \expectation{X} \expectation{Y} ,
-        \end{equation}
-        поэтому ковариация равна 0:
-        \begin{equation}
-            \covariance{X}{Y} = \expectation{X} \expectation{Y} - \expectation{X} \expectation{Y} = 0 ,
-        \end{equation}
-        а выражение для дисперсии \eqref{437:variance} принимает вид:
-        \begin{equation}
-            \variance{X + Y - 1} = \variance{X} + \variance{Y} .
-        \end{equation}
-        и выражение \eqref{437:expectation}:
-        \begin{multline}
-            \expectation{V}
-            = \variance{X} + \variance{Y} + \left ( \expectation{X} + \expectation{Y} - 1 \right )^2 = \\
-            %
-            = \sigma_X^2 + \sigma_Y^2 + \left ( m_X + m_Y - 1 \right )^2
-            = 1^2
-            + 2^2 + \left ( 1 + 2 - 1 \right )^2
-            = 9
-        \end{multline}
-    \end{enumerate}
-    \section*{Ответ}
-    \begin{enumerate}
-        \item $\expectation{U} = 18$ ,
-        \item $\expectation{V} = 9$.
-    \end{enumerate}
+Существует целый ряд теорем о том, когда для последовательности $\sequence{X_n}$ выполняется закон больших чисел.
+Одной из таких теорем является \textbf{теорема Чебышева}, которая легко доказывается с помощью неравенства Чебышева:
+если случайные величины $X_n$ попарно независимы и сумма возрастает не быстрее, чем $n^2$:
+\begin{equation}
+    \lim_{n \rightarrow \infty} \frac{1}{n^2} \sum_{k=1}^n \variance{X_k} = 0 ,
+\end{equation}
+тогда для последовательности $\sequence{X_n}$ выполняется закон больших чисел.
 
 
-    \section{Задача 18.438}
-    \section*{Условие}
-    Случайная точка $\left ( X, Y \right )$ характеризуется центром рассеивания $(-1, 1)$ и ковариационной матрицей
-    $\begin{pmatrix}
-         3  & -2 \\
-         -2 & 4
-    \end{pmatrix}$.
-    Найти математическое ожидание и дисперсию случайной величины $Z = 2 X - 4 Y + 3$.
+\section{Пример 1}
+\subsection*{Условие}
+Автобусы следуют по маршруту со случайным интервалом $X$, имеющим среднее значение 4 минуты. Требуется:
+\begin{enumerate}
+    \item оценить сверху вероятность ожидания автобуса не менее 8 минут: $\probability{X \ge 8}$ ,
+    \item оценить снизу вероятность ожидания автобуса менее 6 минут: $\probability{X < 6}$.
+\end{enumerate}
 
-    \section*{Решение}
-    Центр рассеивания:
-    \begin{equation}
-        \begin{pmatrix}
-            -1 \\
-            1
-        \end{pmatrix}
-        =
-        \begin{pmatrix}
-            \expectation{X} \\
-            \expectation{Y}
-        \end{pmatrix}
-        .
-    \end{equation}
+\subsection*{Решение}
+Легко видеть, что величина $X$ является неотрицательной и $\modulus{X} = X$. Отсюда следует конечность абсолютного момента:
+\begin{equation}
+    \expectation{\modulus{X}} = \expectation{X} = 4 < \infty ,
+\end{equation}
+поэтому для величины $X$ выполняется первое неравенство Чебышева:
+\begin{equation}
+    \forall \varepsilon > 0 : \probability{X \ge \varepsilon} \le \frac{\expectation{X}}{\varepsilon} .
+\end{equation}
 
-    Ковариационная матрица
-    \begin{equation}
-        \begin{pmatrix}
-            3  & -2 \\
-            -2 & 4
-        \end{pmatrix}
-        =
-        \begin{pmatrix}
-            \variance{X}      & \covariance{X}{Y} \\
-            \covariance{X}{Y} & \variance{Y}
-        \end{pmatrix}
-        .
-    \end{equation}
+Возьмем в качестве $\varepsilon$ число 8, тогда:
+\begin{equation}
+    \probability{X \ge 8} \le \frac{\expectation{X}}{8} = \frac{4}{8} = \frac{1}{2}.
+\end{equation}
 
-    В силу линейности математического ожидания:
-    \begin{equation}
-        \expectation{Z}
-        = \expectation{2X - 4 Y + 3}
-        = 2 \expectation{X} - 4 \expectation{Y} + 3
-        = 2 \cdot (-1) - 4 \cdot 1 + 3
-        = -3
-        .
-    \end{equation}
-    и по свойствам дисперсии:
-    \begin{multline}
-        \variance{Z}
-        = \variance{2 X - 4 Y + 3}
-        = \variance{2 X + (-4) Y + 3} = \\
-        %
-        = 2^2 \cdot \variance{X} + (-4)^2 \cdot \variance{Y} + 2 \cdot 2 \cdot (-4) \cdot \covariance{X}{Y} = \\
-        %
-        = 4 \cdot 3 + 16 \cdot 4 - 16 \cdot (-2)
-        = 12 + 16 \cdot 6
-        = 12 + 96
-        = 108.
-    \end{multline}
+Теперь возьмем в качестве $\varepsilon$ число 6, тогда:
+\begin{equation}
+    \probability{X \ge 6} \le \frac{\expectation{X}}{6} = \frac{4}{6} = \frac{2}{3} ,
+\end{equation}
+и перейдем к вероятности дополнительного события в левой части:
+\begin{gather}
+    1 - \probability{X < 6} \le \frac{2}{3} , \\
+    1 - \frac{2}{3} \le \probability{X < 6} , \\
+    \frac{1}{3} \le \probability{X < 6} .
+\end{gather}
 
-    \section*{Ответ}
-    $\expectation{Z} = -3$, $\variance{Z} = 108$.
+\subsection*{Ответ}
+$\probability{X \ge 8} \le \frac{1}{2}$, $\probability{X < 6} > \frac{1}{3}$.
 
 
-    \section{Задача 18.443}
-    \section*{Условие}
-    Случайная величина $X$ дискретного типа распределена по закону, определяемому таблицей:
+\section{Пример 2}
 
-    \begin{tabular}{|c|c|c|c|}
-        \hline
-        $x_i$ & -1            & 0             & 1             \\
-        \hline
-        $p_i$ & $\frac{1}{6}$ & $\frac{1}{3}$ & $\frac{1}{2}$ \\
-        \hline
-    \end{tabular}
+\subsection*{Условие}
+Случайная величина $X$ является измерением расстояния $L$ сантиметров, не имеющим систематической ошибки, $\expectation{X} = L$, но содержащим случайную погрешность
+измерения, величина которой соответствует среднеквадратическому отклонению $\sigma_X = 5$ сантиметров.
 
-    Найти коэффициент корреляции между $X$ и $X^2$.
-    \section*{Решение}
-    По определению коэффициент корреляции $\rho$:
-    \begin{equation}
-        \rho = \frac{\covariance{X}{X^2}}{\sqrt{\variance{X} \variance{X^2}}}
-    \end{equation}
+Оценить сверху вероятность получения плохого (неточного) измерения, с ошибкой не менее 10 сантиметров.
 
-    Представим ковариацию с помощью моментов:
-    \begin{equation}
-        \covariance{X}{X^2}
-        = \expectation{X \cdot X^2} - \expectation{X} \cdot \expectation{X^2}
-        = \expectation{X^3} - \expectation{X} \cdot \expectation{X^2}
-    \end{equation}
+Во сколько раз уточнится оценка этой вероятности, если дополнительно станет известно, что величина $X$ имеет нормальное распределение $\mathcal{N} ( L, \sigma_X)$?
 
-    Заметим, что у величины $X$ нечетные начальные моменты ($k=1,2,3,...$):
-    \begin{equation}
-        \expectation{X^{2k-1}} = \sum_{i=1}^3 x_i^{2k-1} \cdot p_i = (-1)^{2k-1} \cdot \frac{1}{6} + 0^{2k-1} \cdot \frac{1}{3} + 1^{2k-1} \cdot \frac{1}{2} = - \frac{1}{6} + \frac{1}{2} = \frac{1}{3} ,
-    \end{equation}
-    и чётные начальные моменты ($k=1,2,3,...$):
-    \begin{equation}
-        \expectation{X^{2k}} = \sum_{i=1}^3 x_i^{2k} \cdot p_i = (-1)^{2k} \cdot \frac{1}{6} + 0^{2k} \cdot \frac{1}{3} + 1^{2k} \cdot \frac{1}{2} = \frac{1}{6} + \frac{1}{2} = \frac{2}{3} .
-    \end{equation}
+\subsection*{Решение}
+Поскольку величина $X$ имеет конечную дисперсию, то для оценки требуемой вероятности воспользуемся вторым неравенством Чебышева:
+\begin{equation}
+    \forall \varepsilon > 0 : \probability{ \modulus{X - \expectation{X}} \ge \varepsilon } \le \frac{\variance{X}}{\varepsilon^2} ,
+\end{equation}
+в котором в качестве $\varepsilon$ будем использовать отклонение в 10 сантиметров:
+\begin{gather}
+    \probability{ \modulus{X - \expectation{X}} \ge 10 } \le \frac{\variance{X}}{10^2} , \\
+    \probability{ \modulus{X - L} \ge 10 } \le \frac{\sigma_X^2}{10^2} , \\
+    \probability{ \modulus{X - L} \ge 10 } \le \frac{5^2}{10^2} = \frac{25}{100} = 0.25 \label{2:bound}.
+\end{gather}
 
-    Таким образом, ковариация:
-    \begin{equation}
-        \covariance{X}{X^2} = \frac{1}{3} - \frac{1}{3} \cdot \frac{2}{3} = \frac{3}{9} - \frac{2}{9} = \frac{1}{9} .
-    \end{equation}
+Если величина $X$ имеет нормальное распределение, то вероятность отклонения на 10 сантиметров можно вычислить точно:
+\begin{multline}
+    \label{2:precise}
+    \probability{\modulus{X - \expectation{X}} \ge 10}
+    = \probability{X - \expectation{X} \le - 10} + \probability{ X - \expectation{X} \ge 10} = \\
+    %
+    = \probability{X - \expectation{X} \le - 10} + 1 - \probability{ X - \expectation{X} < 10} = \\
+    %
+    = \probability{X \le \expectation{X} - 10} + 1 - \probability{ X < \expectation{X} + 10} = \\
+    %
+    = \Phi \left ( \frac{\expectation{X} - 10 - \expectation{X}}{\sigma_X} \right ) + 1 - \Phi \left ( \frac{\expectation{X} + 10 - \expectation{X}}{\sigma_X} \right ) = \\
+    %
+    = \Phi \left ( \frac{- 10}{\sigma_X} \right ) + 1 - \Phi \left ( \frac{10}{\sigma_X} \right )
+    = \Phi \left ( \frac{- 10}{\sigma_X} \right ) + \Phi \left ( \frac{- 10}{\sigma_X} \right )
+    = 2 \Phi \left ( \frac{- 10}{\sigma_X} \right )
+    = 2 \Phi \left ( \frac{- 10}{5} \right ) = \\
+    %
+    = 2 \Phi \left ( - 2 \right )
+    \approx 2 * 0.0228
+    = 0.0456
+\end{multline}
 
-    Вычислим дисперсии:
-    \begin{gather}
-        \variance{X} = \expectation{X^2} - \left ( \expectation{X} \right )^2 = \frac{2}{3} - \left ( \frac{1}{3} \right )^2 = \frac{6}{9} - \frac{1}{9} = \frac{5}{9} , \\
-        \variance{X^2} = \expectation{X^4} - \left ( \expectation{X^2} \right )^2 = \frac{2}{3} - \left ( \frac{2}{3} \right )^2 = \frac{6}{9} - \frac{4}{9} = \frac{2}{9}.
-    \end{gather}
-
-    Таким образом, коэффициент корреляции:
-    \begin{equation}
-        \rho = \frac{\frac{1}{9}}{\sqrt{\frac{5}{9} \frac{2}{9}}} = \frac{\frac{1}{9}}{\frac{1}{9} \sqrt{10}} = \frac{1}{\sqrt{10}} .
-    \end{equation}
-
-    \section*{Ответ}
-    $\frac{1}{\sqrt{10}}$
+Сравнивая оценку сверху из неравенства Чебышева \eqref{2:bound} и точное значение вероятности \eqref{2:precise}:
+\begin{equation}
+    \nu = \frac{0.25}{0.0456} \approx 5.48
+\end{equation}
+убеждаемся, что оценка по неравенству Чебышева является достаточно "грубой"{} и завышает границу вероятности более чем в 5 раз.
+\subsection*{Ответ}
+\begin{enumerate}
+    \item $ \probability{ \modulus{X - L} \ge 10 } \le 0.25 $,
+    \item в случае нормального распределения оценка вероятности уточняется более чем в 5 раз.
+\end{enumerate}
 
 
-    \section{Домашнее задание}
+\section{Пример 3}
+\subsection*{Условие}
+В последовательности $\sequence{X_n}$ случайные величины $X_n$ имеют нормальное распределение $\mathcal{N} \left ( m, \frac{\sigma^2}{n^2} \right )$.
+Показать, что последовательность величин $\sequence{X_n}$ сходится по вероятности к числу $m$.
 
-    Задачи 436, 437, 439, 441, 444.
+\subsection*{Решение}
+Требуется показать, что $X_n \stackrel{P}{\longrightarrow} m$, то есть:
+\begin{equation}
+    \forall \varepsilon > 0: \lim_{n \rightarrow \infty} \probability{ \modulus{ X_n - m } \ge \varepsilon } = 0 .
+\end{equation}
+Вычислим вероятность, стоящую под знаком предела:
+\begin{multline}
+    \probability{\modulus{ X_n - m } \ge \varepsilon}
+    = \probability{X_n - m \le - \varepsilon} + \probability{X_n - m \ge \varepsilon} = \\
+    %
+    = \probability{X_n - m \le - \varepsilon} + 1 - \probability{X_n - m < \varepsilon} = \\
+    %
+    = \probability{X_n \le m - \varepsilon} + 1 - \probability{X_n < m + \varepsilon}
+    = \Phi \left ( \frac{ m - \varepsilon - m}{\frac{\sigma}{n}} \right ) + 1 - \Phi \left ( \frac{m + \varepsilon - m}{\frac{\sigma}{n}} \right ) = \\
+    %
+    = \Phi \left ( n \frac{-\varepsilon}{\sigma} \right ) + 1 - \Phi \left ( n \frac{\varepsilon}{\sigma} \right )
+    = \Phi \left ( - n \frac{\varepsilon}{\sigma} \right ) + \Phi \left ( - n \frac{\varepsilon}{\sigma} \right )
+    = 2 \Phi \left ( - n \frac{\varepsilon}{\sigma} \right ).
+\end{multline}
+Теперь вычислим предел:
+\begin{equation}
+    \lim_{n \rightarrow \infty} \probability{\modulus{ X_n - m } \ge \varepsilon}
+    = \lim_{n \rightarrow \infty} 2 \Phi \left ( - n \frac{\varepsilon}{\sigma} \right )
+    = 2 \lim_{n \rightarrow \infty} \Phi \left ( - n \frac{\varepsilon}{\sigma} \right )
+    = 2 \cdot 0
+\end{equation}
+поскольку
+\begin{equation}
+    \lim_{n \rightarrow \infty} - n \frac{\varepsilon}{\sigma} = - \infty .
+\end{equation}
 
-\end{document}
+На рисунках \ref{3:convergence} представлены плотности вероятности двух величин: на левом $X_{n_1}$ и на правом $X_{n_2}$, при $n_1 < n_2$. С ростом $n$ плотность
+вероятности сжимается в окрестности математического ожидания $m$ и вероятности в областях 1 и 2 уменьшаются --- вероятности отклонения
+$\probability{ \modulus{ X_n - m } \ge \varepsilon }$ уменьшаются и стремятся к 0.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{0.4\textwidth}
+        \begin{tikzpicture}[scale=3]
+            % оси
+            \draw [->] ( -0.1, 0 ) -- ( 2, 0 );
+            \draw [->] ( 0, -0.1 ) -- ( 0, 2 );
+
+            % плотность
+            \draw [domain=0.1:1.9] plot (\x, {exp(-5*(\x-1)*(\x-1))});
+            \node [right] at ( 1.5, 0.5 ) {$p_{n_1}(x)$};
+
+            % математическое ожидание
+            \draw [dotted] ( 1, 0 ) -- ( 1, 2 ) node [above] at ( 1, 2 ) {$m$};
+
+            % границы
+            \draw [dashed] ( 0.7, 0 ) -- ( 0.7, 0.9 ) node [below] at ( 0.7, 0 ) {$m - \varepsilon$};
+            \draw [dashed] ( 1.3, 0 ) -- ( 1.3, 0.9 ) node [below] at ( 1.3, 0 ) {$m + \varepsilon$};
+        \end{tikzpicture}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.4\textwidth}
+        \begin{tikzpicture}[scale=3]
+            % оси
+            \draw [->] ( -0.1, 0 ) -- ( 2, 0 );
+            \draw [->] ( 0, -0.1 ) -- ( 0, 2 );
+
+            % плотность
+            \draw [domain=0.1:1.9] plot (\x, {exp(-15*(\x-1)*(\x-1))*1.8});
+
+            % математическое ожидание
+            \draw [dotted] ( 1, 0 ) -- ( 1, 2 ) node [above] at ( 1, 2 ) {$m$};
+            \node [right] at ( 1.5, 0.5 ) {$p_{n_2}(x)$};
+
+            % границы
+            \draw [dashed] ( 0.7, 0 ) -- ( 0.7, 0.9 ) node [below] at ( 0.7, 0 ) {$m - \varepsilon$};
+            \draw [dashed] ( 1.3, 0 ) -- ( 1.3, 0.9 ) node [below] at ( 1.3, 0 ) {$m + \varepsilon$};
+        \end{tikzpicture}
+    \end{subfigure}
+    \caption{Сходимость по вероятности.}
+    \label{3:convergence}
+\end{figure}
+
+
+\section{Задача 18.551}
+\subsection*{Условие}
+Задана последовательность попарно независимых случайных величин $\sequence{X_n}$ ($n=1,2,\dots$):
+
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    $x_{ni}$                     & $-n a$            & 0                   & $na$             \\
+    \hline
+    $\probability{X_n = x_{ni}}$ & $\frac{1}{2 n^2}$ & $1 - \frac{1}{n^2}$ & $\frac{1}{2n^2}$ \\
+    \hline
+\end{tabular}
+
+Выяснить выполняется ли закон больших чисел для последовательности $\sequence{X_n}$.
+
+\subsection*{Решение}
+Попробуем выяснить выполнение закона больших чисел с помощью теоремы Чебышева: если условие теоремы будет выполнено,
+тогда можно утверждать, что для последовательности закон больших чисел выполняется. Однако, если условие теоремы не будет выполнено, то
+\textbf{нельзя утверждать}, что закон больших чисел не выполняется для последовательности $\sequence{X_n}$, поскольку условие теоремы является только достаточным условием.
+
+Итак, теорема Чебышева требует, чтобы в последовательности $\sequence{X_n}$ случайные величины были попарно независимы --- эта часть условия
+теоремы выполнена в соответствии с условиями задачи, и ещё необходимо убедиться, что сумма дисперсий величин последовательности растёт не очень быстро,
+точнее не быстрее чем $n^2$:
+\begin{equation}
+    \lim_{n \rightarrow \infty} \frac{1}{n^2} \sum_{k=1}^n \variance{X_k} \stackrel{?}{=} 0 .
+\end{equation}
+
+Вычислим дисперсию отдельных случайных величин $X_k$:
+\begin{align}
+    \variance{X_k} & = \expectation{X_k^2} - \left ( \expectation{X_k} \right )^2 , \\
+    %
+    \expectation{X_k^2}
+    & = \sum_{i=1}^3 x_{ki}^2 \probability{X_k = x_{ki}}
+    = \left ( -na \right )^2 \cdot \frac{1}{2 n^2} + 0 \cdot \left ( 1 - \frac{1}{n^2} \right ) + \left ( na \right )^2 \cdot \frac{1}{2 n^2} = \notag \\
+    & = n^2 a^2 \cdot \frac{1}{2 n^2} + n^2 a^2 \cdot \frac{1}{2 n^2}
+    = \frac{a^2}{2} + \frac{a^2}{2} = a^2 , \\
+    %
+    \expectation{X_k}
+    & = \sum_{i=1}^3 x_{ki} \probability{X_k = x_{ki}}
+    = \left ( -na \right ) \cdot \frac{1}{2 n^2} + 0 \cdot \left ( 1 - \frac{1}{n^2} \right ) + \left ( na \right ) \cdot \frac{1}{2 n^2} = \notag \\
+    & = - \frac{a}{2 n} + \frac{a}{2 n} = 0,\\
+    %
+    \variance{X_k} & = a^2 - 0^2 = a^2 .
+\end{align}
+
+Таким образом,
+\begin{equation}
+    \lim_{n \rightarrow \infty} \frac{1}{n^2} \sum_{k=1}^n \variance{X_k}
+    = \lim_{n \rightarrow \infty} \frac{1}{n^2} \sum_{k=1}^n a^2
+    = \lim_{n \rightarrow \infty} \frac{1}{n^2} n a^2
+    = a^2 \lim_{n \rightarrow \infty} \frac{1}{n} = a^2 \cdot 0 = 0,
+\end{equation}
+и условия теоремы Чебышева выполнены, поэтому для последовательности $\sequence{X_n}$ выполняется закон больших чисел.
+
+\subsection*{Ответ}
+Выполняется.
+
+
+\section{Пример 4}
+\subsection*{Условие}
+Младший научный сотрудник Иван Петров работает в лаборатории высокоточных измерений Института Метрологии и Ядерного Синтеза (ИМЯС).
+Вчера в лабораторию поступил внушительных размеров стержень из неизвестного материала, обладавший мягким, приятным и едва уловимым свечением,
+с припиской руководства о необходимости как можно скорее определить его длину, да так, чтобы с вероятностью $P_\text{д} = 0.95$ ошибка измерения составляла менее
+$\Delta = 2$ сантиметров. Задача эта и в половину не была бы столь сложна, если бы после долгих поисков не выяснилось, что в лаборатории, где можно измерять
+микрометрические длины с точностью до нанометров, нет на одной захудалой рулетки.
+
+Сложившаяся ситуация требовала ответов на два извечных русских вопроса.
+\begin{itemize}
+    \item Кто виноват?
+    \item [] и
+    \item Что делать?
+\end{itemize}
+
+\subsection*{Решение}
+Иван Петров уже давно заметил, что решение любой проблемы в ИМЯСе начиналось не с самой проблемы, как этого следовало бы ожидать, а с поиска виноватых, и этими
+виноватыми, как правило, оказывались простые, рядовые исполнители, и потому Иван Петров, хотя и был еще очень молодым, но уже утратившим некоторые иллюзии человеком,
+без особого труда ответил себе на первый вопрос, и тот сразу перестал его занимать.
+
+Второй вопрос оказался для Ивана Петрова гораздно более увлекательным. Когда-то в молодости, еще не так давно минувшей, Иван Петров учился на МехМате МГУ, и хотя был
+отчислен за неуспеваемость, но годы, проведенные в СУНЦ им. Колмогорова, и первые два курса не прошли для него даром, и очень скоро светлая мысль, как обычно, посетила
+его юное, но невероятно талантливое сознание.
+
+Иван Петров решительно встал и, схватив стержень, выскочил с ним в коридор.
+
+Наткнувшись в коридоре на Юрия Николаевича, Петров, не здороваясь, ошарашил его вопросом о
+длине стержня, на что Ю. Н., не моргнув глазом, коротко ответил: "1 метр 76 сантиметров и еще 3 миллиметра". Петров старательно записал длину в блокнот и
+ринулся дальше по коридору, оставив растерянного коллегу рассматривать свою спину в белом халате.
+
+Петров мыслил так: он будет спрашивать у всех кого встретит длину стержня и записывать длины величинами $X_n$, пусть они неправильны и неточны и содержат ошибки, он сумеет
+их обработать, а крайние измерения он и вовсе выбросит, чтобы не портили дела.
+
+Петров прекрасно понимал, что
+\begin{equation}
+    \forall \varepsilon > 0: \lim_{n \rightarrow \infty} \probability{ \modulus{ \frac{1}{n} \sum_{k=1}^n X_k - \frac{1}{n} \sum_{k=1}^n \expectation{X_k} } \ge \varepsilon } = 0
+\end{equation}
+и это внушало надежду. Оставалось лишь набрать достаточное количество $n$. Только бы не было смещения, подумалось было Петрову, но он решительно отбросил эту мысль
+как негативную --- в обществе прогрессировало безоглядно-позитивное мышление.
+
+В следующую половину дня Петрова видели в разных частях Института, застревающим в лифте, сбивающим людей на лестнице, и в группе лиц, усиленно потиравших наморщенные лбы
+и хватавших себя за подбородок. Иногда, Петрова просили встать поближе к стрежню, спрашивали его рост, некоторым казалось, что так измерение выйдет точнее, хотя это было
+не совсем честно. Петров наотрез отказывался от предлагаемых линеек, дотошно и с пристрастием требовал ответить на вопрос о длине --- идея захватила всё его существо.
+
+Однако изрядно набегавшись, Петров решил наконец пообедать и за обедом стал думать о том, сколько же ему еще придется так бегать. Предположим, думал Петров, что все $\expectation{X_n} = L$, где $L$ --- пресловутая длина стержня, тогда:
+\begin{gather}
+    S_n = \frac{1}{n} \sum_{k=1}^n X_k \stackrel{P}{\longrightarrow} \frac{1}{n} \sum_{k=1}^n \expectation{X_k} = \frac{1}{n} \sum_{k=1}^n L = \frac{1}{n} \cdot n \cdot L = L , \\
+    S_n = \frac{1}{n} \sum_{k=1}^n X_k \stackrel{P}{\longrightarrow} L ,
+\end{gather}
+но сходимость --- сходимостью, а точность --- точностью, и теперь настало время проявить свои незаурядные математические способности и заняться вплотную числами 0.95 и 2.
+
+Петров взял салфетку и стал быстро набрасывать мелким почерком. Вообще, величины $S_n$ ничем не хуже любых других, размышлял Петров, поэтому для них скорее всего выполняется
+неравенство Чебышева, и коль скоро:
+\begin{equation}
+    \expectation{S_n}
+    = \expectation{\frac{1}{n} \sum_{k=1}^n X_k}
+    = \frac{1}{n} \expectation{\sum_{k=1}^n X_k}
+    = \frac{1}{n} \sum_{k=1}^n \expectation{X_k}
+    = \frac{1}{n} \sum_{k=1}^n L
+    = \frac{1}{n} \cdot n \cdot L
+    = L ,
+\end{equation}
+то и по неравенству выходит, что
+\begin{equation}
+    \probability{\modulus{S_n - L} \ge \Delta} \le \frac{\variance{S_n}}{\Delta^2} .
+\end{equation}
+Это почти то, что нужно --- у нас ведь требование:
+\begin{gather}
+    \probability{\modulus{S_n - L} < \Delta} \ge P_\text{д} , \\
+    1 - \probability{\modulus{S_n - L} \ge \Delta} \ge P_\text{д} , \\
+    1 - P_\text{д} \ge \probability{\modulus{S_n - L} \ge \Delta} , \\
+    \probability{\modulus{S_n - L} \ge \Delta} \le 1 - P_\text{д} ,
+\end{gather}
+и если сделать так, чтобы выполнялось двойное неравество:
+\begin{equation}
+    \probability{\modulus{S_n - L} \ge \Delta} \le \frac{\variance{S_n}}{\Delta^2} \le 1 - P_\text{д} ,
+\end{equation}
+то и требование задачи будет выполнено --- значит нужно подобрать $n$ так, чтобы дисперсия удовлетворяла неравенству:
+\begin{gather}
+    \frac{\variance{S_n}}{\Delta^2} \le 1 - P_\text{д} , \\
+    \variance{S_n} \le \Delta^2 \cdot \left ( 1 - P_\text{д} \right ) \label{5:variance}.
+\end{gather}
+При этом дисперсия в левой части:
+\begin{equation}
+    \variance{S_n}
+    = \variance{\frac{1}{n} \sum_{k=1}^n X_k}
+    = \frac{1}{n^2} \variance{\sum_{k=1}^n X_k},
+\end{equation}
+пусть все величины попарно независимы, это без особой натяжки можно считать выполненным, тогда:
+\begin{equation}
+    \variance{S_n}
+    = \frac{1}{n^2} \sum_{k=1}^n \variance{X_k}
+    = \frac{1}{n^2} \sum_{k=1}^n \sigma_X^2
+    = \frac{1}{n^2} \cdot n \cdot \sigma_X^2
+    = \frac{\sigma_X^2}{n} ,
+\end{equation}
+где $\sigma_X$ --- среднеквадратическое отклонение ошибки определения длины респондентами. Так, хорошо, думал Петров, теперь берем неравенство \eqref{5:variance}:
+\begin{gather}
+    \frac{\sigma_X^2}{n} \le \Delta^2 \cdot \left ( 1 - P_\text{д} \right ) , \\
+    \frac{\sigma_X^2}{\Delta^2 \cdot \left ( 1 - P_\text{д} \right )} \le n , \\
+    n \ge \frac{\sigma_X^2}{\Delta^2 \cdot \left ( 1 - P_\text{д} \right )} = \frac{\sigma_X^2}{2^2 \cdot \left ( 1 - 0.95 \right )} = \frac{\sigma_X^2}{4 \cdot 0.05} = 5 \sigma_X^2,
+\end{gather}
+Нда, вот это уже не очень хорошо. Если ошибка определения длины имеет среднеквадратическое отклонение $\sigma_X = 20$ сантиметров, то уже:
+\begin{equation}
+    n \ge 5 \sigma_X^2 = 5 \cdot 20^2 = 2000.
+\end{equation}
+Нет, 2000 человек я не набегаю, размышлял Петров. Придется считать измерения более точными, скажем $\sigma_X = 5$ сантиметров, тогда:
+\begin{equation}
+    n \ge 5 \sigma_X^2 = 5 \cdot 5^2 = 125.
+\end{equation}
+Совсем другое дело --- поздравил себя Петров.
+
+Уже начинало темнеть, когда Петров, опросив всех знакомых и незнакомых, заглянув в бухгалтерию и дождавшись уборщицу Марию Степановну, записал в свой блокнот результат
+обработки всех измерений --- 1 метр 76 сантиметров и 1 миллиметр. Подумать только, мелькнуло в голове Ивана Петрова, но он не придал этому значения и счастливый, необычайно
+довольный собой, уже ехал домой в трамвае в направлении заката.
+
+А на следующее утро Петрову сообщили, что ничего измерять не нужно, и что обошлись без этого стержня, но Ивану Петрову уже было всё равно --- он измерял стержень
+своей рулеткой, которую привез из дома.
+
+\subsection*{Ответ}
+Даже из многих плохих измерений можно сделать одно хорошее, если, например, измерения не имеют смещения, независимы и обладают конечной дисперсией.
+
+
+\section{Домашнее задание}
+Типовой расчет 32
+
+Задачи 543, 544, 546, 550, 552.
+
+
+\section{Введение}
+В ряде задач рассматриваемую случайную величину $X$ удается представить в виде суммы случайных величин $X_k$:
+\begin{equation}
+    X = \sum_{k=1}^n X_k .
+\end{equation}
+При достаточно широких условиях (например, независимости величин $X_k$, имеющих конечные математические ожидания и дисперсии) распределение величины $X$
+стремится к нормальному распределению с увеличением $n$:
+\begin{gather}
+    X \sim \mathcal{N} \left ( \expectation{X}, \variance{X} \right ) , \\
+    \text{при } \; n \rightarrow \infty \notag.
+\end{gather}
+Этот теоретический результат известен как \textbf{центральная предельная теорема} (ЦПТ).
+
+На практике использование ЦПТ заключается в замене неизвестного распределения величины $X$ на нормальное распределение. При этом предварительно необходимо
+убедиться, что:
+\begin{itemize}
+    \item вклад каждой величины $X_k$ в общую сумму является достаточно малым,
+    \item общее количество $n$ является достаточно большим.
+\end{itemize}
+В некоторых случаях хорошее приближение можно получить уже при $n \sim 10$ величин.
+
+Замена распределения $X$ позволяет приближенно вычислять вероятности событий $\event{l < X < r}$:
+\begin{equation}
+    \probability{l < X < r}
+    \approx \Phi \left ( \frac{r - \expectation{X}}{\variance{X}} \right ) - \Phi \left ( \frac{l - \expectation{X}}{\variance{X}} \right ) .
+\end{equation}
+
+В случае симметричного относительно $\expectation{X}$ интервала, получим:
+\begin{multline}
+    \probability{\modulus{X - \expectation{X}} < \Delta}
+    = \probability{\expectation{X} - \Delta < X < \expectation{X} + \Delta} \approx \\
+    \approx \Phi \left ( \frac{\expectation{X} + \Delta - \expectation{X}}{\variance{X}} \right ) - \Phi \left ( \frac{\expectation{X} - \Delta - \expectation{X}}{\variance{X}} \right ) = \\
+    %
+    = \Phi \left ( \frac{\Delta}{\variance{X}} \right ) - \Phi \left ( \frac{-\Delta}{\variance{X}} \right )
+    = \Phi \left ( \frac{\Delta}{\variance{X}} \right ) - \left ( 1 - \Phi \left ( \frac{\Delta}{\variance{X}} \right ) \right )
+    = 2 \Phi \left ( \frac{\Delta}{\variance{X}} \right ) - 1 .
+\end{multline}
+
+Таким образом,
+\begin{equation}
+    \label{introduction:approximation}
+    \probability{\modulus{X - \expectation{X}} < \Delta}
+    \approx 2 \Phi \left ( \frac{\Delta}{\variance{X}} \right ) - 1 .
+\end{equation}
+
+Еще один случай асимптотической нормальности имеет место для распределение Пуассона: если величина $X$ имеет распределение Пуассона с параметром $\lambda$, то
+при возрастании $\lambda$ распределение нормированной величины стремится к стандартному нормальному распределению:
+\begin{gather}
+    \frac{X - \expectation{X}}{\sqrt{\variance{X}}} \sim \mathcal{N} \left ( 0, 1 \right ) , \\
+    \frac{X - \lambda}{\sqrt{\lambda}} \sim \mathcal{N} \left ( 0, 1 \right ) , \\
+    \text{при } \; \lambda \rightarrow \infty \notag.
+\end{gather}
+
+
+\section{Пример 1}
+\subsection*{Условие}
+Симметричная монета подбрасывается 100 раз. Какова вероятность, что относительная частота выпадения герба отклонится от $p = 0.5$ менее чем на $\Delta = 0.1$?
+\subsection*{Решение}
+Пусть $X_k$ --- результат $k$-го подбрасывания монеты:
+\begin{equation}
+    X_k =
+    \left \{
+    \begin{array}{ll}
+        0, & \text{с вероятностью 0.5} , \\
+        1, & \text{с вероятностью 0.5} .
+    \end{array}
+    \right .
+\end{equation}
+
+Относительная частота $X$ --- это количество выпадений герба, отнесенное к общему количеству подбрасываний $n$:
+\begin{equation}
+    X = \frac{1}{n} \sum_{k=1}^n X_k .
+\end{equation}
+
+Распределение суммы величины $X_k$ в правой части является приближенно нормальным при больших $n$ и умножение на $\frac{1}{n}$ не изменяет распределения
+(вообще, линейные преобразования величин --- умножение и прибавление чисел к величинам --- не изменяет их распределений, Вы теперь уже и сами можете это доказать),
+поэтому распределение $X$ можно приближенно считать нормальным:
+\begin{equation}
+    X \sim \mathcal{N} \left ( \expectation{X}, \variance{X} \right ) ,
+\end{equation}
+где математическое ожидание:
+\begin{equation}
+    \label{1:expectation}
+    \expectation{X}
+    = \frac{1}{n} \expectation{\sum_{k=1}^n X_k}
+    = \frac{1}{n} \sum_{k=1}^n \expectation{X_k}
+    = \frac{1}{n} \sum_{k=1}^n p
+    = \frac{1}{n} n p = p ,
+\end{equation}
+и дисперсия (в силу \textbf{независимости} величин $X_k$ дисперсия их суммы равна сумме дисперсий):
+\begin{multline}
+    \label{1:variance}
+    \variance{X}
+    = \variance{\frac{1}{n} \sum_{k=1}^n X_k}
+    = \frac{1}{n^2} \variance{\sum_{k=1}^n X_k}
+    = \frac{1}{n^2} \sum_{k=1}^n \variance{X_k} = \\
+    %
+    = \frac{1}{n^2} \sum_{k=1}^n p(1-p)
+    = \frac{1}{n^2} n p(1-p)
+    = \frac{p(1-p)}{n} .
+\end{multline}
+
+Требуемую вероятность отклонения величины $X$ от $p$ теперь можно вычислить приближенно, если принять нормальное распределение для $X$ и использовать приближенное
+равенство \eqref{introduction:approximation}:
+\begin{multline}
+    \probability{\modulus{X - p} < \Delta}
+    = \probability{\modulus{X - \expectation{X}} < \Delta} \approx \\
+    %
+    \approx 2 \Phi \left ( \frac{\Delta}{\sqrt{\variance{X}}} \right ) - 1
+    = 2 \Phi \left ( \frac{\Delta}{\sqrt{\frac{p (1-p)}{n}}} \right ) - 1 = \\
+    %
+    = 2 \Phi \left ( \frac{0.1}{\sqrt{\frac{0.5 (1-0.5)}{100}}} \right ) - 1
+    = 2 \Phi \left ( \frac{0.1}{\sqrt{\frac{0.5 \cdot 0.5}{100}}} \right ) - 1
+    = 2 \Phi \left ( \frac{0.1}{\frac{0.5}{10}} \right ) - 1
+    = 2 \Phi \left ( \frac{1}{0.5} \right ) - 1 = \\
+    %
+    = 2 \Phi \left ( 2 \right ) - 1
+    \approx 2 \cdot 0.977 - 1
+    \approx 0.955 .
+\end{multline}
+
+\subsection*{Ответ}
+$\approx 0.955$
+
+
+\section{Пример 2}
+\subsection*{Условие}
+Имеется $n = 1000$ мячиков, каждый из которых с вероятностью $p = 0.4$ имеет красный цвет, и с вероятностью $1 - p$ --- синий.
+Случайная величина $X$ --- количество красных мячиков. Найти интервал, симметричный относительно математического ожидания величины $X$,
+в который с вероятностью на менее $P_\text{д} = 0.95$ попадает количество красных мячиков.
+\subsection*{Решение}
+Введем случайные величины $X_k$, которые показывают цвета мячиков. Величина $X_k = 0$, если мячик с номером $k$ является синим, и $X_k = 1$, если красным:
+\begin{equation}
+    X_k =
+    \left \{
+    \begin{array}{ll}
+        0, & \text{с вероятностью } 0.6 , \\
+        1, & \text{с вероятностью } 0.4 .
+    \end{array}
+    \right .
+\end{equation}
+
+Случайная величина количества красных мячиков $X$ является суммой:
+\begin{equation}
+    X = \sum_{k=1}^n X_k ,
+\end{equation}
+где $n = 1000$ --- количество мячиков.
+
+Величины $X_k$ являются независимыми, имеют конечные математическое ожидание и дисперсию, поэтому их сумма по ЦПТ имеет распределение близкое
+к нормальному:
+\begin{equation}
+    X = \sum_{k=1}^n X_k \sim \mathcal{N} \left ( \expectation{X}, \variance{X} \right ) .
+\end{equation}
+
+По условию задачи требуется найти интервал, симметричный относительно $\expectation{X}$, в который величина $X$ попадает с верояностью не менее $P_\text{д}$, то есть
+требуется найти число $\Delta$, для которого выполняется неравенство:
+\begin{equation}
+    \probability{\modulus{X - \expectation{X}} < \Delta} \ge P_\text{д} .
+\end{equation}
+Заменяя левую часть в соответствии с приближенным равенством \eqref{introduction:approximation}, получим неравенство:
+\begin{gather}
+    2 \Phi \left ( \frac{\Delta}{\sqrt{\variance{X}}} \right ) - 1 \ge P_\text{д} , \\
+    \Phi \left ( \frac{\Delta}{\sqrt{\variance{X}}} \right ) \ge \frac{1 + P_\text{д}}{2} , \\
+    \frac{\Delta}{\sqrt{\variance{X}}} \ge \Phi^{-1} \left ( \frac{1 + P_\text{д}}{2} \right ), \\
+    \Delta \ge \sqrt{\variance{X}} \cdot \Phi^{-1} \left ( \frac{1 + P_\text{д}}{2} \right ).
+\end{gather}
+
+Вычислим дисперсию величины $X$ --- дисперсию суммы величин $X_k$, которая в силу \textbf{независимости} величин $X_k$ равна сумме дисперсий:
+\begin{equation}
+    \variance{X} = \variance{\sum_{k=1}^n X_k} = \sum_{k=1}^n \variance{X_k} = \sum_{k=1}^n p ( 1 - p ) = n p (1 - p).
+\end{equation}
+
+Тогда
+\begin{multline}
+    \Delta \ge \sqrt{n p ( 1 - p )} \cdot \Phi^{-1} \left ( \frac{1 + P_\text{д}}{2} \right ) = \\
+    %
+    = \sqrt{1000 \cdot 0.4 \cdot (1 - 0.4)} \cdot \Phi^{-1} \left ( \frac{1 + 0.95}{2} \right )
+    = \sqrt{240} \cdot \Phi^{-1} \left ( 0.975 \right ) \approx \\
+    %
+    \approx 15.49 \cdot 1.96
+    \approx 30.36 .
+\end{multline}
+
+Математическое ожидание $X$:
+\begin{equation}
+    \expectation{X} = \expectation{\sum_{k=1}^n X_k} = \sum_{k=1}^n \expectation{X_k} = \sum_{k=1}^n 1 \cdot p = n \cdot p = 1000 \cdot 0.4 = 400 .
+\end{equation}
+
+Таким образом интервал:
+\begin{equation}
+    \left ( \expectation{X} - \Delta ; \expectation{X} + \Delta \right )
+    = \left ( 400 - 30.36 ; 400 + 30.36 \right )
+    = \left ( 469.64 ; 430.36 \right ) .
+\end{equation}
+\subsection*{Ответ}
+$\left ( 469.64 ; 430.36 \right )$
+
+
+\section{Пример 3}
+\subsection*{Условие}
+Симметричный игральный кубик подбрасывают $n$ раз. При каком количестве подбрасываний $n$ относительная частота выпадения "4"{} отклоняется от своей вероятности
+$p = \frac{1}{6}$ на величину менее $\Delta = 0.06$ с вероятностью $P_\text{д} = 0.97$.
+
+\subsection*{Решение}
+Пусть $X_k$ --- случайная величина, показывающая выпадение "4":
+
+\begin{equation}
+    X_k =
+    \left \{
+    \begin{array}{ll}
+        0, & \text{с вероятностью } \frac{5}{6},  \\
+        1, & \text{с вероятностью } \frac{1}{6} .
+    \end{array}
+    \right .
+\end{equation}
+и случайная величина $X$ --- относительная частота выпадения "4":
+\begin{equation}
+    X = \frac{1}{n} \sum_{k=1}^n X_k .
+\end{equation}
+
+Из примера 1 математическое ожидание величины $X$ определяется равенством \eqref{1:expectation} и дисперсия --- равенством \eqref{1:variance}:
+\begin{gather}
+    \expectation{X} = p, \\
+    \variance{X} = \frac{p ( 1 - p )}{n} .
+\end{gather}
+
+Таким образом, для вероятности отклонения относительной частоты $X$ от вероятности $p$ справедливо приближенное равенство \eqref{introduction:approximation}:
+\begin{gather}
+    \probability{\modulus{X - \expectation{X}} < \Delta} \approx 2 \Phi \left ( \frac{\Delta}{\variance{X}} \right ) - 1 , \\
+    \probability{\modulus{X - p} < \Delta} \approx 2 \Phi \left ( \frac{\Delta}{\sqrt{\frac{p(1-p)}{n}}} \right ) - 1 .
+\end{gather}
+и необходимо сделать так, чтобы эта вероятность оказалась больше $P_\text{д}$:
+\begin{equation}
+    2 \Phi \left ( \frac{\Delta}{\sqrt{\frac{p(1-p)}{n}}} \right ) - 1 > P_\text{д} ,
+\end{equation}
+определив подходящее количество $n$:
+\begin{gather}
+    2 \Phi \left ( \frac{\Delta}{\sqrt{\frac{p(1-p)}{n}}} \right ) - 1 > P_\text{д} , \\
+    \Phi \left ( \frac{\Delta}{\sqrt{\frac{p(1-p)}{n}}} \right ) > \frac{1 + P_\text{д}}{2} , \\
+    \frac{\Delta}{\sqrt{\frac{p(1-p)}{n}}} > \Phi^{-1} \left ( \frac{1 + P_\text{д}}{2} \right ) , \\
+    \frac{\Delta}{\sqrt{p(1-p)}} \sqrt{n} > \Phi^{-1} \left ( \frac{1 + P_\text{д}}{2} \right ) , \\
+    \sqrt{n} > \frac{\sqrt{p(1-p)}}{\Delta} \Phi^{-1} \left ( \frac{1 + P_\text{д}}{2} \right ) , \\
+    n > \frac{p(1-p)}{\Delta^2} \left [ \Phi^{-1} \left ( \frac{1 + P_\text{д}}{2} \right ) \right ]^2 .
+\end{gather}
+
+Подставляя данные из условия, получим:
+\begin{multline}
+    n >
+    \frac{\frac{1}{6} \left ( 1 - \frac{1}{6} \right )}{0.06^2} \left [ \Phi^{-1} \left ( \frac{1 + 0.97}{2} \right ) \right ]^2
+    = \frac{\frac{1}{6} \cdot \frac{5}{6}}{\left ( \frac{6}{100} \right )^2} \left [ \Phi^{-1} \left ( 0.985 \right ) \right ]^2
+    = \frac{5}{36 \cdot \frac{36}{100^2}} 2.17^2 = \\
+    %
+    = 5 \cdot 100^2 \cdot 4.71
+    = 23.55 \cdot 10000
+    = 235500 .
+\end{multline}
+\subsection*{Ответ}
+$n > 235500$.
+
+
+\section{Пример 4}
+\subsection*{Условие}
+Известно, что среди абитуриентов около 10\% имеют 100 баллов ЕГЭ по математике. Оценить вероятность того, что среди 400 абитуриентов окажется не менее 12\%
+абитуриентов, имеющих 100 баллов ЕГЭ по математике.
+
+\subsection*{Решение}
+Пусть $X$ --- случайное количество абитуриентов, имеющих 100 баллов ЕГЭ по математике, из общего количества 400 абитуриентов. Величина $X$ имеет распределение Пуассона
+с параметром $\lambda$, который определяется средним:
+\begin{equation}
+    \lambda = n \cdot p = 400 \cdot 0.1 = 40,
+\end{equation}
+где $n = 400$ абитуриентов и $p = 0.1$ --- вероятность того, что абитуриент имеет 100 баллов ЕГЭ по математике.
+
+Поскольку $\lambda$ имеет достаточно большое значение, то нормированная величина имеет приближенно нормальное распределение:
+\begin{equation}
+    \frac{X - \lambda}{\sqrt{\lambda}} \sim \mathcal{N} \left ( 0, 1 \right ) .
+\end{equation}
+
+Используя приближенную нормальность величины $X$, оценим вероятность:
+\begin{multline}
+    \probability{X \ge 400 \cdot 12\%}
+    = \probability{X \ge 48}
+    = 1 - \probability{X < 48}
+    = 1 - \probability{\frac{X - \lambda}{\sqrt{\lambda}} < \frac{48 - \lambda}{\sqrt{\lambda}}} \approx \\
+    %
+    \approx 1 - \Phi \left ( \frac{48 - \lambda}{\sqrt{\lambda}} \right )
+    = 1 - \Phi \left ( \frac{48 - 40}{\sqrt{40}} \right )
+    \approx 1 - \Phi \left ( \frac{8}{6.32} \right )
+    \approx 1 - \Phi \left ( 1.266 \right ) \approx \\
+    %
+    \approx 1 - 0.897
+    = 0.128 .
+\end{multline}
+
+\subsection*{Ответ}
+$\approx 0.128$
+
+
+\section{Домашнее задание}
+Типовой расчет 33.
+
+Задачи 565, 569, 573, 574.
