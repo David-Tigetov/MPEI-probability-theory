@@ -1,5 +1,150 @@
 \chapter{Случайные величины непрерывного типа}
 
+\section*{Введение}
+
+
+
+\section*{Задача 18.269}
+
+Случайная величина $X$ распределена по закону, определяемому плотностью вероятностей вида:
+\[
+    f_X(x)
+    = \left \{
+    \begin{array}{ll}
+        c \cos x , & \text{если } - \frac{\pi}{2} \le x \le \frac{\pi}{2} , \\
+        0,         & \text{если } \modulus{x} > \frac{\pi}{2} .
+    \end{array}
+    \right .
+\]
+Необходимо:
+\begin{enumerate}
+    \item найти константу $c$,
+    \item функцию распределения $F_X(x)$,
+    \item вероятность $\probability{\modulus{X} < \frac{\pi}{4}}$,
+    \item математическое ожидание $\expectation{X}$,
+    \item дисперсию $\variance{X}$.
+\end{enumerate}
+
+\subsection*{Решение:}
+
+Постоянная $c$ определяется из условия нормировки:
+\begin{equation}
+    \int \limits_{-\infty}^{\infty} f_X(x) dx = 1 .
+\end{equation}
+Подставляя выражение для плотности вероятности, получим уравнение:
+\begin{gather}
+    \int \limits_{-\frac{\pi}{2}}^{\frac{\pi}{2}} c \cos x dx = 1 , \\
+    c \int \limits_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \cos x dx = 1 , \\
+    c \left . \sin x \right |_{-\frac{\pi}{2}}^{\frac{\pi}{2}} = 1 . \\
+    c \cdot 2 = 1 , \\
+    c = \frac{1}{2} .
+\end{gather}
+
+Функция распределения $F_X(x)$ связана с функцией плотности вероятности равенством:
+\begin{gather}
+    F_X(x) = \int \limits_{-\infty}^x f_X(t) dt .
+\end{gather}
+Учитывая носитель функции плотности распределения, получим:
+\begin{equation}
+    F_X(x)
+    = \left \{
+    \begin{array}{ll}
+        0,                                              & \text{если } x < - \frac{\pi}{2},                    \\
+        \int \limits_{-\infty}^x \frac{1}{2} \cos t dt, & \text{если } -\frac{\pi}{2} \le x \le \frac{\pi}{2}, \\
+        1,                                              & \text{если } \frac{\pi}{2} < x .
+    \end{array}
+    \right .
+\end{equation}
+Вычисляя интеграл, получим выражение:
+\begin{equation}
+    F_X(x)
+    = \left \{
+    \begin{array}{ll}
+        0,                                       & \text{если } x < - \frac{\pi}{2},                    \\
+        \frac{1}{2} \left ( \sin x + 1 \right ), & \text{если } -\frac{\pi}{2} \le x \le \frac{\pi}{2}, \\
+        1,                                       & \text{если } \frac{\pi}{2} < x .
+    \end{array}
+    \right .
+\end{equation}
+
+Вероятность события $\event{\modulus{X} < \frac{\pi}{4}}$ можно вычислить с помощью функции распределения или функции плотности вероятности:
+\begin{gather}
+    \probability{\modulus{X} < \frac{\pi}{4}}
+    = \probability{-\frac{\pi}{4} < X < \frac{\pi}{4}}
+    = \probability{X < \frac{\pi}{4}} - \probability{X \le -\frac{\pi}{4}} = \\
+    = \left [
+    \begin{array}{l}
+        F_X \left ( \frac{\pi}{4} \right ) - \lim \limits_{x \rightarrow - \frac{\pi}{4}+0} F_X(x) , \\
+        \int \limits_{-\frac{\pi}{4}}^{\frac{\pi}{4}} f_X(x) dx .
+    \end{array}
+    \right .
+\end{gather}
+С помощью функции распределения $F_X(x)$:
+\begin{multline}
+    \probability{\modulus{X} < \frac{\pi}{4}}
+    = \frac{1}{2} \left ( \sin \frac{\pi}{4} + 1 \right ) - \frac{1}{2} \left ( \sin \left ( - \frac{\pi}{4} \right ) + 1 \right ) = \\
+    %
+    = \frac{1}{2} \sin \frac{\pi}{4} - \frac{1}{2} \sin \left ( - \frac{\pi}{4} \right )
+    = \sin \frac{\pi}{4}
+    = \frac{1}{\sqrt{2}} .
+\end{multline}
+
+Математическое ожидание:
+\begin{equation}
+    \expectation{X}
+    = \int \limits_{-\infty}^{\infty} x \cdot f_X(x) dx
+    = \int \limits_{-\frac{\pi}{2}}^{\frac{\pi}{4}} x \cdot \frac{1}{2} \cos x dx
+    = 0,
+\end{equation}
+поскольку подынтегральная функция нечетная.
+
+При вычислении дисперсии воспользуемся её представлением через начальные моменты:
+\begin{equation}
+    \variance{X} = \expectation{X^2} - \left ( \expectation{X} \right )^2 .
+\end{equation}
+Остаётся вычислить только второй начальный момент:
+\begin{multline}
+    \expectation{X^2}
+    = \int \limits_{-\infty}^{\infty} x^2 \cdot f_X(x) dx
+    = \int \limits_{-\frac{\pi}{2}}^{\frac{\pi}{4}} x^2 \cdot \frac{1}{2} \cos x dx = \\
+    %
+    = \frac{1}{2} \left (
+    \left . x^2 \sin x \right |_{-\frac{\pi}{2}}^{\frac{\pi}{2}}
+    - \left . 2 x \left ( - \cos x \right )\right |_{-\frac{\pi}{2}}^{\frac{\pi}{2}}
+    + \left . 2 \left ( - \sin x \right )\right |_{-\frac{\pi}{2}}^{\frac{\pi}{2}}
+    \right )
+    = \\
+    %
+    = \frac{1}{2} \left (
+    \left ( \frac{\pi}{2} \right )^2 +  \left ( \frac{\pi}{2} \right )^2
+    - 0
+    + 2 \cdot ( - 2 )
+    \right )
+    = \left ( \frac{\pi}{2} \right )^2 - 2.
+\end{multline}
+Дисперсия:
+\begin{equation}
+    \variance{X}
+    = \left ( \frac{\pi}{2} \right )^2 - 2 - 0^2
+    = \left ( \frac{\pi}{2} \right )^2 - 2.
+\end{equation}
+
+\subsection*{Ответ:}
+\begin{enumerate}
+    \item $c = \frac{1}{2}$,
+    \item $F_X(x)
+    = \left \{
+    \begin{array}{ll}
+        0,                                       & \text{если } x < - \frac{\pi}{2},                    \\
+        \frac{1}{2} \left ( \sin x + 1 \right ), & \text{если } -\frac{\pi}{2} \le x \le \frac{\pi}{2}, \\
+        1,                                       & \text{если } \frac{\pi}{2} < x .
+    \end{array}
+    \right .
+    $
+    \item $\probability{\modulus{X} < \frac{\pi}{4}} = \frac{1}{\sqrt{2}}$,
+    \item $\expectation{X} = 0$,
+    \item $\variance{X} = \left ( \frac{\pi}{2} \right )^2 - 2$.
+\end{enumerate}
 
 \section*{Задача 18.365}
 
