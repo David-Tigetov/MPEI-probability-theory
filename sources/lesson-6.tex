@@ -2,7 +2,7 @@
 
 \section*{Введение}
 
-Случайная величина $\xi$ является случайной величиной непрерывного типа, если её функци распределения $F_\xi(x)$ можно представить в виде:
+Случайная величина $\xi$ является случайной величиной непрерывного типа, если её функцию распределения $F_\xi(x)$ можно представить в виде:
 \begin{equation}
     F_{\xi}(x) = \int \limits_{-\infty}^x f_\xi(t) dt ,
 \end{equation}
@@ -21,7 +21,9 @@
 Математическое ожидание --- начальный момент 1-го порядка, дисперсия --- центральный момент второго порядка. Можно показать, что дисперсия имеет следующее выражение через
 начальные моменты:
 \begin{equation}
-    \mu_2 = m_2 - m_1^2 .
+    \variance{\xi}
+    = \expectation{\left ( \xi - \expectation{\xi} \right )^2}
+    = \expectation{\xi^2} - \left ( \expectation{\xi}\right )^2 .
 \end{equation}
 
 Квантилью уровня $p$ ( $0 \le p \le 1$) называется такое число $x_p$, для которого выполняется равенство:
@@ -51,7 +53,7 @@
 
 \section*{Задача 18.269}
 
-Случайная величина $X$ распределена по закону, определяемому плотностью вероятностей вида:
+Случайная величина $X$ распределена по закону, определяемому функцией плотности вероятности вида:
 \[
     f_X(x)
     = \left \{
@@ -96,7 +98,7 @@
     = \left \{
     \begin{array}{ll}
         0,                                              & \text{если } x < - \frac{\pi}{2},                    \\
-        \int \limits_{-\infty}^x \frac{1}{2} \cos t dt, & \text{если } -\frac{\pi}{2} \le x \le \frac{\pi}{2}, \\
+        \int \limits_{-\frac{\pi}{2}}^x \frac{1}{2} \cos t dt, & \text{если } -\frac{\pi}{2} \le x \le \frac{\pi}{2}, \\
         1,                                              & \text{если } \frac{\pi}{2} < x .
     \end{array}
     \right .
@@ -114,17 +116,17 @@
 \end{equation}
 
 Вероятность события $\event{\modulus{X} < \frac{\pi}{4}}$ можно вычислить с помощью функции распределения или функции плотности вероятности:
-\begin{gather}
+\begin{multline}
     \probability{\modulus{X} < \frac{\pi}{4}}
-    = \probability{-\frac{\pi}{4} < X < \frac{\pi}{4}}
-    = \probability{X < \frac{\pi}{4}} - \probability{X \le -\frac{\pi}{4}} = \\
+    = \probability{-\frac{\pi}{4} < X < \frac{\pi}{4}} = \\
+    %
     = \left [
     \begin{array}{l}
-        F_X \left ( \frac{\pi}{4} \right ) - \lim \limits_{x \rightarrow - \frac{\pi}{4}+0} F_X(x) , \\
-        \int \limits_{-\frac{\pi}{4}}^{\frac{\pi}{4}} f_X(x) dx .
+        \int \limits_{-\frac{\pi}{4}}^{\frac{\pi}{4}} f_X(x) dx , \\
+        \probability{X < \frac{\pi}{4}} - \probability{X \le -\frac{\pi}{4}} = F_X \left ( \frac{\pi}{4} \right ) - \lim \limits_{x \rightarrow - \frac{\pi}{4}+0} F_X(x) .
     \end{array}
     \right .
-\end{gather}
+\end{multline}
 С помощью функции распределения $F_X(x)$:
 \begin{multline}
     \probability{\modulus{X} < \frac{\pi}{4}}
@@ -139,7 +141,7 @@
 \begin{equation}
     \expectation{X}
     = \int \limits_{-\infty}^{\infty} x \cdot f_X(x) dx
-    = \int \limits_{-\frac{\pi}{2}}^{\frac{\pi}{4}} x \cdot \frac{1}{2} \cos x dx
+    = \int \limits_{-\frac{\pi}{2}}^{\frac{\pi}{2}} x \cdot \frac{1}{2} \cos x dx
     = 0,
 \end{equation}
 поскольку подынтегральная функция нечетная.
@@ -152,7 +154,7 @@
 \begin{multline}
     \expectation{X^2}
     = \int \limits_{-\infty}^{\infty} x^2 \cdot f_X(x) dx
-    = \int \limits_{-\frac{\pi}{2}}^{\frac{\pi}{4}} x^2 \cdot \frac{1}{2} \cos x dx = \\
+    = \int \limits_{-\frac{\pi}{2}}^{\frac{\pi}{2}} x^2 \cdot \frac{1}{2} \cos x dx = \\
     %
     = \frac{1}{2} \left (
     \left . x^2 \sin x \right |_{-\frac{\pi}{2}}^{\frac{\pi}{2}}
@@ -270,7 +272,7 @@
     = \left \{
     \begin{array}{ll}
         0,              & \text{если } x < 0,      \\
-        \frac{x}{5} dt, & \text{если } 0 \le x < 5 \\
+        \frac{x}{5}, & \text{если } 0 \le x < 5 \\
         1,              & \text{если } 5 \le x
     \end{array}
     \right .
@@ -344,8 +346,7 @@
     %
     = \left . x^2 \left ( - e^{-\lambda x} \right ) \right |_0^\infty
     - 2 x \left . \frac{1}{\lambda} e^{-\lambda x} \right |_0^\infty
-    + 2 \left . \left ( - \frac{1}{\lambda^2} e^{-\lambda x} \right ) \right |_0^\infty = \\
-    %
+    + 2 \left . \left ( - \frac{1}{\lambda^2} e^{-\lambda x} \right ) \right |_0^\infty
     = 2 \frac{1}{\lambda^2} ,
 \end{multline}
 дисперсию:
@@ -393,7 +394,7 @@
 
 \section*{Задача 18.365}
 
-В нормально распределенной совокупности 15\% значений $X$ меньше 12 и 40\% значений X больше 16.2. Найти среднее значение $m$ и стандартное отклонение $\sigma$ данного
+В нормально распределенной совокупности 15\% значений $X$ меньше 12 и 40\% значений $X$ больше 16.2. Найти среднее значение $m$ и стандартное отклонение $\sigma$ данного
 нормального распределения.
 
 \subsection*{Решение:}
@@ -494,7 +495,7 @@
 \end{gather}
 
 \subsection*{Ответ:}
-Математическое ожидание $m \approx 3.23$ и стандартное отклонение $\sigma \approx 15.39$.
+Математическое ожидание $m \approx 15.39$ и стандартное отклонение $\sigma \approx 3.23$.
 
 \section*{Задачи для самостоятельного решения}
 
