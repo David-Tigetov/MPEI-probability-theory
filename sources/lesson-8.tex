@@ -1,1 +1,129 @@
 \chapter{Характеристические функции}
+
+\begin{comment}
+    \section*{Задача 18.472}
+
+    Случайная величина $X$ дискретного типа может принимать только два возможных значения -1 и 1, с равными вероятностями. Вычислить характеристическую функцию данного распределения.
+
+    \subsection*{Решение:}
+
+    По определению характеристическая функция $E_X(t)$ случайной величины $X$ имеет вид:
+    \begin{multline}
+        E_X(t)
+        = e^{it \cdot (-1)} \probability{X = -1} + e^{it \cdot 1} \probability{X = 1}
+        = e^{-it} \frac{1}{2} + e^{it} \frac{1}{2}
+        = \frac{e^{-it} + e^{it}}{2} = \\
+        %
+        = \frac{\cos t - i \sin t + \cos t + i \sin t}{2}
+        = \frac{\cos t + \cos t}{2}
+        = \cos t.
+    \end{multline}
+
+    \subsection*{Ответ:}
+    $\cos t$.
+\end{comment}
+
+\section*{Задачи 18.474, 18.475}
+
+Проводятся последовательные независимые испытания с двумя исходами. Случайные величины: $I_k$ --- индикатор успеха в $k$-ом испытании, $X$ --- число успехов в $n$ испытаниях,
+$p_k$ --- вероятность успеха в $k$-ом испытании. Необходимо:
+\begin{enumerate}
+    \item найти характеристические функции $E_{I_k}(t)$ величин $I_k$,
+    \item найти характеристическую функцию $E_X(t)$ величины $X$,
+    \item с характеристической функции $E_X(t)$ вычислить математическое ожидание $\expectation{X}$ и дисперсию $\variance{X}$ случайной величины $X$.
+\end{enumerate}
+
+\subsection*{Решение:}
+
+Характеристические функции $E_{I_k}(t)$ случайных величин $I_k$ имеют вид:
+\begin{equation}
+    E_{I_k}(t)
+    = e^{it \cdot 0} \probability{I_k = 0} + e^{it \cdot 1} \probability{I_k = 1}
+    = 1 \cdot ( 1 - p_k ) + e^{it} \cdot p_k .
+\end{equation}
+
+Случайная величина $X$ является суммой независимых в совокупности величин $I_k$:
+\begin{equation}
+    X = I_1 + I_2 + \dots + I_n,
+\end{equation}
+поэтому характеристическая функция $E_X(t)$ случайной величины $X$ является произведением характеристических функций $I_k(t)$:
+\begin{equation}
+    E_X(t)
+    = E_{I_1}(t) \cdot E_{I_2}(t) \cdot \dots E_{I_n}(t)
+    = \prod_{k=1}^n \left ( 1 - p_k + e^{it} p_k \right ).
+\end{equation}
+
+Математическое ожидание величины $X$ --- первый начальный момент --- равен значению первой производной характеристической функции в нуле:
+\begin{multline}
+    \expectation{X} = m_1
+    = \frac{1}{i} \left . \derivative{t} E_X(t) \right |_{t=0}
+    = \frac{1}{i} \left . \sum_{l=1}^n e^{it} i p_l \cdot \prod_{k \neq l} \left ( 1 - p_k + e^{it} p_k \right ) \right |_{t=0} = \\
+    %
+    = \frac{1}{i}  \sum_{l=1}^n i p_l \cdot \prod_{k \neq l} \left ( 1 - p_k + p_k \right )
+    = \frac{1}{i} \sum_{l=1}^n i p_l
+    = \sum_{l=1}^n p_l .
+\end{multline}
+
+Дисперсию случайной величины $X$ будем вычислять через второй начальный момент случайной величины $X$, который равен значению второй производной характеристической функции
+$E_X(t)$ в нуле:
+\begin{multline}
+    m_2
+    = \frac{1}{i^2} \left . \Kderivative{2}{t} E_X(t) \right |_{t=0}
+    = \frac{1}{i^2} \left . \derivative{t} \left ( \sum_{l=1}^n e^{it} i p_l \cdot \prod_{k \neq l} \left ( 1 - p_k + e^{it} p_k \right ) \right ) \right |_{t=0} = \\
+    %
+    = \frac{1}{i^2}
+    \left .
+    \sum_{l=1}^n
+    \left (
+    e^{it} i^2 p_l \cdot \prod_{k \neq l} \left ( 1 - p_k + e^{it} p_k \right )
+    + e^{it} i p_l \cdot \sum_{k \neq l} e^{it} i p_k \prod_{m \neq l, m \neq k} \left ( 1 - p_m + e^{it} p_m \right )
+    \right )
+    \right |_{t=0} = \\
+    %
+    = \frac{1}{i^2}
+    \sum_{l=1}^n
+    \left (
+    i^2 p_l \cdot \prod_{k \neq l} \left ( 1 - p_k + p_k \right )
+    + i p_l \cdot \sum_{k \neq l} i p_k \prod_{m \neq l, m \neq k} \left ( 1 - p_m + p_m \right )
+    \right ) = \\
+    %
+    = \frac{1}{i^2} \sum_{l=1}^n \left ( i^2 p_l + i p_l \sum_{k \neq l} i p_k \right )
+    = \sum_{l=1}^n \left ( p_l + p_l \sum_{k \neq l} p_k \right )
+    = \sum_{l=1}^n p_l + \sum_{l=1}^n p_l \sum_{k \neq l} p_k \right ) = \\
+    %
+    = \sum_{l=1}^n p_l + \sum_{l=1}^n \sum_{k \neq l} p_l p_k \right ) .
+\end{multline}
+
+С учётом полученных значений $m_1$ и $m_2$, дисперсия имеет вид:
+\begin{multline}
+    \variance{X}
+    = m_2 - m_1^2
+    = \sum_{l=1}^n p_l + \sum_{l=1}^n \sum_{k \neq l} p_l p_k \right ) - \left ( \sum_{l=1}^n p_l \right )^2 = \\
+    %
+    = \sum_{l=1}^n p_l + \sum_{l=1}^n \sum_{k \neq l} p_l p_k \right ) - \sum_{l=1}^n p_l \cdot \sum_{k=1}^n p_k = \\
+    %
+    = \sum_{l=1}^n p_l + \sum_{l=1}^n \sum_{k \neq l} p_l p_k \right ) - \sum_{l=1}^n \sum_{k=1}^n p_l p_k = \\
+    %
+    = \sum_{l=1}^n p_l - \sum_{l=1}^n p_l p_l
+    = \sum_{l=1}^n \left ( p_l - p_l^2 \right )
+    = \sum_{l=1}^n p_l \left ( 1 - p_l \right ).
+\end{multline}
+
+\subsection*{Ответ:}
+\begin{enumerate}
+    \item $E_{I_k}(t) = 1 - p_k + e^{it} p_k$,
+    \item $E_X(t) = \prod_{k=1}^n \left ( 1 - p_k + e^{it} p_k \right )$,
+    \item $\expectation{X} = \sum_{l=1}^n p_l$,
+    \item $\variance{X} = \sum_{l=1}^n p_l ( 1 - p_l )$.
+\end{enumerate}
+
+
+\section*{Задачи для самостоятельного решения}
+
+Из раздела 18 сборника задач Ефимова и Поспелова.
+\begin{enumerate}
+    \item На занятии: 473.
+    \item Дома: .
+\end{enumerate}
+
+Из сборника задач типового расчёта Чудесенко: 23, 24.
