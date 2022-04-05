@@ -89,20 +89,20 @@ $E_X(t)$ в нуле:
     %
     = \frac{1}{i^2} \sum_{l=1}^n \left ( i^2 p_l + i p_l \sum_{k \neq l} i p_k \right )
     = \sum_{l=1}^n \left ( p_l + p_l \sum_{k \neq l} p_k \right )
-    = \sum_{l=1}^n p_l + \sum_{l=1}^n p_l \sum_{k \neq l} p_k \right ) = \\
+    = \sum_{l=1}^n p_l + \sum_{l=1}^n p_l \sum_{k \neq l} p_k = \\
     %
-    = \sum_{l=1}^n p_l + \sum_{l=1}^n \sum_{k \neq l} p_l p_k \right ) .
+    = \sum_{l=1}^n p_l + \sum_{l=1}^n \sum_{k \neq l} p_l p_k .
 \end{multline}
 
 С учётом полученных значений $m_1$ и $m_2$, дисперсия имеет вид:
 \begin{multline}
     \variance{X}
     = m_2 - m_1^2
-    = \sum_{l=1}^n p_l + \sum_{l=1}^n \sum_{k \neq l} p_l p_k \right ) - \left ( \sum_{l=1}^n p_l \right )^2 = \\
+    = \sum_{l=1}^n p_l + \sum_{l=1}^n \sum_{k \neq l} p_l p_k - \left ( \sum_{l=1}^n p_l \right )^2 = \\
     %
-    = \sum_{l=1}^n p_l + \sum_{l=1}^n \sum_{k \neq l} p_l p_k \right ) - \sum_{l=1}^n p_l \cdot \sum_{k=1}^n p_k = \\
+    = \sum_{l=1}^n p_l + \sum_{l=1}^n \sum_{k \neq l} p_l p_k - \sum_{l=1}^n p_l \cdot \sum_{k=1}^n p_k = \\
     %
-    = \sum_{l=1}^n p_l + \sum_{l=1}^n \sum_{k \neq l} p_l p_k \right ) - \sum_{l=1}^n \sum_{k=1}^n p_l p_k = \\
+    = \sum_{l=1}^n p_l + \sum_{l=1}^n \sum_{k \neq l} p_l p_k - \sum_{l=1}^n \sum_{k=1}^n p_l p_k = \\
     %
     = \sum_{l=1}^n p_l - \sum_{l=1}^n p_l p_l
     = \sum_{l=1}^n \left ( p_l - p_l^2 \right )
@@ -149,7 +149,7 @@ $E_X(t)$ в нуле:
     \int \limits_{-\infty}^\infty \frac{e^{ity}}{y^2 + a^2}
     = 2 \pi i \left [
     \begin{array}{ll}
-         \res \limits_{y=ia} \left [ \frac{e^{ity}}{y^2 + a^2} \right ]    & \text{при } t > 0 , \\
+        \res \limits_{y=ia} \left [ \frac{e^{ity}}{y^2 + a^2} \right ]    & \text{при } t > 0 , \\
         - \res \limits_{y=-ia} \left [ \frac{e^{ity}}{y^2 + a^2} \right ] & \text{при } t < 0.
     \end{array}
     \right .
@@ -187,12 +187,74 @@ $E_X(t)$ в нуле:
 \subsection*{Ответ:}
 $E_X(t) = e^{itc - \modulus{t} a}$.
 
+\section*{Задача 18.497}
+
+Случайная величина $X$ непрерывного типа имеет характеристическую функцию вида
+\[
+    E_X(t)
+    = \left \{
+    \begin{array}{ll}
+        1 - \modulus{t}, & \modulus{t} \le 1 , \\
+        0,               & \modulus{t} > 1
+    \end{array}
+    \right .
+\]
+
+Найти её плотность распределения вероятностей $f_X(x)$.
+
+\subsection*{Решение:}
+
+Функцию плотности вероятности можно восстановить по характеристической функции вычислением интеграла:
+\begin{multline}
+    f_X(x)
+    = \frac{1}{2 \pi} \int \limits_{-\infty}^\infty e^{-itx} E_X(t) dt
+    = \frac{1}{2 \pi} \int \limits_{-1}^1 e^{-itx} \left ( 1 - \modulus{t} \right ) dt = \\
+    %
+    = \frac{1}{2 \pi} \left ( \int \limits_{-1}^1 e^{-itx} dt - \int \limits_{-1}^1 e^{-itx} \modulus{t} dt \right )
+\end{multline}
+Первый интеграл:
+\begin{equation}
+    \int \limits_{-1}^1 e^{-itx} dt
+    = \left . \frac{e^{-itx}}{-ix} \right |_{-1}^1
+    = \frac{e^{-ix} - e^{ix}}{-ix}
+    = \frac{e^{ix} - e^{-ix}}{ix}
+    = 2 \frac{\sh \left ( ix \right )}{ix}
+\end{equation}
+Второй интеграл представляется в виде двух интегралов:
+\begin{multline}
+    \int \limits_{-1}^1 \modulus{t} e^{-itx} dt
+    = \int \limits_{-1}^0 (-t) e^{-itx} dt + \int \limits_0^1 t e^{-itx} dt
+    = - \int \limits_{-1}^0 t e^{itx} dt + \int \limits_0^1 t e^{-itx} dt = \\
+    %
+    = \int \limits_0^1 t e^{itx} dt + \int \limits_0^1 t e^{-itx} dt
+    = \int \limits_0^1 t \left ( e^{itx} + e^{-itx} \right ) dt
+    = 2 \int \limits_0^1 t \ch \left ( itx \right ) dt = \\
+    %
+    = 2 \left ( \left . t \frac{\sh \left ( itx \right )}{ix} \right |_0^1 - \left . \frac{\ch \left ( itx \right )}{\left ( ix \right )^2} \right |_0^1 \right )
+    = 2 \left ( \frac{\sh \left ( ix \right )}{ix} - \frac{\ch \left ( ix \right ) - 1}{\left ( ix \right )^2} \right ) .
+\end{multline}
+В результате получим:
+\begin{multline}
+    f_X(x)
+    = \frac{1}{2 \pi} \left ( 2 \frac{\sh \left ( ix \right )}{ix} - 2 \left ( \frac{\sh \left ( ix \right )}{ix} - \frac{\ch \left ( ix \right ) - 1}{\left ( ix \right )^2} \right ) \right )
+    = \frac{1}{2 \pi} 2 \frac{\ch \left ( ix \right ) - 1}{\left ( ix \right )^2} = \\
+    %
+    = \frac{1}{\pi} \frac{\ch \left ( ix \right ) - 1}{\left ( -1 \right ) x^2}
+    = \frac{1 - \ch \left ( ix \right )}{\pi x^2}
+    = \frac{1 - \cos \left ( i \cdot ix \right )}{\pi x^2}
+    = \frac{1 - \cos \left ( -x \right )}{\pi x^2}
+    = \frac{1 - \cos x}{\pi x^2} .
+\end{multline}
+
+\subsection*{Ответ:}
+$f_X(x) = \frac{1 - \cos x}{\pi x^2}$.
+
 \section*{Задачи для самостоятельного решения}
 
 Из раздела 18 сборника задач Ефимова и Поспелова.
 \begin{enumerate}
     \item На занятии: 473, 486.
-    \item Дома: 476, 477, 478, 479, 484, 485, 491.
+    \item Дома: 476, 477, 478, 484, 485, 491, 492.
 \end{enumerate}
 
 Из сборника задач типового расчёта Чудесенко: 23, 24.
