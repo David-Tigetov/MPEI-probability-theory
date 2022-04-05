@@ -117,13 +117,82 @@ $E_X(t)$ в нуле:
     \item $\variance{X} = \sum_{l=1}^n p_l ( 1 - p_l )$.
 \end{enumerate}
 
+\section*{Задача 18.487}
+
+Случайная величина $X$ подчиняется закону Коши с параметрами $c \in \mathbb{R}$ и $a > 0$ с плотностью распределения вероятностей:
+\[
+    f_X(x) = \frac{a}{\pi} \frac{1}{\left ( x - c \right )^2 + a^2}.
+\]
+Найти её характеристическую функцию $E_X(t)$.
+
+\subsection*{Решение:}
+Согласно определению характеристической функции:
+\begin{multline}
+    E_X(t)
+    = \int \limits_{-\infty}^\infty e^{itx} f_X(x) dx
+    = \int \limits_{-\infty}^\infty e^{itx} \frac{a}{\pi} \frac{1}{(x-c)^2 + a^2} dx = \\
+    %
+    = \begin{vmatrix}
+          y = x - c \\ dy = dx
+    \end{vmatrix}
+    = \int \limits_{-\infty}^\infty e^{it(y+c)} \frac{a}{\pi} \frac{1}{y^2 + a^2} dy
+    = \frac{a}{\pi} e^{itc} \int \limits_{-\infty}^\infty \frac{e^{ity}}{y^2 + a^2} dy .
+\end{multline}
+Интеграл, стоящий в правой части, вычислим с помощью вычетов. У подынтегральной функции
+\begin{equation}
+    \frac{e^{ity}}{y^2 + a^2}
+    = \frac{e^{ity}}{y^2 - i^2 a^2}
+    = \frac{e^{ity}}{\left ( y + ia \right ) \left ( y - ia \right )}
+\end{equation}
+два простых полюса $ia$ и $-ia$, поэтому:
+\begin{equation}
+    \int \limits_{-\infty}^\infty \frac{e^{ity}}{y^2 + a^2}
+    = 2 \pi i \left [
+    \begin{array}{ll}
+         \res \limits_{y=ia} \left [ \frac{e^{ity}}{y^2 + a^2} \right ]    & \text{при } t > 0 , \\
+        - \res \limits_{y=-ia} \left [ \frac{e^{ity}}{y^2 + a^2} \right ] & \text{при } t < 0.
+    \end{array}
+    \right .
+\end{equation}
+при этом вычеты:
+\begin{gather}
+    \res \limits_{y=ia} \left [ \frac{e^{ity}}{y^2 + a^2} \right ]
+    = \left . \frac{e^{ity}}{\derivative{y} \left ( y^2 + a^2 \right )} \right |_{y=ia}
+    = \left . \frac{e^{ity}}{2 y} \right |_{y=ia}
+    = \frac{e^{it ia}}{2 i a}
+    = \frac{e^{- t a}}{2 i a}
+    = \frac{e^{- \modulus{t} a}}{2 i a}, \\
+    %
+    \res \limits_{y=ia} \left [ \frac{e^{ity}}{y^2 + a^2} \right ]
+    = \left . \frac{e^{ity}}{\derivative{y} \left ( y^2 + a^2 \right )} \right |_{y=-ia}
+    = \left . \frac{e^{ity}}{2 y} \right |_{y=-ia}
+    = \frac{e^{it (-ia)}}{2 (-i a)}
+    = - \frac{e^{t a}}{2 i a}
+    = \frac{e^{- \modulus{t} a}}{2 i a} .
+\end{gather}
+откуда интеграл
+\begin{equation}
+    \int \limits_{-\infty}^\infty \frac{e^{ity}}{y^2 + a^2}
+    = 2 \pi i \frac{e^{- \modulus{t} a}}{2 i a}
+    = \pi \frac{e^{- \modulus{t} a}}{a},
+\end{equation}
+и характеристическая функция
+\begin{equation}
+    E_X(t)
+    = \frac{a}{\pi} e^{itc} \cdot \pi \frac{e^{- \modulus{t} a}}{a}
+    = e^{itc} \cdot e^{- \modulus{t} a}
+    = e^{itc - \modulus{t} a} .
+\end{equation}
+
+\subsection*{Ответ:}
+$E_X(t) = e^{itc - \modulus{t} a}$.
 
 \section*{Задачи для самостоятельного решения}
 
 Из раздела 18 сборника задач Ефимова и Поспелова.
 \begin{enumerate}
-    \item На занятии: 473.
-    \item Дома: .
+    \item На занятии: 473, 486.
+    \item Дома: 476, 477, 478, 479, 484, 485, 491.
 \end{enumerate}
 
 Из сборника задач типового расчёта Чудесенко: 23, 24.
