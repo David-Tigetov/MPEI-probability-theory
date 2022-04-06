@@ -1,5 +1,43 @@
 \chapter{Характеристические функции}
 
+\section*{Введение}
+
+Для каждой случайной величины $\xi$ вводится понятие характеристической функции $E_\xi(t)$ действительной переменной $t$:
+\begin{equation}
+    E_\xi(t) = \expectation{e^{i t \xi}}.
+\end{equation}
+Eсли $\xi$ --- случайная величина дискретного типа, то
+\begin{equation}
+    E_\xi(t) = \sum_{x_k} e^{i t x_k} \probability{\xi = x_k},
+\end{equation}
+если $\xi$ --- случайная величина непрерывного типа, то
+\begin{equation}
+    E_\xi(t) = \int \limits_{-\infty}^\infty e^{i t x} f_\xi(x) dx,
+\end{equation}
+где $f_\xi(x)$ --- функция плотности вероятности величины $\xi$.
+
+Характеристические функции обладают следующими свойствами:
+\begin{itemize}
+    \item линейное преобразование: если $\eta = a \xi + b$, то характеристическая функция $E_\eta(t)$ случайной величины $\eta$ имеет вид
+    \begin{equation}
+        E_\eta(t) = e^{i t b} E_\xi(a t),
+    \end{equation}
+    \item начальные моменты:
+    \begin{equation}
+        \expectation{\xi^k} i^k = \left . \Kderivative{k}{t} E_\xi(t) \right |_{t=0} ,
+    \end{equation}
+    \item суммы случайных величины: если $\xi_1$, \dots, $\xi_n$ независимые в совокупности случайные величины, имеющие характеристические функции $E_{\xi_1}(t)$, \dots,
+    $E_{\xi_n}(t)$, и $\eta = \xi_1 + \dots \xi_n$, то характеристическая функция $E_\eta(t)$ случайной величины $\eta$ имеет вид
+    \begin{equation}
+        E_\eta = E_{\xi_1}(t) \cdot ... \cdot E_{\xi_n}(t) .
+    \end{equation}
+\end{itemize}
+
+По характеристической функции $E_\xi(t)$ можно восстановить функцию плотности вероятности $f_\xi(x)$:
+\begin{equation}
+    f_\xi(x) = \frac{1}{2 \pi} \int \limits_{-\infty}^\infty e^{-i t x} E_\xi(t) dt .
+\end{equation}
+
 \begin{comment}
     \section*{Задача 18.472}
 
