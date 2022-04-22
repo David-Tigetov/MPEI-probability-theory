@@ -1,8 +1,7 @@
 \chapter{Случайные векторы.}
 
+\section*{Задачи 18.397, 18.398, 18.399}
 
-\section{Задачи 18.397, 18.398, 18.399}
-\subsection*{Условие}
 Число $X$ выбирается случайным образом из множества целых чисел $\left \{ 1, 2, 3 \right \}$. Затем из того же множества выбирается наудачу число $Y$, большее первого
 или равное ему. Требуется
 \begin{enumerate}
@@ -62,7 +61,7 @@
 
     \begin{figure}[ht]
         \centering
-        \includegraphics[width=0.6\textwidth]{397-probability-function.jpg}
+        \includegraphics[width=0.6\textwidth]{lesson-9/397-probability-function.jpg}
         \caption{График функции распределения $F_{XY}(x,y)$.}
         \label{397:probability-function}
     \end{figure}
@@ -610,8 +609,8 @@
 \end{enumerate}
 
 
-\section{Задачи 18.404, 18.405, 18.406}
-\subsection*{Условие}
+\section*{Задачи 18.404, 18.405, 18.406}
+
 Плотность распределения вероятностей случайного вектора $\left ( X, Y \right )$ имеет следующий вид:
 $$
 f_{X,Y}(x,y)
@@ -1071,8 +1070,78 @@ $$
     $\expectation{\condition{X}{Y=y}} = \frac{1}{2} + \frac{\frac{1}{12}}{y + \frac{1}{2}}$ .
 \end{enumerate}
 
+\section*{Задача 18.426}
 
-\section{Домашнее задание}
-Типовой расчет 30
+Координаты точек на плоскости независимы и распределены по законам $\mathcal{N} \left ( a, \sigma \right )$ и $\mathcal{N} \left ( b, \sigma \right )$. Найти радиус круга
+с центром в точке $\left ( a, b \right )$, вероятность попадания в который равна 0.997.
 
-Задачи 385, 386, 389, 407-408, 411-415, 419.
+\subsection*{Решение:}
+
+Пусть $X$ и $Y$ обозначают случайные координаты точки, $R$ --- искомый радиус круга, и $S = \left \{ (x,y) : (x-a)^2 + (y-b)^2 \le R \right \}$ --- круг. Необходимо выбрать
+радиус $R$ из условия:
+\begin{equation}
+    \probability{\left ( X, Y \right ) \in S} = 0.997.
+\end{equation}
+
+Выразим вероятность в парвой части через радиус $R$. Пусть $f_{XY}(x,y)$ --- плотность вероятности вектора $\left ( X, Y \right )$, тогда:
+\begin{equation}
+    \probability{\left ( X, Y \right ) \in S} = \iint \limits_{(x,y) \in S} f_{XY}(x,y) dx dy
+\end{equation}
+
+По условию случайные величины $X$ и $Y$ независимы, поэтому плотность вероятности $f_{XY}(x,y)$ вектора $\left ( X, Y \right )$ является произведением плотностей вероятностей
+величин $X$ и $Y$:
+\begin{gather}
+    f_{XY}(x,y) = f_X(x) \cdot f_Y(y) , \\
+    f_X(x) = \frac{1}{\sqrt{2 \pi} \sigma} e^{- \frac{1}{2} \frac{\left ( x - a \right )^2}{\sigma^2}} , \\
+    f_Y(y) = \frac{1}{\sqrt{2 \pi} \sigma} e^{- \frac{1}{2} \frac{\left ( y - b \right )^2}{\sigma^2}} .
+\end{gather}
+Таким образом,
+\begin{multline}
+    \iint \limits_{(x,y) \in S} f_{XY}(x,y) dx dy
+    = \iint \limits_{(x,y) \in S} \frac{1}{\sqrt{2 \pi} \sigma} e^{- \frac{1}{2} \frac{\left ( x - a \right )^2}{\sigma^2}} \frac{1}{\sqrt{2 \pi} \sigma} e^{- \frac{1}{2} \frac{\left ( y - b \right )^2}{\sigma^2}} dx dy = \\
+    %
+    = \frac{1}{2 \pi} \iint \limits_{(x,y) \in S}  e^{- \frac{1}{2} \frac{\left ( x - a \right )^2 + \left ( y - b \right )^2}{\sigma^2}} \frac{1}{\sigma^2} dx dy
+    = \begin{vmatrix}
+          u = \frac{x - a}{\sigma} \\
+          v = \frac{y - b}{\sigma}
+    \end{vmatrix}
+    = \frac{1}{2 \pi} \iint \limits_{(x,y) \in S_0}  e^{- \frac{1}{2} \left ( u^2 + v^2 \right )} du dv ,
+\end{multline}
+где $S_0 = \left \{ (u,v) : u^2 + v^2 \le \frac{R}{\sigma} \right \}$ --- круг с центром в начале координат радиуса $\frac{R}{\sigma}$. Для вычисления интеграла перейдем к
+полярным координатам:
+\begin{gather}
+    u = \rho \cos \varphi, \\
+    v = \rho \sin \varphi, \\
+    \jacobian{u, v}{\rho, \varphi} = \rho.
+\end{gather}
+Тогда
+\begin{multline}
+    \frac{1}{2 \pi} \iint \limits_{(x,y) \in S_0}  e^{- \frac{1}{2} \left ( u^2 + v^2 \right )} du dv
+    = \frac{1}{2 \pi} \int \limits_0^\frac{R}{\sigma} \int \limits_0^{2 \pi} e^{- \frac{1}{2} \rho^2} \rho d \varphi d \rho
+    = \frac{1}{2 \pi} \int \limits_0^\frac{R}{\sigma} 2 \pi e^{- \frac{1}{2} \rho^2} \rho d \rho = \\
+    %
+    = \int \limits_0^\frac{R}{\sigma} e^{- \frac{1}{2} \rho^2} \rho d \varphi d \rho
+    = \left . - e^{-\frac{1}{2} \rho^2} \right |_0^{\frac{R}{\sigma}}
+    = 1 - e^{-\frac{1}{2} \left ( \frac{R}{\sigma} \right )^2} .
+\end{multline}
+Таким образом, условие для радиуса $R$ принимает вид:
+\begin{gather}
+    1 - e^{-\frac{1}{2} \left ( \frac{R}{\sigma} \right )^2} = 0.997 , \\
+    e^{-\frac{1}{2} \left ( \frac{R}{\sigma} \right )^2} = 0.003 , \\
+    -\frac{1}{2} \left ( \frac{R}{\sigma} \right )^2 = \ln 0.003 , \\
+    \left ( \frac{R}{\sigma} \right )^2 = - 2 \ln 0.003 , \\
+    R = \sigma \sqrt{- 2 \ln 0.003} .
+\end{gather}
+
+\subsection*{Ответ:}
+$\sigma \sqrt{-2 \ln 0.003}$.
+
+\section*{Задачи для самостоятельного решения}
+
+Из раздела 18 сборника задач Ефимова и Поспелова.
+\begin{enumerate}
+    \item На занятии: 383, 407, 408.
+    \item Дома: 378 -- 381, 389, 393, 411 -- 413, 423, 431.
+\end{enumerate}
+
+Из сборника задач типового расчёта Чудесенко: 30.
