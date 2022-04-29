@@ -1,57 +1,55 @@
 \chapter{Преобразование случайных векторов}
 
 
-\section{Свойства}
+\section*{Введение}
 Пусть $X$ и $Y$ --- случайные величины, и $a$, $b$ и $c$ --- числа.
 
 Для математического ожидания справедливо свойство линейности:
 \begin{equation}
-    \label{expectation}
     \expectation{a \cdot X + b \cdot Y + c}
     = a \cdot \expectation{X} + b \cdot \expectation{Y} + c
 \end{equation}
-
-Для дисперсии справедливо равенство:
+а для дисперсии справедливо равенство:
 \begin{equation}
-    \label{variance}
     \variance{a \cdot X + b \cdot Y + c}
-    = a^2 \cdot \variance{X} + b^2 \cdot \variance{Y} + 2 a b \cdot \covariance{X}{Y}
+    = a^2 \cdot \variance{X} + b^2 \cdot \variance{Y} + 2 a b \cdot \covariance{X}{Y},
 \end{equation}
-
-С использование свойств \eqref{expectation} и \eqref{variance} можно показать справедливость следующих выражений для дисперсии:
+где
 \begin{multline}
-    \variance{X}
-    = \expectation{\left ( X - \expectation{X} \right )^2}
-    = \expectation{X^2 - 2 X \cdot \expectation{X} + \expectation{X}^2} = \\
+    \label{10:covariance}
+    \covariance{X}{Y}
+    = \expectation{\left ( X - \expectation{X} \right ) \left ( Y - \expectation{Y} \right )} = \\
     %
-    = \expectation{X^2} - 2 \expectation{X} \cdot \expectation{X} + \expectation{X}^2
-    = \expectation{X^2} - \expectation{X}^2
+    = \expectation{ X Y - \expectation{X} Y - X \expectation{Y} - \expectation{X} \expectation{Y}} = \\
+    %
+    = \expectation{XY} - \expectation{X} \expectation{Y} - \expectation{X} \expectation{Y} + \expectation{X} \expectation{Y} = \\
+    %
+    = \expectation{XY} - \expectation{X} \expectation{Y}.
 \end{multline}
-и ковариации:
-\begin{multline}
-    \label{covariance}
+Для \textbf{независимых} случайных величин:
+\begin{equation}
     \covariance{X}{Y}
     = \expectation{\left ( X - \expectation{X} \right ) \left ( Y - \expectation{Y} \right )}
-    = \expectation{ X Y - \expectation{X} Y - X \expectation{Y} + \expectation{X} \expectation{Y}} = \\
-    %
-    = \expectation{XY} - \expectation{X} \expectation{Y} - \expectation{X} \expectation{Y} + \expectation{X} \expectation{Y}
-    = \expectation{XY} - \expectation{X} \expectation{Y} .
-\end{multline}
+    = \left ( \expectation{X} - \expectation{X} \right ) \left ( \expectation{Y} - \expectation{Y} \right )
+    = 0 \cdot 0
+    = 0 .
+\end{equation}
 
 
-\section{Задача 18.437}
-\section*{Условие}
+\section*{Задача 18.437}
+
 Случайные величины $X$ и $Y$ независимы и имеют следующие характеристики: $m_X = 1$, $m_Y = 2$, $\sigma_X = 1$, $\sigma_Y = 2$.
 Вычислить математические ожидания случайных величин:
 \begin{enumerate}
     \item $U = X^2 + 2 Y^2 - XY - 4X + Y + 4$,
     \item $V = (X + Y - 1)^2$
 \end{enumerate}
-\section*{Решение}
+
+\subsection*{Решение:}
 \begin{enumerate}
     \item По свойству линейности математического ожидания:
     \begin{multline}
-        \label{437:U}
+        \label{10:437:U}
         \expectation{U}
         = \expectation{X^2 + 2 Y^2 - XY - 4X + Y + 4} = \\
         = \expectation{X^2} + 2 \expectation{Y^2} - \expectation{XY} - 4 \expectation{X} + \expectation{Y} + \expectation{4}
@@ -60,11 +58,11 @@
     Для вычисления вторых начальных моментов используем известное соотношение для дисперсии:
     \begin{gather}
         \variance{X} = \expectation{X^2} - \left ( \expectation{X} \right )^2 , \\
-        \variance{X} + \left ( \expectation{X} \right )^2 = \expectation{X^2} \label{437:X_2}.
+        \variance{X} + \left ( \expectation{X} \right )^2 = \expectation{X^2} \label{10:437:X_2}.
     \end{gather}
     и
     \begin{equation}
-        \label{437:Y_2}
+        \label{10:437:Y_2}
         \expectation{Y^2} = \variance{Y} + \left ( \expectation{Y} \right )^2.
     \end{equation}
 
@@ -73,43 +71,40 @@
         \expectation{XY} = \expectation{X} \cdot \expectation{Y}
     \end{gather}
 
-    Подставляя полученные выражения в равенство \eqref{437:U}, получим:
+    Подставляя полученные выражения в равенство \eqref{10:437:U}, получим:
     \begin{multline}
         \expectation{U}
         = \variance{X} + \left ( \expectation{X} \right )^2 + 2 \left ( \variance{Y} + \left ( \expectation{Y} \right )^2 \right ) - \expectation{X} \cdot \expectation{Y} - 4 \expectation{X} + \expectation{Y} + \expectation{4} = \\
         = \sigma_X^2 + m_X^2 + 2 \left ( \sigma_Y^2 + m_Y^2 \right ) - m_X m_Y - 4 m_X + m_Y + 4 = \\
         = 1^2 + 1^2 + 2 \left ( 2^2 + 2^2 \right ) - 1 \cdot 2 - 4 \cdot 1 + 2 + 4 = 18
+        .
     \end{multline}
 
     \item Заметим, что величина $V$ является квадратом выражения, и требуется найти второй начальный момент:
     \begin{equation}
-        \label{437:expectation}
+        \label{10:437:expectation}
         \expectation{V} = \expectation{\left ( X + Y - 1 \right )^2} = \variance{X + Y - 1} + \left ( \expectation{X + Y - 1} \right )^2 ,
     \end{equation}
-    где в последнем равенстве использовалось выражение для второго момента через дисперсию и квадрат математического ожидания, как ранее, в выражениях \eqref{437:X_2}
-    и \eqref{437:Y_2}.
+    где в последнем равенстве использовалось выражение для второго момента через дисперсию и квадрат математического ожидания, как ранее, в выражениях \eqref{10:437:X_2}
+    и \eqref{10:437:Y_2}.
     По свойствам дисперсии:
     \begin{equation}
-        \label{437:variance}
+        \label{10:437:variance}
         \variance{X + Y - 1} = \variance{X} + \variance{Y} + 2 \covariance{X}{Y}
     \end{equation}
-    Ковариация величин $X$ и $Y$ из равенства \eqref{covariance}:
+    Ковариация величин $X$ и $Y$ из равенства \eqref{10:covariance}:
     \begin{equation}
         \covariance{X}{Y} = \expectation{XY} - \expectation{X} \expectation{Y}.
     \end{equation}
     В силу \textbf{независимости} величин $X$ и $Y$:
     \begin{equation}
-        \expectation{XY} = \expectation{X} \expectation{Y} ,
+        \covariance{X}{Y} = 0 ,
     \end{equation}
-    поэтому ковариация равна 0:
-    \begin{equation}
-        \covariance{X}{Y} = \expectation{X} \expectation{Y} - \expectation{X} \expectation{Y} = 0 ,
-    \end{equation}
-    а выражение для дисперсии \eqref{437:variance} принимает вид:
+    а выражение для дисперсии \eqref{10:437:variance} принимает вид:
     \begin{equation}
         \variance{X + Y - 1} = \variance{X} + \variance{Y} .
     \end{equation}
-    и выражение \eqref{437:expectation}:
+    и выражение \eqref{10:437:expectation}:
     \begin{multline}
         \expectation{V}
         = \variance{X} + \variance{Y} + \left ( \expectation{X} + \expectation{Y} - 1 \right )^2 = \\
@@ -117,18 +112,19 @@
         = \sigma_X^2 + \sigma_Y^2 + \left ( m_X + m_Y - 1 \right )^2
         = 1^2
         + 2^2 + \left ( 1 + 2 - 1 \right )^2
-        = 9
+        = 9.
     \end{multline}
 \end{enumerate}
-\section*{Ответ}
+
+\subsection*{Ответ}
 \begin{enumerate}
     \item $\expectation{U} = 18$ ,
     \item $\expectation{V} = 9$.
 \end{enumerate}
 
 
-\section{Задача 18.438}
-\section*{Условие}
+\section*{Задача 18.438}
+
 Случайная точка $\left ( X, Y \right )$ характеризуется центром рассеивания $(-1, 1)$ и ковариационной матрицей
 $\begin{pmatrix}
      3  & -2 \\
@@ -136,7 +132,8 @@ $\begin{pmatrix}
 \end{pmatrix}$.
 Найти математическое ожидание и дисперсию случайной величины $Z = 2 X - 4 Y + 3$.
 
-\section*{Решение}
+\subsection*{Решение:}
+
 Центр рассеивания:
 \begin{equation}
     \begin{pmatrix}
@@ -188,12 +185,12 @@ $\begin{pmatrix}
     = 108.
 \end{multline}
 
-\section*{Ответ}
+\subsection*{Ответ}
 $\expectation{Z} = -3$, $\variance{Z} = 108$.
 
 
-\section{Задача 18.443}
-\section*{Условие}
+\section*{Задача 18.443}
+
 Случайная величина $X$ дискретного типа распределена по закону, определяемому таблицей:
 
 \begin{tabular}{|c|c|c|c|}
@@ -205,7 +202,9 @@ $\expectation{Z} = -3$, $\variance{Z} = 108$.
 \end{tabular}
 
 Найти коэффициент корреляции между $X$ и $X^2$.
-\section*{Решение}
+
+\subsection*{Решение:}
+
 По определению коэффициент корреляции $\rho$:
 \begin{equation}
     \rho = \frac{\covariance{X}{X^2}}{\sqrt{\variance{X} \variance{X^2}}}
@@ -240,23 +239,17 @@ $\expectation{Z} = -3$, $\variance{Z} = 108$.
 
 Таким образом, коэффициент корреляции:
 \begin{equation}
-    \rho = \frac{\frac{1}{9}}{\sqrt{\frac{5}{9} \frac{2}{9}}} = \frac{\frac{1}{9}}{\frac{1}{9} \sqrt{10}} = \frac{1}{\sqrt{10}} .
+    \rho = \frac{\frac{1}{9}}{\sqrt{\frac{5}{9} \cdot \frac{2}{9}}} = \frac{\frac{1}{9}}{\frac{1}{9} \sqrt{10}} = \frac{1}{\sqrt{10}} .
 \end{equation}
 
-\section*{Ответ}
-$\frac{1}{\sqrt{10}}$
+\subsection*{Ответ:}
+$\frac{1}{\sqrt{10}}$.
 
+\section*{Задача 18.515}
 
-\section{Домашнее задание}
-
-Задачи 436, 437, 439, 441, 444.
-
-
-\section{Задача 18.515}
-\section*{Условие}
 Случайные величины $X$ и $Y$ независимы и подчиняются одному и тому же индикаторному распределению $B(1,p)$. Описать законы распределения случайных величин
 $Z = X + Y$ и $V = X Y$.
-\section*{Решение}
+\subsection*{Решение:}
 Величина $X$ подчиняется индикаторному распределению $B(1,p)$ означает, что $X$ принимает значение 1 с веростноятью $p$ и 0 с вероятностью $1-p$:
 
 \begin{tabular}{|c|c|}
@@ -311,7 +304,7 @@ $Z = X + Y$ и $V = X Y$.
     \hline
 \end{tabular}
 
-\section*{Ответ}
+\subsection*{Ответ:}
 Закон распределения $Z$:
 
 \begin{tabular}{|c|c|}
@@ -339,8 +332,8 @@ $Z = X + Y$ и $V = X Y$.
 \end{tabular}
 
 
-\section{Задача 18.518}
-\section*{Условие}
+\section*{Задача 18.518}
+
 Случайный вектор $\left ( X, Y \right )$ распределен по закону, определяемому плотностью распределения вероятностей
 $$
 f_{X, Y} ( x, y )
@@ -357,9 +350,9 @@ $$
     \item $U = XY$.
 \end{enumerate}
 
-\section*{Решение}
+\subsection*{Решение:}
 \begin{enumerate}
-    \item Плотность вероятности $f_Z(z)$ величины $Z$ находим интергрированием совместной плотности $f_{X,Y}(x,y)$ с учётом условия $x+y=z$:
+    \item Плотность вероятности $f_Z(z)$ величины $Z$ находим интегрированием совместной плотности $f_{X,Y}(x,y)$ с учётом условия $x+y=z$:
     \begin{equation}
         f_Z(z)
         = \int \limits_{-\infty}^{\infty} f_{X,Y}(x, z-x) dx
@@ -460,12 +453,16 @@ $$
     \begin{figure}[!h]
         \center
         \begin{tikzpicture}[scale=5]
+            % область 1
+            \draw [fill=gray!20] ( 0, 0 ) rectangle ( 0.2, 1 );
+            % область 2
+            \draw [fill=gray!20] ( 0.2, 0 ) -- ( 0.2, 1 ) to [out=-83,in=175] ( 1, 0.2 ) -- ( 1, 0 );
+
             % оси
             \draw [->] ( -0.1, 0 ) -- ( 1.1, 0 ) node [below] at ( 1.1, 0 ) {$x$};
             \draw [->] ( 0, -0.1 ) -- ( 0, 1.1 ) node [left] at ( 0, 1.1 ) {$y$};
 
             % квадратик
-            \draw [fill=gray!20] ( 0, 0 ) rectangle ( 1, 1 );
             \node [below] at ( 1, 0 ) {$1$};
             \node [left] at ( 0, 1 ) {$1$};
 
@@ -531,7 +528,7 @@ $$
 %        \end{multline}
 \end{enumerate}
 
-\section*{Ответ}
+\subsection*{Ответ:}
 \begin{enumerate}
     \item Плотность вероятности величины $Z$:
     $$
@@ -563,11 +560,11 @@ $$
 \end{enumerate}
 
 
-\section{Задача 18.521}
-\section*{Условие}
+\section*{Задача 18.521}
+
 Случайные величины $X$ и $Y$ независимы и одинаково распределены по закону $\mathcal{N}(0, \sigma^2)$. Установить, по какому закону распределена случайная величина
 $R = \sqrt{X^2 + Y^2}$.
-\section*{Решение}
+\subsection*{Решение:}
 Пусть $F_R(r)$ --- функция распределения величины $R$:
 \begin{multline}
     F_R(r)
@@ -654,7 +651,7 @@ $R = \sqrt{X^2 + Y^2}$.
     \end{array}
     \right .
 \end{equation}
-\section*{Ответ}
+\subsection*{Ответ:}
 Закон распределения Релея. Функция плотности вероятности $f(r)$:
 $$
 f(r)
@@ -666,8 +663,16 @@ f(r)
 \right .
 $$
 
+\section*{Задачи для самостоятельного решения}
 
-\section{Домашнее задание}
+Из раздела 18 сборника задач Ефимова и Поспелова.
+\begin{enumerate}
+    \item На занятии: 445, 459.
+    \item Дома: 378 -- 381, 389, 393, 411 -- 413, 423, 431.
+\end{enumerate}
+
+Из сборника задач типового расчёта Чудесенко: 30.
 
 Задачи 514, 517, 518.
 
+Задачи 436, 437, 439, 441, 444.
