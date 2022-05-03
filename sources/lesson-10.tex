@@ -333,6 +333,136 @@ $L$ хорды, соединяющей эти точки.
 \subsection*{Ответ:}
 $\expectation{L} = \frac{4 r}{\pi}$, $\variance{L} = 2 r^2 \left ( 1 - \frac{8}{\pi} \right )$.
 
+\section*{Задача 18.463}
+При броске игрального кубика выпало количество очков $X$. Производится ещё $X$ подбрасываний и фиксируется сумма всех выпавших очков $Z$.
+Найти математическое ожидание $\expectation{Z}$ и дисперсию $\variance{Z}$.
+
+\subsection*{Решение:}
+Пусть $Y_1$, \dots, $Y_6$ обозначают количества очков, выпавших в результате второй части подбрасываний, тогда сумму очков $Z$ можно представить
+в виде:
+\begin{equation}
+    Z
+    = \sum_{k=1}^X Y_k .
+\end{equation}
+
+Математическое ожидание $Z$ вычислим с помощью условного математического ожидания $Z$ относительно $X$:
+\begin{equation}
+    \expectation{Z}
+    = \expectation{\expectation{\condition{Z}{X}}}.
+\end{equation}
+
+Определим значение условного математического ожидания $\expectation{\condition{Z}{X}}$ при различных значениях $X$. Пусть $X = m$, тогда:
+\begin{gather}
+    Z = \sum_{k=1}^m Y_k, \\
+    %
+    \expectation{\condition{Z}{X=m}}
+    = \expectation{\sum_{k=1}^m Y_k}
+    = \sum_{k=1}^m \expectation{Y_k}
+    = m \cdot \expectation{Y_1} .
+\end{gather}
+Поскольку равенство справедливо при любых $m$, то условное математическое ожидание можно представить в виде:
+\begin{equation}
+    \label{10:463:conditional_expectation}
+    \expectation{\condition{Z}{X}} = X \cdot \expectation{Y_1} ,
+\end{equation}
+откуда
+\begin{equation}
+    \expectation{Z}
+    = \expectation{\condition{Z}{X}}
+    = \expectation{X \cdot \expectation{Y_1}}
+    = \expectation{X} \cdot \expectation{Y_1}
+\end{equation}
+Величины $X$ и $Y_1$ --- количество очков, выпадающих при одном броске, поэтому у них одинаковое математическое ожидание:
+\begin{gather}
+    \expectation{X}
+    = 1 \cdot \frac{1}{6} + 2 \cdot \frac{1}{6} + 3 \cdot \frac{1}{6} + 4 \cdot \frac{1}{6} + 5 \cdot \frac{1}{6} + 6 \cdot \frac{1}{6}
+    = \frac{21}{6}
+    = \frac{7}{2}, \\
+    \expectation{Y_1} = \expectation{X}.
+\end{gather}
+Таким образом,
+\begin{equation}
+    \expectation{Z}
+    = \frac{7}{2} \cdot \frac{7}{2}
+    = \frac{49}{4} .
+\end{equation}
+
+При вычислении дисперсии воспользуемся равенством:
+\begin{equation}
+    \variance{Z}
+    = \expectation{Z^2} - \expectation{Z}^2 ,
+\end{equation}
+где второй начальный момент вычислим с помощью условного математического ожидания:
+\begin{equation}
+    \expectation{Z^2}
+    = \expectation{\expectation{\condition{Z^2}{X}}} ,
+\end{equation}
+Пусть $X = m$:
+\begin{multline}
+    \expectation{\condition{Z^2}{X=m}}
+    = \expectation{\left ( \sum_{k=1}^m Y_k \right )^2}
+    = \expectation{\sum_{k=1}^m Y_k^2 + \sum_{k=1}^m \sum_{j=1, j \neq k}^m Y_k Y_j} = \\
+    %
+    = \sum_{k=1}^m \expectation{Y_k^2} + \sum_{k=1}^m \sum_{j=1, j \neq k}^m \expectation{Y_k Y_j}
+    = m \cdot \expectation{Y_1^2} + m(m-1) \cdot \expectation{Y_1 Y_2} = \\
+    %
+    = m \cdot \expectation{Y_1^2} + m(m-1) \cdot \expectation{Y_1} \expectation{Y_2}
+    = m \cdot \expectation{Y_1^2} + m(m-1) \cdot \expectation{Y_1}^2 = \\
+    %
+    = m \cdot \expectation{Y_1^2} + m^2 \cdot \expectation{Y_1}^2 - m \cdot \expectation{Y_1}^2
+    = m \cdot \left ( \expectation{Y_1^2} - \expectation{Y_1}^2 \right ) + m^2 \cdot \expectation{Y_1}^2 = \\
+    %
+    = m \cdot \variance{Y_1} + m^2 \cdot \expectation{Y_1}^2 .
+\end{multline}
+Таким образом,
+\begin{gather}
+    \expectation{\condition{Z^2}{X}}
+    = X \cdot \variance{Y_1} + X^2 \cdot \expectation{Y_1}^2 , \\
+    %
+    \expectation{\expectation{\condition{Z^2}{X}}}
+    = \expectation{X \cdot \variance{Y_1} + X^2 \cdot \expectation{Y_1}^2}
+    = \expectation{X} \cdot \variance{Y_1} + \expectation{X^2} \cdot \expectation{Y_1}^2,
+\end{gather}
+и дисперсия:
+\begin{multline}
+    \variance{Z}
+    = \expectation{X} \cdot \variance{Y_1} + \expectation{X^2} \cdot \expectation{Y_1}^2 - \expectation{X}^2 \cdot \expectation{Y_1}^2 = \\
+    %
+    = \expectation{X} \cdot \variance{Y_1} + \left ( \expectation{X^2} - \expectation{X}^2 \right ) \cdot \expectation{Y_1}^2
+    = \expectation{X} \cdot \variance{Y_1} + \variance{X} \cdot \expectation{Y_1}^2.
+\end{multline}
+Причем величины $X$ и $Y_1$ имеют одинаковое распределение и
+\begin{multline}
+    \expectation{X^2}
+    = 1^2 \cdot \frac{1}{6} + 2^2 \cdot \frac{1}{6} + 3^2 \cdot \frac{1}{6} + 4^2 \cdot \frac{1}{6} + 5^2 \cdot \frac{1}{6} + 6^2 \cdot \frac{1}{6} = \\
+    %
+    = \frac{1 + 4 + 9 + 16 + 25 + 36}{6}
+    = \frac{91}{6},
+\end{multline}
+а дисперсия:
+\begin{equation}
+    \variance{X}
+    = \expectation{X^2} - \expectation{X}^2
+    = \frac{91}{6} - \frac{49}{4}
+    = \frac{91 \cdot 2 - 49 \cdot 3}{12}
+    = \frac{182 - 147}{12}
+    = \frac{35}{12},
+\end{equation}
+тогда
+\begin{multline}
+    \variance{Z}
+    = \frac{7}{2} \cdot \frac{35}{12} + \frac{35}{12} \cdot \left ( \frac{7}{2} \right )^2
+    = \frac{7}{2} \cdot \frac{35}{12} \cdot \left ( 1 + \frac{7}{2} \right )
+    = \frac{7}{2} \cdot \frac{35}{12} \cdot \frac{9}{2} = \\
+    %
+    = \frac{7}{2} \cdot \frac{35}{4} \cdot \frac{3}{2}
+    = \frac{245 \cdot 3}{16}
+    = \frac{735}{16}.
+\end{multline}
+
+\subsection*{Ответ:}
+$\expectation{Z} = \frac{49}{4}$, $\variance{Z} = \frac{735}{16}$.
+
 \section*{Задача 18.515}
 
 Случайные величины $X$ и $Y$ независимы и подчиняются одному и тому же индикаторному распределению $B(1,p)$. Описать законы распределения случайных величин
@@ -754,7 +884,7 @@ $$
 Из раздела 18 сборника задач Ефимова и Поспелова.
 \begin{enumerate}
     \item На занятии: 445, 459.
-    \item Дома: 439, 440.
+    \item Дома: 439, 440, 453, 454, 464.
 \end{enumerate}
 
 Из сборника задач типового расчёта Чудесенко: 30.
