@@ -1,6 +1,5 @@
 \chapter{Преобразование случайных векторов}
 
-
 \section*{Введение}
 Пусть $X$ и $Y$ --- случайные величины, и $a$, $b$ и $c$ --- числа.
 
@@ -34,7 +33,6 @@
     = 0 \cdot 0
     = 0 .
 \end{equation}
-
 
 \section*{Задача 18.437}
 
@@ -188,7 +186,6 @@ $\begin{pmatrix}
 \subsection*{Ответ}
 $\expectation{Z} = -3$, $\variance{Z} = 108$.
 
-
 \section*{Задача 18.443}
 
 Случайная величина $X$ дискретного типа распределена по закону, определяемому таблицей:
@@ -244,6 +241,61 @@ $\expectation{Z} = -3$, $\variance{Z} = 108$.
 
 \subsection*{Ответ:}
 $\frac{1}{\sqrt{10}}$.
+
+\section*{Задача 18.450}
+
+На окружность радиуса $r$ наудачу ставятся две точки. Найти математическое ожидание $\expectation{L}$ и дисперсию $\variance{L}$ случайной длины
+$L$ хорды, соединяющей эти точки.
+
+\subsection*{Решение:}
+
+Пусть $\varphi$ обозначает центральный угол между радиусами, соединяющими центр окружности с точками, тогда длина хорды --- длина основания в
+равнобедренном треугольнике:
+\begin{equation}
+    L
+    = 2 r \sin \frac{\varphi}{2} ,
+\end{equation}
+где угол $\varphi$ имеет равномерное распределение $R \left [ 0, \pi \right ]$, поскольку точки на окружности выбираются наудачу.
+
+Таким образом, математическое ожидание:
+\begin{multline}
+    \expectation{L}
+    = \expectation{2 r \sin \frac{\varphi}{2}}
+    = 2 r \expectation{\sin \frac{\varphi}{2}} = \\
+    %
+    = 2 r \int \limits_0^\pi \sin \frac{x}{2} \frac{1}{\pi} d x
+    = 2 r \frac{1}{\pi} \left . \left ( - 2 \cos \frac{x}{2} \right ) \right |_0^\pi
+    = 2 r \frac{1}{\pi} 2
+    = \frac{4 r}{\pi} .
+\end{multline}
+
+Второй начальный момент длины хорды:
+\begin{multline}
+    \expectation{L^2}
+    = \expectation{\left ( 2 r \sin \frac{\varphi}{2} \right )^2}
+    = \expectation{4 r^2 \sin^2 \frac{\varphi}{2}}
+    = 4 r^2 \expectation{\sin^2 \frac{\varphi}{2}} = \\
+    %
+    = 4 r^2 \int \limits_0^\pi \sin^2 \frac{x}{2} \frac{1}{\pi} d x
+    = 4 r^2 \int \limits_0^\pi \left ( \frac{1 - \cos x}{2} \right ) \frac{1}{\pi} d x
+    = 4 r^2 \frac{1}{2 \pi} \int \limits_0^\pi \left ( 1 - \cos x \right ) d x = \\
+    %
+    = \frac{2 r^2}{\pi} \left . \left ( x - \sin x \right ) \right |_0^\pi
+    = \frac{2 r^2}{\pi} \pi
+    = 2 r^2 .
+\end{multline}
+Тогда дисперсия длины хорды:
+\begin{equation}
+    \variance{L}
+    = \expectation{L^2} - \left ( \expectation{L} \right )
+    = 2 r^2 - \frac{16 r^2}{\pi^2}
+    = 2 r^2 \left ( 1 - \frac{8}{\pi} \right ).
+\end{equation}
+
+\subsection*{Ответ:}
+$\expectation{L} = \frac{4 r}{\pi}$, $\variance{L} = 2 r^2 \left ( 1 - \frac{8}{\pi} \right )$.
+
+
 
 \section*{Задача 18.515}
 
@@ -330,7 +382,6 @@ $Z = X + Y$ и $V = X Y$.
     1   & $p^2$                 \\
     \hline
 \end{tabular}
-
 
 \section*{Задача 18.518}
 
@@ -559,7 +610,6 @@ $$
     $$
 \end{enumerate}
 
-
 \section*{Задача 18.521}
 
 Случайные величины $X$ и $Y$ независимы и одинаково распределены по закону $\mathcal{N}(0, \sigma^2)$. Установить, по какому закону распределена случайная величина
@@ -668,7 +718,7 @@ $$
 Из раздела 18 сборника задач Ефимова и Поспелова.
 \begin{enumerate}
     \item На занятии: 445, 459.
-    \item Дома: 378 -- 381, 389, 393, 411 -- 413, 423, 431.
+    \item Дома: 439, 440.
 \end{enumerate}
 
 Из сборника задач типового расчёта Чудесенко: 30.
