@@ -249,13 +249,51 @@ $L$ хорды, соединяющей эти точки.
 
 \subsection*{Решение:}
 
-Пусть $\varphi$ обозначает центральный угол между радиусами, соединяющими центр окружности с точками, тогда длина хорды --- длина основания в
-равнобедренном треугольнике:
-\begin{equation}
+Пусть $\varphi$ обозначает центральный угол между радиусами, соединяющими центр окружности с точками, тогда длина хорды (рисунок \ref{10:450:hord}):
+\begin{gather}
+    L^2
+    = r^2 + r^2 - 2 r^2 \cos \varphi
+    = 2 r^2 \left ( 1 - \cos \varphi \right )
+    = 2 r^2 \cdot 2 \frac{1 - \cos \varphi}{2}
+    = 4 r^2 \sin^2 \frac{\varphi}{2} , \\
+    %
     L
     = 2 r \sin \frac{\varphi}{2} ,
-\end{equation}
+\end{gather}
 где угол $\varphi$ имеет равномерное распределение $R \left [ 0, \pi \right ]$, поскольку точки на окружности выбираются наудачу.
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[scale=3]
+        % окружность
+        \draw [dashed] ( 0, 0 ) circle [radius = 1];
+
+        % координаты точек
+        \def \Ax { 0.8 };
+        \def \Ay { 0.6 };
+        \def \Bx { -0.5 };
+        \def \By { 0.866 };
+
+        % точки
+        \draw [fill] ( 0, 0 ) circle [radius = 0.02] node [below left] at ( 0, 0 ) {$O$};
+        \draw [fill] ( \Ax, \Ay ) circle [radius = 0.02] node [above right] at ( \Ax, \Ay ) {$A$};
+        \draw [fill] ( \Bx, \By ) circle [radius = 0.02] node [above left] at ( \Bx, \By ) {$B$};
+
+        % радиусы
+        \draw ( 0, 0 ) -- ( \Ax, \Ay );
+        \draw ( 0, 0 ) -- ( \Bx, \By );
+
+        % хорда
+        \draw ( \Ax, \Ay ) -- ( \Bx, \By );
+
+        % угол
+        \node [above] at ( 0.03, 0 ) {$\varphi$};
+        % длина
+        \node [above] at ( 0.2, 0.75 ) {$L$};
+    \end{tikzpicture}
+    \caption{Окружность и хорда.}
+    \label{10:450:hord}
+\end{figure}
 
 Таким образом, математическое ожидание:
 \begin{multline}
@@ -294,8 +332,6 @@ $L$ хорды, соединяющей эти точки.
 
 \subsection*{Ответ:}
 $\expectation{L} = \frac{4 r}{\pi}$, $\variance{L} = 2 r^2 \left ( 1 - \frac{8}{\pi} \right )$.
-
-
 
 \section*{Задача 18.515}
 
