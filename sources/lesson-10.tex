@@ -988,12 +988,103 @@ $$
     $
 \end{enumerate}
 
+\section*{Задача 18.530}
+
+Доказать композиционную устойчивость закона Пуассона и найти $\expectation{Z}$ и $\variance{Z}$, где $Z = X + Y$, $X$ и $Y$ --- независимые пуассоновские случайные величины с
+параметрами соответственно $\lambda_1$ и $\lambda_2$.
+
+\subsection*{Решение:}
+
+Вычислим вероятности событий $\event{Z = m}$:
+\begin{multline}
+    \probability{Z = m}
+    = \probability{X + Y = m}
+    = \probability{\bigcup_{k=0}^m \event{X = k, Y = m - k}} = \\
+    %
+    = \sum_{k=0}^m \probability{X = k, Y = m - k}
+    = \sum_{k=0}^m \probability{X = k} \cdot \probability{Y = m - k} = \\
+    %
+    = \sum_{k=0}^m \frac{\lambda_1^k}{k!} e^{-\lambda_1} \cdot \frac{\lambda_2^{m-k}}{(m-k)!} e^{-\lambda_2}
+    = e^{-\lambda_1} e^{-\lambda_2} \sum_{k=0}^m \frac{\lambda_1^k}{k!} \frac{\lambda_2^{m-k}}{(m-k)!} = \\
+    %
+    = e^{-(\lambda_1+\lambda_2)} \sum_{k=0}^m \frac{1}{k!(m-k)!} \lambda_1^k \lambda_2^{m-k}
+    = e^{-(\lambda_1+\lambda_2)} \sum_{k=0}^m \frac{1}{m!} \frac{m!}{k!(m-k)!} \lambda_1^k \lambda_2^{m-k} = \\
+    %
+    = e^{-(\lambda_1+\lambda_2)} \frac{1}{m!} \sum_{k=0}^m \frac{m!}{k!(m-k)!} \lambda_1^k \lambda_2^{m-k}
+    = e^{-(\lambda_1+\lambda_2)} \frac{1}{m!} \sum_{k=0}^m C_m^k \lambda_1^k \lambda_2^{m-k} = \\
+    = e^{-(\lambda_1+\lambda_2)} \frac{1}{m!} (\lambda_1 + \lambda_2)^m
+    = \frac{(\lambda_1 + \lambda_2)^m}{m!} e^{-(\lambda_1+\lambda_2)}.
+\end{multline}
+Таким образом, $Z = X + Y \sim P( \lambda_1 + \lambda_2 )$.
+
+В силу линейности математического ожидания:
+\begin{equation}
+    \expectation{Z}
+    = \expectation{X + Y}
+    = \expectation{X} + \expectation{Y}
+    = \lambda_1 + \lambda_2 .
+\end{equation}
+и в силу независимости величин $X$ и $Y$:
+\begin{equation}
+    \variance{Z}
+    = \variance{X + Y}
+    = \variance{X} + \variance{Y} + 2 \covariance{X}{Y}
+    = \lambda_1 + \lambda_2 .
+\end{equation}
+
+Первый и второй начальные моменты случайных величин, имеющих распределение Пуассона, можно вычислить следующим образом. Обозначим для краткости $\lambda = \lambda_1 + \lambda_2$,
+тогда математическое ожидание $Z$:
+\begin{multline}
+    \expectation{Z}
+    = \sum_{k=0}^{\infty} k \frac{\lambda^k}{k!} e^{-\lambda}
+    = \sum_{k=1}^{\infty} k \frac{\lambda^k}{k!} e^{-\lambda}
+    = e^{-\lambda} \lambda \sum_{k=1}^{\infty} \frac{k \lambda^{k-1}}{k!}
+    = e^{-\lambda} \lambda \sum_{k=1}^{\infty} \left ( \frac{\lambda^k}{k!} \right )_{\lambda}^{\prime} = \\
+    %
+    = e^{-\lambda} \lambda \left ( \sum_{k=1}^{\infty} \frac{\lambda^k}{k!} \right )_{\lambda}^{\prime}
+    = e^{-\lambda} \lambda \left ( 1 + \sum_{k=1}^{\infty} \frac{\lambda^k}{k!} - 1 \right )_{\lambda}^{\prime} = \\
+    = e^{-\lambda} \lambda \left ( \sum_{k=0}^{\infty} \frac{\lambda^k}{k!} - 1 \right )_{\lambda}^{\prime}
+    = e^{-\lambda} \lambda \left ( e^\lambda - 1 \right )_{\lambda}^{\prime}
+    = e^{-\lambda} \lambda e^\lambda
+    = \lambda .
+\end{multline}
+
+Второй начальный момент можно вычислить аналогично:
+\begin{multline}
+    \expectation{Z}
+    = \sum_{k=0}^{\infty} k^2 \frac{\lambda^k}{k!} e^{-\lambda}
+    = \sum_{k=1}^{\infty} k^2 \frac{\lambda^k}{k!} e^{-\lambda}
+    = e^{-\lambda} \lambda \sum_{k=1}^{\infty} k \frac{k \lambda^{k-1}}{k!}
+    = e^{-\lambda} \lambda \sum_{k=1}^{\infty} \left ( k \frac{\lambda^k}{k!} \right )_{\lambda}^{\prime} = \\
+    %
+    = e^{-\lambda} \lambda \left ( \sum_{k=1}^{\infty} k \frac{\lambda^k}{k!} \right )_{\lambda}^{\prime}
+    = e^{-\lambda} \lambda \left ( \lambda \sum_{k=1}^{\infty} \frac{k \lambda^{k-1}}{k!} \right )_{\lambda}^{\prime}
+    = e^{-\lambda} \lambda \left ( \lambda \sum_{k=1}^{\infty} \left ( \frac{\lambda^{k}}{k!} \right )_{\lambda}^{\prime} \right )_{\lambda}^{\prime} = \\
+    %
+    = e^{-\lambda} \lambda \left ( \lambda \left ( \sum_{k=1}^{\infty} \frac{\lambda^{k}}{k!} \right )_{\lambda}^{\prime} \right )_{\lambda}^{\prime}
+    = e^{-\lambda} \lambda \left ( \lambda \left ( e^\lambda - 1 \right )_{\lambda}^{\prime} \right )_{\lambda}^{\prime}
+    = e^{-\lambda} \lambda \left ( \lambda e^\lambda \right )_{\lambda}^{\prime} = \\
+    %
+    = e^{-\lambda} \lambda \left ( e^\lambda + \lambda e^\lambda \right )
+    = \lambda + \lambda^2.
+\end{multline}
+Откуда дисперсия
+\begin{equation}
+    \variance{Z}
+    = \expectation{Z^2} - \expectation{Z}^2
+    = \lambda + \lambda^2 - \lambda^2
+    = \lambda.
+\end{equation}
+
+\subsection*{Ответ:}
+$\expectation{Z} = \lambda_1 + \lambda_2$, $\variance{Z} = \lambda_1 + \lambda_2$.
+
 \section*{Задачи для самостоятельного решения}
 
 Из раздела 18 сборника задач Ефимова и Поспелова.
 \begin{enumerate}
     \item На занятии: 445, 459.
-    \item Дома: 439, 440, 453, 454, 464, 514, 522, 536, 537.
+    \item Дома: 439, 440, 453, 454, 464, 514, 522, 527, 536, 537.
 \end{enumerate}
 
 Из сборника задач типового расчёта Чудесенко: 30.
