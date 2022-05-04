@@ -1079,16 +1079,110 @@ $$
 \subsection*{Ответ:}
 $\expectation{Z} = \lambda_1 + \lambda_2$, $\variance{Z} = \lambda_1 + \lambda_2$.
 
+\section*{Задача 18.532}
+
+Доказать композиционную устойчивость нормального закона $\mathcal{N} \left ( m, \sigma^2 \right )$.
+
+\subsection*{Решение:}
+
+Пусть $X$ и $Y$ --- независимые случайные величины, имеющие распределения $X \sim \mathcal{N} \left ( m_X, \sigma_X^2 \right )$ и
+$Y \sim \mathcal{N} \left ( m_Y, \sigma_Y^2 \right )$. Функция распределения $F_Z(z)$ случайной величины $Z = X + Y$:
+\begin{multline}
+    F_Z(z)
+    = \probability{Z < z}
+    = \probability{X + Y < z} = \\
+    %
+    = \iint \limits_{X + Y < z} f_{X,Y}(x,y) dy dx
+    = \int \limits_{-\infty}^\infty \int \limits_{-\infty}^{z-x} f_{X,Y}(x,y) dy dx,
+\end{multline}
+где $f_{X,Y}(x,y)$ --- функция плотности вероятности, имеющая вид:
+\begin{multline}
+    f_{X,Y}(x,y)
+    = \frac{1}{\sqrt{2 \pi} \sigma_X} e^{- \frac{1}{2} \frac{(x - m_X)^2}{\sigma_X^2}} \cdot \frac{1}{\sqrt{2 \pi} \sigma_Y} e^{- \frac{1}{2} \frac{(y - m_Y)^2}{\sigma_Y^2}} = \\
+    %
+    = \frac{1}{2 \pi \sigma_X \sigma_Y} e^{- \frac{1}{2} \left ( \frac{(x - m_X)^2}{\sigma_X^2} + \frac{(y - m_Y)^2}{\sigma_Y^2} \right )} .
+\end{multline}
+Таким образом, получим интеграл вида:
+\begin{equation}
+    F_Z(z)
+    = \frac{1}{2 \pi \sigma_X \sigma_Y} \int \limits_{-\infty}^\infty \int \limits_{-\infty}^{z-x} e^{- \frac{1}{2} \left ( \frac{(x - m_X)^2}{\sigma_X^2} + \frac{(y - m_Y)^2}{\sigma_Y^2} \right )} dy dx .
+\end{equation}
+Данный интеграл не выражается через элементарные функции.
+
+Плотность вероятности $f_Z(z)$ случайной величины $Z$:
+\begin{multline}
+    f_Z(z)
+    = \derivative{z} F_Z(z)
+    = \derivative{z} \frac{1}{2 \pi \sigma_X \sigma_Y} \int \limits_{-\infty}^\infty \int \limits_{-\infty}^{z-x} e^{- \frac{1}{2} \left ( \frac{(x - m_X)^2}{\sigma_X^2} + \frac{(y - m_Y)^2}{\sigma_Y^2} \right )} dy dx = \\
+    %
+    = \frac{1}{2 \pi \sigma_X \sigma_Y} \int \limits_{-\infty}^\infty e^{- \frac{1}{2} \left ( \frac{(x - m_X)^2}{\sigma_X^2} + \frac{(z - x - m_Y)^2}{\sigma_Y^2} \right )} dx .
+\end{multline}
+Преобразовывая выражение в показателе, получим:
+\begin{multline}
+    \frac{(x - m_X)^2}{\sigma_X^2} + \frac{(z - x - m_Y)^2}{\sigma_Y^2}
+    = \frac{\sigma_Y^2 ( x - m_X )^2 + \sigma_X^2 (z - x - m_Y)^2}{\sigma_X^2 \sigma_Y^2} = \\
+    %
+    = \frac{\sigma_Y^2 x^2 - 2 x \sigma_Y^2 m_X + \sigma_Y^2 m_X^2 + \sigma_X^2 x^2 - 2 x \sigma_X^2 (z - m_Y) + \sigma_X^2 (z - m_Y)^2}{\sigma_X^2 \sigma_Y^2} = \\
+    %
+    = \frac{(\sigma_Y^2 + \sigma_X^2) x^2 - 2 x ( \sigma_Y^2 m_X + \sigma_X^2 (z - m_Y) ) + \sigma_Y^2 m_X^2 + \sigma_X^2 (z - m_Y)^2}{\sigma_X^2 \sigma_Y^2} = \\
+    %
+    = \frac{x^2 - 2 x \frac{\sigma_Y^2 m_X + \sigma_X^2 (z - m_Y)}{(\sigma_Y^2 + \sigma_X^2)} + \frac{\sigma_Y^2 m_X^2 + \sigma_X^2 (z - m_Y)^2}{(\sigma_Y^2 + \sigma_X^2)}}{\frac{\sigma_X^2 \sigma_Y^2}{\sigma_X^2 + \sigma_Y^2}} = \\
+    %
+    = \frac{x^2 - 2 x A + B}{\frac{\sigma_X^2 \sigma_Y^2}{\sigma_X^2 + \sigma_Y^2}}
+    = \frac{\left ( x - A \right )^2 - A^2 + B}{\frac{\sigma_X^2 \sigma_Y^2}{\sigma_X^2 + \sigma_Y^2}} .
+\end{multline}
+Таким образом,
+\begin{multline}
+    f_Z(z)
+    = \frac{1}{2 \pi \sigma_X \sigma_Y} \int \limits_{-\infty}^\infty e^{ -\frac{1}{2} \frac{\left ( x - A \right )^2 - A^2 + B}{\frac{\sigma_X^2 \sigma_Y^2}{\sigma_X^2 + \sigma_Y^2}}} dx = \\
+    %
+    = \frac{1}{\sqrt{2 \pi} \sqrt{\sigma_X^2 + \sigma_Y^2}} \left ( \frac{1}{\sqrt{2 \pi} \frac{\sigma_X \sigma_Y}{\sqrt{\sigma_X^2 + \sigma_Y^2}}} \int \limits_{-\infty}^\infty e^{ - \frac{1}{2} \frac{\left ( x - A \right )^2}{\frac{\sigma_X^2 \sigma_Y^2}{\sigma_X^2 + \sigma_Y^2}}} dx \right ) e^{ -\frac{1}{2} \frac{ - A^2 + B}{\frac{\sigma_X^2 \sigma_Y^2}{\sigma_X^2 + \sigma_Y^2}}}= \\
+    %
+    = \frac{1}{\sqrt{2 \pi} \sqrt{\sigma_X^2 + \sigma_Y^2}} e^{ -\frac{1}{2} \frac{- A^2 + B}{\frac{\sigma_X^2 \sigma_Y^2}{\sigma_X^2 + \sigma_Y^2}}} .
+\end{multline}
+где показатель без $-\frac{1}{2}$ можно преобразовать к виду:
+\begin{multline}
+    \frac{- A^2 + B}{\frac{\sigma_X^2 \sigma_Y^2}{\sigma_X^2 + \sigma_Y^2}}
+    = \frac{- \left ( \frac{\sigma_Y^2 m_X + \sigma_X^2 (z - m_Y)}{(\sigma_Y^2 + \sigma_X^2)} \right )^2 + \frac{\sigma_Y^2 m_X^2 + \sigma_X^2 (z - m_Y)^2}{(\sigma_Y^2 + \sigma_X^2)}}{\frac{\sigma_X^2 \sigma_Y^2}{\sigma_X^2 + \sigma_Y^2}} = \\
+    %
+    = \frac{- \frac{\sigma_Y^4 m_X^2 + 2 \sigma_Y^2 m_X^2 \sigma_X^2 (z - m_Y) + \sigma_X^4 (z - m_Y)^2}{(\sigma_Y^2 + \sigma_X^2)^2} + \frac{\sigma_Y^2 m_X^2 + \sigma_X^2 (z - m_Y)^2}{(\sigma_Y^2 + \sigma_X^2)}}{\frac{\sigma_X^2 \sigma_Y^2}{\sigma_X^2 + \sigma_Y^2}} = \\
+    %
+    = \frac{- \sigma_Y^4 m_X^2 - 2 \sigma_Y^2 m_X^2 \sigma_X^2 (z - m_Y) - \sigma_X^4 (z - m_Y)^2 + \left ( \sigma_Y^2 m_X^2 + \sigma_X^2 (z - m_Y)^2 \right ) (\sigma_Y^2 + \sigma_X^2)}{\sigma_X^2 \sigma_Y^2 \left ( \sigma_X^2 + \sigma_Y^2 \right )} = \\
+    %
+    = \frac{- 2 \sigma_Y^2 m_X^2 \sigma_X^2 (z - m_Y) + \sigma_X^2 \sigma_Y^2 m_X^2 + \sigma_X^2 \sigma_Y^2 (z - m_Y)^2}{\sigma_X^2 \sigma_Y^2 \left ( \sigma_X^2 + \sigma_Y^2 \right )} = \\
+    %
+    = \frac{- 2 m_X^2 (z - m_Y) + m_X^2 + (z - m_Y)^2}{\sigma_X^2 + \sigma_Y^2}
+    = \frac{(z - m_Y)^2 - 2 (z - m_Y) m_X^2 + m_X^2}{\sigma_X^2 + \sigma_Y^2} = \\
+    %
+    = \frac{(z - m_Y - m_X)^2}{\sigma_X^2 + \sigma_Y^2} .
+\end{multline}
+Таким образом,
+\begin{equation}
+    f_Z(z)
+    = \frac{1}{\sqrt{2 \pi} \sqrt{\sigma_X^2 + \sigma_Y^2}} e^{ -\frac{1}{2} \frac{(z - (m_X + m_Y))^2}{\sigma_X^2 + \sigma_Y^2}}
+\end{equation}
+и величина $Z$ имеет распределение $\mathcal{N} \left ( m_X + m_Y, \sigma_X^2 + \sigma_Y^2)$.
+
+Устойчивость можно доказать с помощью характеристических функций. Пусть $E_X(t)$ и $E_Y(t)$ --- характеристические функции случайных величин $X$ и $Y$:
+\begin{gather}
+    E_X(t) =  e^{m_X t - \frac{1}{2} \sigma_X^2 t^2} , \\
+    E_Y(t) =  e^{m_Y t - \frac{1}{2} \sigma_Y^2 t^2} .
+\end{gather}
+Поскольку $X$ и $Y$ независимы, то характеристическая фукнция $E_Z(t)$:
+\begin{equation}
+    E_Z(t)
+    = E_X(t) \cdot E_Y(t)
+    = e^{m_X t - \frac{1}{2} \sigma_X^2 t^2} \cdot e^{m_Y t - \frac{1}{2} \sigma_Y^2 t^2}
+    = e^{\left ( m_X + m_Y \right ) t - \frac{1}{2} \left ( \sigma_X^2 + \sigma_Y^2 \right ) t^2} .
+\end{equation}
+Легко видеть, что полученная характеристическая функция соответствует распределению $\mathcal{N} \left ( m_X + m_Y, \sigma_X^2 + \sigma_Y^2)$.
+
 \section*{Задачи для самостоятельного решения}
 
 Из раздела 18 сборника задач Ефимова и Поспелова.
 \begin{enumerate}
     \item На занятии: 445, 459.
-    \item Дома: 439, 440, 453, 454, 464, 514, 522, 527, 536, 537.
+    \item Дома: 439, 440, 453, 454, 464, 514, 522, 527, 531, 536, 537.
 \end{enumerate}
 
 Из сборника задач типового расчёта Чудесенко: 30.
-
-Задачи 514, 517, 518.
-
-Задачи 436, 437, 439, 441, 444.
