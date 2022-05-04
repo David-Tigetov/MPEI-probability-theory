@@ -1,37 +1,79 @@
 \chapter{Преобразование случайных векторов}
 
 \section*{Введение}
-Пусть $X$ и $Y$ --- случайные величины, и $a$, $b$ и $c$ --- числа.
-
-Для математического ожидания справедливо свойство линейности:
+Пусть $\xi$ и $\eta$ --- случайные величины, и $a$, $b$ и $c$ --- числа, с помощью которых образуется случайная величина:
 \begin{equation}
-    \expectation{a \cdot X + b \cdot Y + c}
-    = a \cdot \expectation{X} + b \cdot \expectation{Y} + c
+    \zeta = a \cdot \xi + b \cdot \eta + c,
+\end{equation}
+тогда:
+\begin{equation}
+    \expectation{\zeta}
+    = \expectation{a \cdot \xi + b \cdot \eta + c}
+    = a \cdot \expectation{\xi} + b \cdot \expectation{\eta} + c
 \end{equation}
 а для дисперсии справедливо равенство:
 \begin{equation}
-    \variance{a \cdot X + b \cdot Y + c}
-    = a^2 \cdot \variance{X} + b^2 \cdot \variance{Y} + 2 a b \cdot \covariance{X}{Y},
+    \variance{\zeta}
+    = \variance{a \cdot \xi + b \cdot \eta + c}
+    = a^2 \cdot \variance{\xi} + b^2 \cdot \variance{\eta} + 2 a b \cdot \covariance{\xi}{\eta},
 \end{equation}
 где
 \begin{multline}
     \label{10:covariance}
-    \covariance{X}{Y}
-    = \expectation{\left ( X - \expectation{X} \right ) \left ( Y - \expectation{Y} \right )} = \\
+    \covariance{\xi}{\eta}
+    = \expectation{\left ( \xi - \expectation{\xi} \right ) \left ( \eta - \expectation{\eta} \right )} = \\
     %
-    = \expectation{ X Y - \expectation{X} Y - X \expectation{Y} - \expectation{X} \expectation{Y}} = \\
+    = \expectation{ \xi \eta - \expectation{\xi} \eta - \xi \expectation{\eta} - \expectation{\xi} \expectation{\eta}} = \\
     %
-    = \expectation{XY} - \expectation{X} \expectation{Y} - \expectation{X} \expectation{Y} + \expectation{X} \expectation{Y} = \\
+    = \expectation{\xi\eta} - \expectation{\xi} \expectation{\eta} - \expectation{\xi} \expectation{\eta} + \expectation{\xi} \expectation{\eta} = \\
     %
-    = \expectation{XY} - \expectation{X} \expectation{Y}.
+    = \expectation{\xi\eta} - \expectation{\xi} \expectation{\eta}.
 \end{multline}
 Для \textbf{независимых} случайных величин:
 \begin{equation}
-    \covariance{X}{Y}
-    = \expectation{\left ( X - \expectation{X} \right ) \left ( Y - \expectation{Y} \right )}
-    = \left ( \expectation{X} - \expectation{X} \right ) \left ( \expectation{Y} - \expectation{Y} \right )
+    \covariance{\xi}{\eta}
+    = \expectation{\left ( \xi - \expectation{\xi} \right ) \left ( \eta - \expectation{\eta} \right )}
+    = \left ( \expectation{\xi} - \expectation{\xi} \right ) \left ( \expectation{\eta} - \expectation{\eta} \right )
     = 0 \cdot 0
     = 0 .
+\end{equation}
+
+Если $\zeta = \varphi(\xi, \eta)$, тогда:
+\begin{equation}
+    \expectation{\zeta^k}
+    = \expectation{\varphi^k(\xi, \eta)}
+    = \left [
+            \begin{array}{l}
+                \sum \limits_{(x, y)} \varphi^k(x,y) \probability{\xi = x, \eta = y} , \\
+                \iint \limits_{\mathbb{R}^2} \varphi^k(x,y) f_{\xi, \eta}(x,y) dx dy
+            \end{array}
+    \right .
+    ,
+\end{equation}
+где $f_{\xi,\eta}(x,y)$ --- совместная плотность вероятности случайных величин $\xi$ и $\eta$.
+
+В некоторых случаях, удобно использовать условное математическое ожидание:
+\begin{equation}
+    \expectation{\zeta^k}
+    = \expectation{\expectation{\condition{\zeta^k}{\xi}}} .
+\end{equation}
+
+Функция распределения $F_\zeta(z)$ случайной величины $\zeta$:
+\begin{equation}
+    F_{\zeta}(z)
+    = \probability{\zeta < z}
+    = \probability{\varphi(\xi, \eta) < z}
+    = \left [
+            \begin{array}{l}
+                \sum \limits_{x + y < z} \probability{\xi = x, \eta = y} , \\
+                \iint \limits_{x + y < z} f_{\xi, \eta}(x, y) dx dy
+            \end{array}
+    \right .
+\end{equation}
+Если $\zeta = \xi + \eta$, где $\xi$ и $\eta$ --- величины непрерывного типа, то функция плотности вероятности $f_\zeta(z)$ случайной величины $\zeta$:
+\begin{equation}
+    f_{\zeta}(z)
+    = \int \limits_{-\infty}^{\infty} f_{\xi, \eta}(t, z-t) dt .
 \end{equation}
 
 \section*{Задача 18.437}
@@ -214,11 +256,11 @@ $\expectation{Z} = -3$, $\variance{Z} = 108$.
     = \expectation{X^3} - \expectation{X} \cdot \expectation{X^2}
 \end{equation}
 
-Заметим, что у величины $X$ нечетные начальные моменты ($k=1,2,3,...$):
+Заметим, что у величины $X$ начальные моменты нечётного порядка ($k=1,2,3,...$):
 \begin{equation}
     \expectation{X^{2k-1}} = \sum_{i=1}^3 x_i^{2k-1} \cdot p_i = (-1)^{2k-1} \cdot \frac{1}{6} + 0^{2k-1} \cdot \frac{1}{3} + 1^{2k-1} \cdot \frac{1}{2} = - \frac{1}{6} + \frac{1}{2} = \frac{1}{3} ,
 \end{equation}
-и чётные начальные моменты ($k=1,2,3,...$):
+и начальные моменты чётного порядка ($k=1,2,3,...$):
 \begin{equation}
     \expectation{X^{2k}} = \sum_{i=1}^3 x_i^{2k} \cdot p_i = (-1)^{2k} \cdot \frac{1}{6} + 0^{2k} \cdot \frac{1}{3} + 1^{2k} \cdot \frac{1}{2} = \frac{1}{6} + \frac{1}{2} = \frac{2}{3} .
 \end{equation}
@@ -1161,7 +1203,7 @@ $Y \sim \mathcal{N} \left ( m_Y, \sigma_Y^2 \right )$. Функция распр
     f_Z(z)
     = \frac{1}{\sqrt{2 \pi} \sqrt{\sigma_X^2 + \sigma_Y^2}} e^{ -\frac{1}{2} \frac{(z - (m_X + m_Y))^2}{\sigma_X^2 + \sigma_Y^2}}
 \end{equation}
-и величина $Z$ имеет распределение $\mathcal{N} \left ( m_X + m_Y, \sigma_X^2 + \sigma_Y^2)$.
+и величина $Z$ имеет распределение $\mathcal{N} \left ( m_X + m_Y, \sigma_X^2 + \sigma_Y^2 \right )$.
 
 Устойчивость можно доказать с помощью характеристических функций. Пусть $E_X(t)$ и $E_Y(t)$ --- характеристические функции случайных величин $X$ и $Y$:
 \begin{gather}
@@ -1175,7 +1217,7 @@ $Y \sim \mathcal{N} \left ( m_Y, \sigma_Y^2 \right )$. Функция распр
     = e^{m_X t - \frac{1}{2} \sigma_X^2 t^2} \cdot e^{m_Y t - \frac{1}{2} \sigma_Y^2 t^2}
     = e^{\left ( m_X + m_Y \right ) t - \frac{1}{2} \left ( \sigma_X^2 + \sigma_Y^2 \right ) t^2} .
 \end{equation}
-Легко видеть, что полученная характеристическая функция соответствует распределению $\mathcal{N} \left ( m_X + m_Y, \sigma_X^2 + \sigma_Y^2)$.
+Легко видеть, что полученная характеристическая функция соответствует распределению $\mathcal{N} \left ( m_X + m_Y, \sigma_X^2 + \sigma_Y^2 \right )$.
 
 \section*{Задачи для самостоятельного решения}
 
@@ -1185,4 +1227,4 @@ $Y \sim \mathcal{N} \left ( m_Y, \sigma_Y^2 \right )$. Функция распр
     \item Дома: 439, 440, 453, 454, 464, 514, 522, 527, 531, 536, 537.
 \end{enumerate}
 
-Из сборника задач типового расчёта Чудесенко: 30.
+Из сборника задач типового расчёта Чудесенко: 29, 30.
