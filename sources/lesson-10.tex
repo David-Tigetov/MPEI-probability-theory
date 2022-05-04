@@ -338,47 +338,47 @@ $\expectation{L} = \frac{4 r}{\pi}$, $\variance{L} = 2 r^2 \left ( 1 - \frac{8}{
 Найти математическое ожидание $\expectation{Z}$ и дисперсию $\variance{Z}$.
 
 \subsection*{Решение:}
-Пусть $Y_1$, \dots, $Y_6$ обозначают количества очков, выпавших в результате второй части подбрасываний, тогда сумму очков $Z$ можно представить
+Пусть $X_1$, \dots, $X_6$ обозначают количества очков, выпавших в результате второй части подбрасываний, тогда сумму очков $Z$ можно представить
 в виде:
 \begin{equation}
     Z
-    = \sum_{k=1}^X Y_k .
+    = \sum_{k=1}^Y X_k .
 \end{equation}
 
-Математическое ожидание $Z$ вычислим с помощью условного математического ожидания $Z$ относительно $X$:
+Математическое ожидание $Z$ вычислим с помощью условного математического ожидания $Z$ относительно $Y$:
 \begin{equation}
     \expectation{Z}
-    = \expectation{\expectation{\condition{Z}{X}}}.
+    = \expectation{\expectation{\condition{Z}{Y}}}.
 \end{equation}
 
-Определим значение условного математического ожидания $\expectation{\condition{Z}{X}}$ при различных значениях $X$. Пусть $X = m$, тогда:
+Определим значение условного математического ожидания $\expectation{\condition{Z}{Y}}$ при различных значениях $Y$. Пусть $Y = m$, тогда:
 \begin{gather}
-    Z = \sum_{k=1}^m Y_k, \\
+    Z = \sum_{k=1}^m X_k, \\
     %
-    \expectation{\condition{Z}{X=m}}
-    = \expectation{\sum_{k=1}^m Y_k}
-    = \sum_{k=1}^m \expectation{Y_k}
-    = m \cdot \expectation{Y_1} .
+    \expectation{\condition{Z}{Y=m}}
+    = \expectation{\sum_{k=1}^m X_k}
+    = \sum_{k=1}^m \expectation{X_k}
+    = m \cdot \expectation{X_1} .
 \end{gather}
 Поскольку равенство справедливо при любых $m$, то условное математическое ожидание можно представить в виде:
 \begin{equation}
     \label{10:463:conditional_expectation}
-    \expectation{\condition{Z}{X}} = X \cdot \expectation{Y_1} ,
+    \expectation{\condition{Z}{Y}} = Y \cdot \expectation{X_1} ,
 \end{equation}
 откуда
 \begin{equation}
     \expectation{Z}
-    = \expectation{\condition{Z}{X}}
-    = \expectation{X \cdot \expectation{Y_1}}
-    = \expectation{X} \cdot \expectation{Y_1}
+    = \expectation{\condition{Z}{Y}}
+    = \expectation{Y \cdot \expectation{X_1}}
+    = \expectation{Y} \cdot \expectation{X_1}
 \end{equation}
-Величины $X$ и $Y_1$ --- количество очков, выпадающих при одном броске, поэтому у них одинаковое математическое ожидание:
+Величины $X$ и $X_1$ --- количество очков, выпадающих при одном броске, поэтому у них одинаковое математическое ожидание:
 \begin{gather}
-    \expectation{X}
+    \expectation{Y}
     = 1 \cdot \frac{1}{6} + 2 \cdot \frac{1}{6} + 3 \cdot \frac{1}{6} + 4 \cdot \frac{1}{6} + 5 \cdot \frac{1}{6} + 6 \cdot \frac{1}{6}
     = \frac{21}{6}
     = \frac{7}{2}, \\
-    \expectation{Y_1} = \expectation{X}.
+    \expectation{X_1} = \expectation{Y}.
 \end{gather}
 Таким образом,
 \begin{equation}
@@ -395,45 +395,45 @@ $\expectation{L} = \frac{4 r}{\pi}$, $\variance{L} = 2 r^2 \left ( 1 - \frac{8}{
 где второй начальный момент вычислим с помощью условного математического ожидания:
 \begin{equation}
     \expectation{Z^2}
-    = \expectation{\expectation{\condition{Z^2}{X}}} ,
+    = \expectation{\expectation{\condition{Z^2}{Y}}} ,
 \end{equation}
-Пусть $X = m$:
+Пусть $Y = m$:
 \begin{multline}
-    \expectation{\condition{Z^2}{X=m}}
-    = \expectation{\left ( \sum_{k=1}^m Y_k \right )^2}
-    = \expectation{\sum_{k=1}^m Y_k^2 + \sum_{k=1}^m \sum_{j=1, j \neq k}^m Y_k Y_j} = \\
+    \expectation{\condition{Z^2}{Y=m}}
+    = \expectation{\left ( \sum_{k=1}^m X_k \right )^2}
+    = \expectation{\sum_{k=1}^m X_k^2 + \sum_{k=1}^m \sum_{j=1, j \neq k}^m X_k X_j} = \\
     %
-    = \sum_{k=1}^m \expectation{Y_k^2} + \sum_{k=1}^m \sum_{j=1, j \neq k}^m \expectation{Y_k Y_j}
-    = m \cdot \expectation{Y_1^2} + m(m-1) \cdot \expectation{Y_1 Y_2} = \\
+    = \sum_{k=1}^m \expectation{X_k^2} + \sum_{k=1}^m \sum_{j=1, j \neq k}^m \expectation{X_k X_j}
+    = m \cdot \expectation{X_1^2} + m(m-1) \cdot \expectation{X_1 X_2} = \\
     %
-    = m \cdot \expectation{Y_1^2} + m(m-1) \cdot \expectation{Y_1} \expectation{Y_2}
-    = m \cdot \expectation{Y_1^2} + m(m-1) \cdot \expectation{Y_1}^2 = \\
+    = m \cdot \expectation{X_1^2} + m(m-1) \cdot \expectation{X_1} \expectation{X_2}
+    = m \cdot \expectation{X_1^2} + m(m-1) \cdot \expectation{X_1}^2 = \\
     %
-    = m \cdot \expectation{Y_1^2} + m^2 \cdot \expectation{Y_1}^2 - m \cdot \expectation{Y_1}^2
-    = m \cdot \left ( \expectation{Y_1^2} - \expectation{Y_1}^2 \right ) + m^2 \cdot \expectation{Y_1}^2 = \\
+    = m \cdot \expectation{X_1^2} + m^2 \cdot \expectation{X_1}^2 - m \cdot \expectation{X_1}^2
+    = m \cdot \left ( \expectation{X_1^2} - \expectation{X_1}^2 \right ) + m^2 \cdot \expectation{X_1}^2 = \\
     %
-    = m \cdot \variance{Y_1} + m^2 \cdot \expectation{Y_1}^2 .
+    = m \cdot \variance{X_1} + m^2 \cdot \expectation{X_1}^2 .
 \end{multline}
 Таким образом,
 \begin{gather}
-    \expectation{\condition{Z^2}{X}}
-    = X \cdot \variance{Y_1} + X^2 \cdot \expectation{Y_1}^2 , \\
+    \expectation{\condition{Z^2}{Y}}
+    = Y \cdot \variance{X_1} + Y^2 \cdot \expectation{X_1}^2 , \\
     %
-    \expectation{\expectation{\condition{Z^2}{X}}}
-    = \expectation{X \cdot \variance{Y_1} + X^2 \cdot \expectation{Y_1}^2}
-    = \expectation{X} \cdot \variance{Y_1} + \expectation{X^2} \cdot \expectation{Y_1}^2,
+    \expectation{\expectation{\condition{Z^2}{Y}}}
+    = \expectation{Y \cdot \variance{X_1} + Y^2 \cdot \expectation{X_1}^2}
+    = \expectation{Y} \cdot \variance{X_1} + \expectation{Y^2} \cdot \expectation{X_1}^2,
 \end{gather}
 и дисперсия:
 \begin{multline}
     \variance{Z}
-    = \expectation{X} \cdot \variance{Y_1} + \expectation{X^2} \cdot \expectation{Y_1}^2 - \expectation{X}^2 \cdot \expectation{Y_1}^2 = \\
+    = \expectation{Y} \cdot \variance{X_1} + \expectation{Y^2} \cdot \expectation{X_1}^2 - \expectation{Y}^2 \cdot \expectation{X_1}^2 = \\
     %
-    = \expectation{X} \cdot \variance{Y_1} + \left ( \expectation{X^2} - \expectation{X}^2 \right ) \cdot \expectation{Y_1}^2
-    = \expectation{X} \cdot \variance{Y_1} + \variance{X} \cdot \expectation{Y_1}^2.
+    = \expectation{Y} \cdot \variance{X_1} + \left ( \expectation{Y^2} - \expectation{Y}^2 \right ) \cdot \expectation{X_1}^2
+    = \expectation{Y} \cdot \variance{X_1} + \variance{Y} \cdot \expectation{X_1}^2.
 \end{multline}
-Причем величины $X$ и $Y_1$ имеют одинаковое распределение и
+Причем величины $Y$ и $X_1$ имеют одинаковое распределение и
 \begin{multline}
-    \expectation{X^2}
+    \expectation{Y^2}
     = 1^2 \cdot \frac{1}{6} + 2^2 \cdot \frac{1}{6} + 3^2 \cdot \frac{1}{6} + 4^2 \cdot \frac{1}{6} + 5^2 \cdot \frac{1}{6} + 6^2 \cdot \frac{1}{6} = \\
     %
     = \frac{1 + 4 + 9 + 16 + 25 + 36}{6}
@@ -441,8 +441,8 @@ $\expectation{L} = \frac{4 r}{\pi}$, $\variance{L} = 2 r^2 \left ( 1 - \frac{8}{
 \end{multline}
 а дисперсия:
 \begin{equation}
-    \variance{X}
-    = \expectation{X^2} - \expectation{X}^2
+    \variance{Y}
+    = \expectation{Y^2} - \expectation{Y}^2
     = \frac{91}{6} - \frac{49}{4}
     = \frac{91 \cdot 2 - 49 \cdot 3}{12}
     = \frac{182 - 147}{12}
@@ -879,12 +879,121 @@ f(r)
 \right .
 $$
 
+\section*{Задачи 18.525, 18.526}
+
+Случайные величины $X$ и $Y$ независимы и одинаково распределены с функцией распределения $F(x)$. Найти функции распределения случайных величин $U = \min \left \{ X, Y \right \}$
+и $V = \max \left \{ X, Y \right \}$, а также совместную функцию распределения $F_{U,V}(u,v)$.
+
+\subsection*{Решение:}
+
+Пусть $F_U(u)$ --- функция распределения случайной величины $U$, тогда:
+\begin{multline}
+    F_U(u)
+    = \probability{U < u} = \\
+    %
+    = \probability{\min \left \{ X, Y \right \} < u}
+    = 1 - \probability{\min \left \{ X, Y \right \} \ge u}
+    = 1 - \probability{X \ge u, Y \ge u} = \\
+    %
+    = 1 - \probability{X \ge u} \cdot \probability{Y \ge u}
+    = 1 - \left ( 1 - \probability{X < u} \right ) \cdot \left ( 1 - \probability{Y < u} \right ) = \\
+    %
+    = 1 - \left ( 1 - F(u) \right ) \cdot \left ( 1 - F(u) \right )
+    = 1 - \left ( 1 - F(u) \right )^2.
+\end{multline}
+
+Пусть $F_V(v)$ --- функция распределения случайной величины $V$, тогда:
+\begin{multline*}
+    F_V(v)
+    = \probability{V < v}
+    = \probability{\max \left \{ X, Y \right \} < v}
+    = \probability{X < v, Y < v} = \\
+    %
+    = \probability{X < v} \cdot \probability{Y < v}
+    = F(v) \cdot F(v)
+    = F(v)^2 .
+\end{multline*}
+
+Совместная функция распределения:
+\begin{equation}
+    F_{U,V}(u,v)
+    = \probability{U < u, V < v} .
+\end{equation}
+Заметим, что в случае $v \le u$:
+\begin{gather}
+    \event{\max \left \{ X, Y \right \} < v} \subseteq \event{\min \left \{ X, Y \right \} < u} , \\
+    \event{V < v} \subseteq \event{U < u} ,
+\end{gather}
+поэтому
+\begin{equation}
+    \probability{U < u, V < v}
+    = \probability{V < v}
+    = F_V(v)
+    = F(v)^2.
+\end{equation}
+В случае $u < v$ рассмотрим разложение:
+\begin{gather}
+    \event{U < v, V < v} = \event{U < u, V < v} \cup \event{u \le U < v, V < v} , \\
+    \probability{U < v, V < v} = \probability{U < u, V < v} + \probability{u \le U < v, V < v} ,
+\end{gather}
+где вероятность в левой части
+\begin{multline}
+    \probability{U < v, V < v}
+    = \probability{\min \left \{ X, Y \right \} < v, \max \left \{ X, Y \right \} < v} = \\
+    %
+    = \probability{\max \left \{ X, Y \right \} < v}
+    = F_V(v)
+    = F(v)^2,
+\end{multline}
+и вторая вероятность в правой части
+\begin{multline}
+    \probability{u \le U < v, V < v}
+    = \probability{u \le \min \left \{ X, Y \right \} < v, \max \left \{ X, Y \right \} < v} = \\
+    %
+    = \probability{u \le X < v, u \le Y < v}
+    = \probability{u \le X < v} \cdot \probability{u \le Y < v} = \\
+    %
+    = \left ( F(v) - F(u) \right ) \cdot \left ( F(v) - F(u) \right )
+    = \left ( F(v) - F(u) \right )^2 .
+\end{multline}
+Таким образом,
+\begin{gather}
+    F(v)^2 = \probability{U < u, V < v} + \left ( F(v) - F(u) \right )^2 , \\
+    \probability{U < u, V < v} = F(v)^2 - \left ( F(v) - F(u) \right )^2 ,
+\end{gather}
+и совместная функция распределения:
+\begin{equation}
+    F_{U,V}(u,v)
+    = \left \{
+    \begin{array}{ll}
+        F(v)^2,                                  & v \le u \\
+        F(v)^2 - \left ( F(v) - F(u) \right )^2, & u < v
+    \end{array}
+    \right .
+    .
+\end{equation}
+
+\subsection*{Ответ:}
+\begin{enumerate}
+    \item $F_U(u) = 1 - \left ( 1 - F(u) \right )^2$,
+    \item $F_V(v) = F(v)^2$,
+    \item $F_{U,V}(u,v)
+    = \left \{
+    \begin{array}{ll}
+        F(v)^2,                                  & v \le u \\
+        F(v)^2 - \left ( F(v) - F(u) \right )^2, & u < v
+    \end{array}
+    \right .
+    .
+    $
+\end{enumerate}
+
 \section*{Задачи для самостоятельного решения}
 
 Из раздела 18 сборника задач Ефимова и Поспелова.
 \begin{enumerate}
     \item На занятии: 445, 459.
-    \item Дома: 439, 440, 453, 454, 464.
+    \item Дома: 439, 440, 453, 454, 464, 514, 522, 536, 537.
 \end{enumerate}
 
 Из сборника задач типового расчёта Чудесенко: 30.
