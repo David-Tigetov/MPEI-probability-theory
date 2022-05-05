@@ -304,7 +304,7 @@ $L$ хорды, соединяющей эти точки.
 \end{gather}
 где угол $\varphi$ имеет равномерное распределение $R \left [ 0, \pi \right ]$, поскольку точки на окружности выбираются наудачу.
 
-\begin{figure}
+\begin{figure}[!ht]
     \centering
     \begin{tikzpicture}[scale=3]
         % окружность
@@ -367,13 +367,13 @@ $L$ хорды, соединяющей эти точки.
 Тогда дисперсия длины хорды:
 \begin{equation}
     \variance{L}
-    = \expectation{L^2} - \left ( \expectation{L} \right )
+    = \expectation{L^2} - \left ( \expectation{L} \right )^2
     = 2 r^2 - \frac{16 r^2}{\pi^2}
-    = 2 r^2 \left ( 1 - \frac{8}{\pi} \right ).
+    = 2 r^2 \left ( 1 - \frac{8}{\pi^2} \right ).
 \end{equation}
 
 \subsection*{Ответ:}
-$\expectation{L} = \frac{4 r}{\pi}$, $\variance{L} = 2 r^2 \left ( 1 - \frac{8}{\pi} \right )$.
+$\expectation{L} = \frac{4 r}{\pi}$, $\variance{L} = 2 r^2 \left ( 1 - \frac{8}{\pi^2} \right )$.
 
 \section*{Задача 18.463}
 При броске игрального кубика выпало количество очков $X$. Производится ещё $X$ подбрасываний и фиксируется сумма всех выпавших очков $Z$.
