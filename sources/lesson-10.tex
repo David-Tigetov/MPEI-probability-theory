@@ -1,57 +1,95 @@
 \chapter{Преобразование случайных векторов}
 
-
-\section{Свойства}
-Пусть $X$ и $Y$ --- случайные величины, и $a$, $b$ и $c$ --- числа.
-
-Для математического ожидания справедливо свойство линейности:
+\section*{Введение}
+Пусть $\xi$ и $\eta$ --- случайные величины, и $a$, $b$ и $c$ --- числа, с помощью которых образуется случайная величина:
 \begin{equation}
-    \label{expectation}
-    \expectation{a \cdot X + b \cdot Y + c}
-    = a \cdot \expectation{X} + b \cdot \expectation{Y} + c
+    \zeta = a \cdot \xi + b \cdot \eta + c,
+\end{equation}
+тогда:
+\begin{equation}
+    \expectation{\zeta}
+    = \expectation{a \cdot \xi + b \cdot \eta + c}
+    = a \cdot \expectation{\xi} + b \cdot \expectation{\eta} + c
+\end{equation}
+а для дисперсии справедливо равенство:
+\begin{equation}
+    \variance{\zeta}
+    = \variance{a \cdot \xi + b \cdot \eta + c}
+    = a^2 \cdot \variance{\xi} + b^2 \cdot \variance{\eta} + 2 a b \cdot \covariance{\xi}{\eta},
+\end{equation}
+где
+\begin{multline}
+    \label{10:covariance}
+    \covariance{\xi}{\eta}
+    = \expectation{\left ( \xi - \expectation{\xi} \right ) \left ( \eta - \expectation{\eta} \right )} = \\
+    %
+    = \expectation{ \xi \eta - \expectation{\xi} \eta - \xi \expectation{\eta} - \expectation{\xi} \expectation{\eta}} = \\
+    %
+    = \expectation{\xi\eta} - \expectation{\xi} \expectation{\eta} - \expectation{\xi} \expectation{\eta} + \expectation{\xi} \expectation{\eta} = \\
+    %
+    = \expectation{\xi\eta} - \expectation{\xi} \expectation{\eta}.
+\end{multline}
+Для \textbf{независимых} случайных величин:
+\begin{equation}
+    \covariance{\xi}{\eta}
+    = \expectation{\left ( \xi - \expectation{\xi} \right ) \left ( \eta - \expectation{\eta} \right )}
+    = \left ( \expectation{\xi} - \expectation{\xi} \right ) \left ( \expectation{\eta} - \expectation{\eta} \right )
+    = 0 \cdot 0
+    = 0 .
 \end{equation}
 
-Для дисперсии справедливо равенство:
+Если $\zeta = \varphi(\xi, \eta)$, тогда:
 \begin{equation}
-    \label{variance}
-    \variance{a \cdot X + b \cdot Y + c}
-    = a^2 \cdot \variance{X} + b^2 \cdot \variance{Y} + 2 a b \cdot \covariance{X}{Y}
+    \expectation{\zeta^k}
+    = \expectation{\varphi^k(\xi, \eta)}
+    = \left [
+            \begin{array}{l}
+                \sum \limits_{(x, y)} \varphi^k(x,y) \probability{\xi = x, \eta = y} , \\
+                \iint \limits_{\mathbb{R}^2} \varphi^k(x,y) f_{\xi, \eta}(x,y) dx dy
+            \end{array}
+    \right .
+    ,
+\end{equation}
+где $f_{\xi,\eta}(x,y)$ --- совместная плотность вероятности случайных величин $\xi$ и $\eta$.
+
+В некоторых случаях, удобно использовать условное математическое ожидание:
+\begin{equation}
+    \expectation{\zeta^k}
+    = \expectation{\expectation{\condition{\zeta^k}{\xi}}} .
 \end{equation}
 
-С использование свойств \eqref{expectation} и \eqref{variance} можно показать справедливость следующих выражений для дисперсии:
-\begin{multline}
-    \variance{X}
-    = \expectation{\left ( X - \expectation{X} \right )^2}
-    = \expectation{X^2 - 2 X \cdot \expectation{X} + \expectation{X}^2} = \\
-    %
-    = \expectation{X^2} - 2 \expectation{X} \cdot \expectation{X} + \expectation{X}^2
-    = \expectation{X^2} - \expectation{X}^2
-\end{multline}
-и ковариации:
-\begin{multline}
-    \label{covariance}
-    \covariance{X}{Y}
-    = \expectation{\left ( X - \expectation{X} \right ) \left ( Y - \expectation{Y} \right )}
-    = \expectation{ X Y - \expectation{X} Y - X \expectation{Y} + \expectation{X} \expectation{Y}} = \\
-    %
-    = \expectation{XY} - \expectation{X} \expectation{Y} - \expectation{X} \expectation{Y} + \expectation{X} \expectation{Y}
-    = \expectation{XY} - \expectation{X} \expectation{Y} .
-\end{multline}
+Функция распределения $F_\zeta(z)$ случайной величины $\zeta$:
+\begin{equation}
+    F_{\zeta}(z)
+    = \probability{\zeta < z}
+    = \probability{\varphi(\xi, \eta) < z}
+    = \left [
+            \begin{array}{l}
+                \sum \limits_{x + y < z} \probability{\xi = x, \eta = y} , \\
+                \iint \limits_{x + y < z} f_{\xi, \eta}(x, y) dx dy
+            \end{array}
+    \right .
+\end{equation}
+Если $\zeta = \xi + \eta$, где $\xi$ и $\eta$ --- величины непрерывного типа, то функция плотности вероятности $f_\zeta(z)$ случайной величины $\zeta$:
+\begin{equation}
+    f_{\zeta}(z)
+    = \int \limits_{-\infty}^{\infty} f_{\xi, \eta}(t, z-t) dt .
+\end{equation}
 
+\section*{Задача 18.437}
 
-\section{Задача 18.437}
-\section*{Условие}
 Случайные величины $X$ и $Y$ независимы и имеют следующие характеристики: $m_X = 1$, $m_Y = 2$, $\sigma_X = 1$, $\sigma_Y = 2$.
 Вычислить математические ожидания случайных величин:
 \begin{enumerate}
     \item $U = X^2 + 2 Y^2 - XY - 4X + Y + 4$,
     \item $V = (X + Y - 1)^2$
 \end{enumerate}
-\section*{Решение}
+
+\subsection*{Решение:}
 \begin{enumerate}
     \item По свойству линейности математического ожидания:
     \begin{multline}
-        \label{437:U}
+        \label{10:437:U}
         \expectation{U}
         = \expectation{X^2 + 2 Y^2 - XY - 4X + Y + 4} = \\
         = \expectation{X^2} + 2 \expectation{Y^2} - \expectation{XY} - 4 \expectation{X} + \expectation{Y} + \expectation{4}
@@ -60,11 +98,11 @@
     Для вычисления вторых начальных моментов используем известное соотношение для дисперсии:
     \begin{gather}
         \variance{X} = \expectation{X^2} - \left ( \expectation{X} \right )^2 , \\
-        \variance{X} + \left ( \expectation{X} \right )^2 = \expectation{X^2} \label{437:X_2}.
+        \variance{X} + \left ( \expectation{X} \right )^2 = \expectation{X^2} \label{10:437:X_2}.
     \end{gather}
     и
     \begin{equation}
-        \label{437:Y_2}
+        \label{10:437:Y_2}
         \expectation{Y^2} = \variance{Y} + \left ( \expectation{Y} \right )^2.
     \end{equation}
 
@@ -73,43 +111,40 @@
         \expectation{XY} = \expectation{X} \cdot \expectation{Y}
     \end{gather}
 
-    Подставляя полученные выражения в равенство \eqref{437:U}, получим:
+    Подставляя полученные выражения в равенство \eqref{10:437:U}, получим:
     \begin{multline}
         \expectation{U}
         = \variance{X} + \left ( \expectation{X} \right )^2 + 2 \left ( \variance{Y} + \left ( \expectation{Y} \right )^2 \right ) - \expectation{X} \cdot \expectation{Y} - 4 \expectation{X} + \expectation{Y} + \expectation{4} = \\
         = \sigma_X^2 + m_X^2 + 2 \left ( \sigma_Y^2 + m_Y^2 \right ) - m_X m_Y - 4 m_X + m_Y + 4 = \\
         = 1^2 + 1^2 + 2 \left ( 2^2 + 2^2 \right ) - 1 \cdot 2 - 4 \cdot 1 + 2 + 4 = 18
+        .
     \end{multline}
 
     \item Заметим, что величина $V$ является квадратом выражения, и требуется найти второй начальный момент:
     \begin{equation}
-        \label{437:expectation}
+        \label{10:437:expectation}
         \expectation{V} = \expectation{\left ( X + Y - 1 \right )^2} = \variance{X + Y - 1} + \left ( \expectation{X + Y - 1} \right )^2 ,
     \end{equation}
-    где в последнем равенстве использовалось выражение для второго момента через дисперсию и квадрат математического ожидания, как ранее, в выражениях \eqref{437:X_2}
-    и \eqref{437:Y_2}.
+    где в последнем равенстве использовалось выражение для второго момента через дисперсию и квадрат математического ожидания, как ранее, в выражениях \eqref{10:437:X_2}
+    и \eqref{10:437:Y_2}.
     По свойствам дисперсии:
     \begin{equation}
-        \label{437:variance}
+        \label{10:437:variance}
         \variance{X + Y - 1} = \variance{X} + \variance{Y} + 2 \covariance{X}{Y}
     \end{equation}
-    Ковариация величин $X$ и $Y$ из равенства \eqref{covariance}:
+    Ковариация величин $X$ и $Y$ из равенства \eqref{10:covariance}:
     \begin{equation}
         \covariance{X}{Y} = \expectation{XY} - \expectation{X} \expectation{Y}.
     \end{equation}
     В силу \textbf{независимости} величин $X$ и $Y$:
     \begin{equation}
-        \expectation{XY} = \expectation{X} \expectation{Y} ,
+        \covariance{X}{Y} = 0 ,
     \end{equation}
-    поэтому ковариация равна 0:
-    \begin{equation}
-        \covariance{X}{Y} = \expectation{X} \expectation{Y} - \expectation{X} \expectation{Y} = 0 ,
-    \end{equation}
-    а выражение для дисперсии \eqref{437:variance} принимает вид:
+    а выражение для дисперсии \eqref{10:437:variance} принимает вид:
     \begin{equation}
         \variance{X + Y - 1} = \variance{X} + \variance{Y} .
     \end{equation}
-    и выражение \eqref{437:expectation}:
+    и выражение \eqref{10:437:expectation}:
     \begin{multline}
         \expectation{V}
         = \variance{X} + \variance{Y} + \left ( \expectation{X} + \expectation{Y} - 1 \right )^2 = \\
@@ -117,18 +152,19 @@
         = \sigma_X^2 + \sigma_Y^2 + \left ( m_X + m_Y - 1 \right )^2
         = 1^2
         + 2^2 + \left ( 1 + 2 - 1 \right )^2
-        = 9
+        = 9.
     \end{multline}
 \end{enumerate}
-\section*{Ответ}
+
+\subsection*{Ответ}
 \begin{enumerate}
     \item $\expectation{U} = 18$ ,
     \item $\expectation{V} = 9$.
 \end{enumerate}
 
 
-\section{Задача 18.438}
-\section*{Условие}
+\section*{Задача 18.438}
+
 Случайная точка $\left ( X, Y \right )$ характеризуется центром рассеивания $(-1, 1)$ и ковариационной матрицей
 $\begin{pmatrix}
      3  & -2 \\
@@ -136,7 +172,8 @@ $\begin{pmatrix}
 \end{pmatrix}$.
 Найти математическое ожидание и дисперсию случайной величины $Z = 2 X - 4 Y + 3$.
 
-\section*{Решение}
+\subsection*{Решение:}
+
 Центр рассеивания:
 \begin{equation}
     \begin{pmatrix}
@@ -188,12 +225,11 @@ $\begin{pmatrix}
     = 108.
 \end{multline}
 
-\section*{Ответ}
+\subsection*{Ответ}
 $\expectation{Z} = -3$, $\variance{Z} = 108$.
 
+\section*{Задача 18.443}
 
-\section{Задача 18.443}
-\section*{Условие}
 Случайная величина $X$ дискретного типа распределена по закону, определяемому таблицей:
 
 \begin{tabular}{|c|c|c|c|}
@@ -205,7 +241,9 @@ $\expectation{Z} = -3$, $\variance{Z} = 108$.
 \end{tabular}
 
 Найти коэффициент корреляции между $X$ и $X^2$.
-\section*{Решение}
+
+\subsection*{Решение:}
+
 По определению коэффициент корреляции $\rho$:
 \begin{equation}
     \rho = \frac{\covariance{X}{X^2}}{\sqrt{\variance{X} \variance{X^2}}}
@@ -218,11 +256,11 @@ $\expectation{Z} = -3$, $\variance{Z} = 108$.
     = \expectation{X^3} - \expectation{X} \cdot \expectation{X^2}
 \end{equation}
 
-Заметим, что у величины $X$ нечетные начальные моменты ($k=1,2,3,...$):
+Заметим, что у величины $X$ начальные моменты нечётного порядка ($k=1,2,3,...$):
 \begin{equation}
     \expectation{X^{2k-1}} = \sum_{i=1}^3 x_i^{2k-1} \cdot p_i = (-1)^{2k-1} \cdot \frac{1}{6} + 0^{2k-1} \cdot \frac{1}{3} + 1^{2k-1} \cdot \frac{1}{2} = - \frac{1}{6} + \frac{1}{2} = \frac{1}{3} ,
 \end{equation}
-и чётные начальные моменты ($k=1,2,3,...$):
+и начальные моменты чётного порядка ($k=1,2,3,...$):
 \begin{equation}
     \expectation{X^{2k}} = \sum_{i=1}^3 x_i^{2k} \cdot p_i = (-1)^{2k} \cdot \frac{1}{6} + 0^{2k} \cdot \frac{1}{3} + 1^{2k} \cdot \frac{1}{2} = \frac{1}{6} + \frac{1}{2} = \frac{2}{3} .
 \end{equation}
@@ -240,23 +278,238 @@ $\expectation{Z} = -3$, $\variance{Z} = 108$.
 
 Таким образом, коэффициент корреляции:
 \begin{equation}
-    \rho = \frac{\frac{1}{9}}{\sqrt{\frac{5}{9} \frac{2}{9}}} = \frac{\frac{1}{9}}{\frac{1}{9} \sqrt{10}} = \frac{1}{\sqrt{10}} .
+    \rho = \frac{\frac{1}{9}}{\sqrt{\frac{5}{9} \cdot \frac{2}{9}}} = \frac{\frac{1}{9}}{\frac{1}{9} \sqrt{10}} = \frac{1}{\sqrt{10}} .
 \end{equation}
 
-\section*{Ответ}
-$\frac{1}{\sqrt{10}}$
+\subsection*{Ответ:}
+$\frac{1}{\sqrt{10}}$.
 
+\section*{Задача 18.450}
 
-\section{Домашнее задание}
+На окружность радиуса $r$ наудачу ставятся две точки. Найти математическое ожидание $\expectation{L}$ и дисперсию $\variance{L}$ случайной длины
+$L$ хорды, соединяющей эти точки.
 
-Задачи 436, 437, 439, 441, 444.
+\subsection*{Решение:}
 
+Пусть $\varphi$ обозначает центральный угол между радиусами, соединяющими центр окружности с точками, тогда длина хорды (рисунок \ref{10:450:hord}):
+\begin{gather}
+    L^2
+    = r^2 + r^2 - 2 r^2 \cos \varphi
+    = 2 r^2 \left ( 1 - \cos \varphi \right )
+    = 2 r^2 \cdot 2 \frac{1 - \cos \varphi}{2}
+    = 4 r^2 \sin^2 \frac{\varphi}{2} , \\
+    %
+    L
+    = 2 r \sin \frac{\varphi}{2} ,
+\end{gather}
+где угол $\varphi$ имеет равномерное распределение $R \left [ 0, \pi \right ]$, поскольку точки на окружности выбираются наудачу.
 
-\section{Задача 18.515}
-\section*{Условие}
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[scale=3]
+        % окружность
+        \draw [dashed] ( 0, 0 ) circle [radius = 1];
+
+        % координаты точек
+        \def \Ax { 0.8 };
+        \def \Ay { 0.6 };
+        \def \Bx { -0.5 };
+        \def \By { 0.866 };
+
+        % точки
+        \draw [fill] ( 0, 0 ) circle [radius = 0.02] node [below left] at ( 0, 0 ) {$O$};
+        \draw [fill] ( \Ax, \Ay ) circle [radius = 0.02] node [above right] at ( \Ax, \Ay ) {$A$};
+        \draw [fill] ( \Bx, \By ) circle [radius = 0.02] node [above left] at ( \Bx, \By ) {$B$};
+
+        % радиусы
+        \draw ( 0, 0 ) -- ( \Ax, \Ay );
+        \draw ( 0, 0 ) -- ( \Bx, \By );
+
+        % хорда
+        \draw ( \Ax, \Ay ) -- ( \Bx, \By );
+
+        % угол
+        \node [above] at ( 0.03, 0 ) {$\varphi$};
+        % длина
+        \node [above] at ( 0.2, 0.75 ) {$L$};
+    \end{tikzpicture}
+    \caption{Окружность и хорда.}
+    \label{10:450:hord}
+\end{figure}
+
+Таким образом, математическое ожидание:
+\begin{multline}
+    \expectation{L}
+    = \expectation{2 r \sin \frac{\varphi}{2}}
+    = 2 r \expectation{\sin \frac{\varphi}{2}} = \\
+    %
+    = 2 r \int \limits_0^\pi \sin \frac{x}{2} \frac{1}{\pi} d x
+    = 2 r \frac{1}{\pi} \left . \left ( - 2 \cos \frac{x}{2} \right ) \right |_0^\pi
+    = 2 r \frac{1}{\pi} 2
+    = \frac{4 r}{\pi} .
+\end{multline}
+
+Второй начальный момент длины хорды:
+\begin{multline}
+    \expectation{L^2}
+    = \expectation{\left ( 2 r \sin \frac{\varphi}{2} \right )^2}
+    = \expectation{4 r^2 \sin^2 \frac{\varphi}{2}}
+    = 4 r^2 \expectation{\sin^2 \frac{\varphi}{2}} = \\
+    %
+    = 4 r^2 \int \limits_0^\pi \sin^2 \frac{x}{2} \frac{1}{\pi} d x
+    = 4 r^2 \int \limits_0^\pi \left ( \frac{1 - \cos x}{2} \right ) \frac{1}{\pi} d x
+    = 4 r^2 \frac{1}{2 \pi} \int \limits_0^\pi \left ( 1 - \cos x \right ) d x = \\
+    %
+    = \frac{2 r^2}{\pi} \left . \left ( x - \sin x \right ) \right |_0^\pi
+    = \frac{2 r^2}{\pi} \pi
+    = 2 r^2 .
+\end{multline}
+Тогда дисперсия длины хорды:
+\begin{equation}
+    \variance{L}
+    = \expectation{L^2} - \left ( \expectation{L} \right )^2
+    = 2 r^2 - \frac{16 r^2}{\pi^2}
+    = 2 r^2 \left ( 1 - \frac{8}{\pi^2} \right ).
+\end{equation}
+
+\subsection*{Ответ:}
+$\expectation{L} = \frac{4 r}{\pi}$, $\variance{L} = 2 r^2 \left ( 1 - \frac{8}{\pi^2} \right )$.
+
+\section*{Задача 18.463}
+При броске игрального кубика выпало количество очков $X$. Производится ещё $X$ подбрасываний и фиксируется сумма всех выпавших очков $Z$.
+Найти математическое ожидание $\expectation{Z}$ и дисперсию $\variance{Z}$.
+
+\subsection*{Решение:}
+Пусть $X_1$, \dots, $X_6$ обозначают количества очков, выпавших в результате второй части подбрасываний, тогда сумму очков $Z$ можно представить
+в виде:
+\begin{equation}
+    Z
+    = \sum_{k=1}^Y X_k .
+\end{equation}
+
+Математическое ожидание $Z$ вычислим с помощью условного математического ожидания $Z$ относительно $Y$:
+\begin{equation}
+    \expectation{Z}
+    = \expectation{\expectation{\condition{Z}{Y}}}.
+\end{equation}
+
+Определим значение условного математического ожидания $\expectation{\condition{Z}{Y}}$ при различных значениях $Y$. Пусть $Y = m$, тогда:
+\begin{gather}
+    Z = \sum_{k=1}^m X_k, \\
+    %
+    \expectation{\condition{Z}{Y=m}}
+    = \expectation{\sum_{k=1}^m X_k}
+    = \sum_{k=1}^m \expectation{X_k}
+    = m \cdot \expectation{X_1} .
+\end{gather}
+Поскольку равенство справедливо при любых $m$, то условное математическое ожидание можно представить в виде:
+\begin{equation}
+    \label{10:463:conditional_expectation}
+    \expectation{\condition{Z}{Y}} = Y \cdot \expectation{X_1} ,
+\end{equation}
+откуда
+\begin{equation}
+    \expectation{Z}
+    = \expectation{\condition{Z}{Y}}
+    = \expectation{Y \cdot \expectation{X_1}}
+    = \expectation{Y} \cdot \expectation{X_1}
+\end{equation}
+Величины $X$ и $X_1$ --- количество очков, выпадающих при одном броске, поэтому у них одинаковое математическое ожидание:
+\begin{gather}
+    \expectation{Y}
+    = 1 \cdot \frac{1}{6} + 2 \cdot \frac{1}{6} + 3 \cdot \frac{1}{6} + 4 \cdot \frac{1}{6} + 5 \cdot \frac{1}{6} + 6 \cdot \frac{1}{6}
+    = \frac{21}{6}
+    = \frac{7}{2}, \\
+    \expectation{X_1} = \expectation{Y}.
+\end{gather}
+Таким образом,
+\begin{equation}
+    \expectation{Z}
+    = \frac{7}{2} \cdot \frac{7}{2}
+    = \frac{49}{4} .
+\end{equation}
+
+При вычислении дисперсии воспользуемся равенством:
+\begin{equation}
+    \variance{Z}
+    = \expectation{Z^2} - \expectation{Z}^2 ,
+\end{equation}
+где второй начальный момент вычислим с помощью условного математического ожидания:
+\begin{equation}
+    \expectation{Z^2}
+    = \expectation{\expectation{\condition{Z^2}{Y}}} ,
+\end{equation}
+Пусть $Y = m$:
+\begin{multline}
+    \expectation{\condition{Z^2}{Y=m}}
+    = \expectation{\left ( \sum_{k=1}^m X_k \right )^2}
+    = \expectation{\sum_{k=1}^m X_k^2 + \sum_{k=1}^m \sum_{j=1, j \neq k}^m X_k X_j} = \\
+    %
+    = \sum_{k=1}^m \expectation{X_k^2} + \sum_{k=1}^m \sum_{j=1, j \neq k}^m \expectation{X_k X_j}
+    = m \cdot \expectation{X_1^2} + m(m-1) \cdot \expectation{X_1 X_2} = \\
+    %
+    = m \cdot \expectation{X_1^2} + m(m-1) \cdot \expectation{X_1} \expectation{X_2}
+    = m \cdot \expectation{X_1^2} + m(m-1) \cdot \expectation{X_1}^2 = \\
+    %
+    = m \cdot \expectation{X_1^2} + m^2 \cdot \expectation{X_1}^2 - m \cdot \expectation{X_1}^2
+    = m \cdot \left ( \expectation{X_1^2} - \expectation{X_1}^2 \right ) + m^2 \cdot \expectation{X_1}^2 = \\
+    %
+    = m \cdot \variance{X_1} + m^2 \cdot \expectation{X_1}^2 .
+\end{multline}
+Таким образом,
+\begin{gather}
+    \expectation{\condition{Z^2}{Y}}
+    = Y \cdot \variance{X_1} + Y^2 \cdot \expectation{X_1}^2 , \\
+    %
+    \expectation{\expectation{\condition{Z^2}{Y}}}
+    = \expectation{Y \cdot \variance{X_1} + Y^2 \cdot \expectation{X_1}^2}
+    = \expectation{Y} \cdot \variance{X_1} + \expectation{Y^2} \cdot \expectation{X_1}^2,
+\end{gather}
+и дисперсия:
+\begin{multline}
+    \variance{Z}
+    = \expectation{Y} \cdot \variance{X_1} + \expectation{Y^2} \cdot \expectation{X_1}^2 - \expectation{Y}^2 \cdot \expectation{X_1}^2 = \\
+    %
+    = \expectation{Y} \cdot \variance{X_1} + \left ( \expectation{Y^2} - \expectation{Y}^2 \right ) \cdot \expectation{X_1}^2
+    = \expectation{Y} \cdot \variance{X_1} + \variance{Y} \cdot \expectation{X_1}^2.
+\end{multline}
+Причем величины $Y$ и $X_1$ имеют одинаковое распределение и
+\begin{multline}
+    \expectation{Y^2}
+    = 1^2 \cdot \frac{1}{6} + 2^2 \cdot \frac{1}{6} + 3^2 \cdot \frac{1}{6} + 4^2 \cdot \frac{1}{6} + 5^2 \cdot \frac{1}{6} + 6^2 \cdot \frac{1}{6} = \\
+    %
+    = \frac{1 + 4 + 9 + 16 + 25 + 36}{6}
+    = \frac{91}{6},
+\end{multline}
+а дисперсия:
+\begin{equation}
+    \variance{Y}
+    = \expectation{Y^2} - \expectation{Y}^2
+    = \frac{91}{6} - \frac{49}{4}
+    = \frac{91 \cdot 2 - 49 \cdot 3}{12}
+    = \frac{182 - 147}{12}
+    = \frac{35}{12},
+\end{equation}
+тогда
+\begin{multline}
+    \variance{Z}
+    = \frac{7}{2} \cdot \frac{35}{12} + \frac{35}{12} \cdot \left ( \frac{7}{2} \right )^2
+    = \frac{7}{2} \cdot \frac{35}{12} \cdot \left ( 1 + \frac{7}{2} \right )
+    = \frac{7}{2} \cdot \frac{35}{12} \cdot \frac{9}{2} = \\
+    %
+    = \frac{7}{2} \cdot \frac{35}{4} \cdot \frac{3}{2}
+    = \frac{245 \cdot 3}{16}
+    = \frac{735}{16}.
+\end{multline}
+
+\subsection*{Ответ:}
+$\expectation{Z} = \frac{49}{4}$, $\variance{Z} = \frac{735}{16}$.
+
+\section*{Задача 18.515}
+
 Случайные величины $X$ и $Y$ независимы и подчиняются одному и тому же индикаторному распределению $B(1,p)$. Описать законы распределения случайных величин
 $Z = X + Y$ и $V = X Y$.
-\section*{Решение}
+\subsection*{Решение:}
 Величина $X$ подчиняется индикаторному распределению $B(1,p)$ означает, что $X$ принимает значение 1 с веростноятью $p$ и 0 с вероятностью $1-p$:
 
 \begin{tabular}{|c|c|}
@@ -311,7 +564,7 @@ $Z = X + Y$ и $V = X Y$.
     \hline
 \end{tabular}
 
-\section*{Ответ}
+\subsection*{Ответ:}
 Закон распределения $Z$:
 
 \begin{tabular}{|c|c|}
@@ -338,9 +591,8 @@ $Z = X + Y$ и $V = X Y$.
     \hline
 \end{tabular}
 
+\section*{Задача 18.518}
 
-\section{Задача 18.518}
-\section*{Условие}
 Случайный вектор $\left ( X, Y \right )$ распределен по закону, определяемому плотностью распределения вероятностей
 $$
 f_{X, Y} ( x, y )
@@ -357,9 +609,9 @@ $$
     \item $U = XY$.
 \end{enumerate}
 
-\section*{Решение}
+\subsection*{Решение:}
 \begin{enumerate}
-    \item Плотность вероятности $f_Z(z)$ величины $Z$ находим интергрированием совместной плотности $f_{X,Y}(x,y)$ с учётом условия $x+y=z$:
+    \item Плотность вероятности $f_Z(z)$ величины $Z$ находим интегрированием совместной плотности $f_{X,Y}(x,y)$ с учётом условия $x+y=z$:
     \begin{equation}
         f_Z(z)
         = \int \limits_{-\infty}^{\infty} f_{X,Y}(x, z-x) dx
@@ -460,12 +712,16 @@ $$
     \begin{figure}[!h]
         \center
         \begin{tikzpicture}[scale=5]
+            % область 1
+            \draw [fill=gray!20] ( 0, 0 ) rectangle ( 0.2, 1 );
+            % область 2
+            \draw [fill=gray!20] ( 0.2, 0 ) -- ( 0.2, 1 ) to [out=-83,in=175] ( 1, 0.2 ) -- ( 1, 0 );
+
             % оси
             \draw [->] ( -0.1, 0 ) -- ( 1.1, 0 ) node [below] at ( 1.1, 0 ) {$x$};
             \draw [->] ( 0, -0.1 ) -- ( 0, 1.1 ) node [left] at ( 0, 1.1 ) {$y$};
 
             % квадратик
-            \draw [fill=gray!20] ( 0, 0 ) rectangle ( 1, 1 );
             \node [below] at ( 1, 0 ) {$1$};
             \node [left] at ( 0, 1 ) {$1$};
 
@@ -531,7 +787,7 @@ $$
 %        \end{multline}
 \end{enumerate}
 
-\section*{Ответ}
+\subsection*{Ответ:}
 \begin{enumerate}
     \item Плотность вероятности величины $Z$:
     $$
@@ -562,12 +818,11 @@ $$
     $$
 \end{enumerate}
 
+\section*{Задача 18.521}
 
-\section{Задача 18.521}
-\section*{Условие}
 Случайные величины $X$ и $Y$ независимы и одинаково распределены по закону $\mathcal{N}(0, \sigma^2)$. Установить, по какому закону распределена случайная величина
 $R = \sqrt{X^2 + Y^2}$.
-\section*{Решение}
+\subsection*{Решение:}
 Пусть $F_R(r)$ --- функция распределения величины $R$:
 \begin{multline}
     F_R(r)
@@ -654,7 +909,7 @@ $R = \sqrt{X^2 + Y^2}$.
     \end{array}
     \right .
 \end{equation}
-\section*{Ответ}
+\subsection*{Ответ:}
 Закон распределения Релея. Функция плотности вероятности $f(r)$:
 $$
 f(r)
@@ -666,8 +921,310 @@ f(r)
 \right .
 $$
 
+\section*{Задачи 18.525, 18.526}
 
-\section{Домашнее задание}
+Случайные величины $X$ и $Y$ независимы и одинаково распределены с функцией распределения $F(x)$. Найти функции распределения случайных величин $U = \min \left \{ X, Y \right \}$
+и $V = \max \left \{ X, Y \right \}$, а также совместную функцию распределения $F_{U,V}(u,v)$.
 
-Задачи 514, 517, 518.
+\subsection*{Решение:}
 
+Пусть $F_U(u)$ --- функция распределения случайной величины $U$, тогда:
+\begin{multline}
+    F_U(u)
+    = \probability{U < u} = \\
+    %
+    = \probability{\min \left \{ X, Y \right \} < u}
+    = 1 - \probability{\min \left \{ X, Y \right \} \ge u}
+    = 1 - \probability{X \ge u, Y \ge u} = \\
+    %
+    = 1 - \probability{X \ge u} \cdot \probability{Y \ge u}
+    = 1 - \left ( 1 - \probability{X < u} \right ) \cdot \left ( 1 - \probability{Y < u} \right ) = \\
+    %
+    = 1 - \left ( 1 - F(u) \right ) \cdot \left ( 1 - F(u) \right )
+    = 1 - \left ( 1 - F(u) \right )^2.
+\end{multline}
+
+Пусть $F_V(v)$ --- функция распределения случайной величины $V$, тогда:
+\begin{multline*}
+    F_V(v)
+    = \probability{V < v}
+    = \probability{\max \left \{ X, Y \right \} < v}
+    = \probability{X < v, Y < v} = \\
+    %
+    = \probability{X < v} \cdot \probability{Y < v}
+    = F(v) \cdot F(v)
+    = F(v)^2 .
+\end{multline*}
+
+Совместная функция распределения:
+\begin{equation}
+    F_{U,V}(u,v)
+    = \probability{U < u, V < v} .
+\end{equation}
+Заметим, что в случае $v \le u$:
+\begin{gather}
+    \event{\max \left \{ X, Y \right \} < v} \subseteq \event{\min \left \{ X, Y \right \} < u} , \\
+    \event{V < v} \subseteq \event{U < u} ,
+\end{gather}
+поэтому
+\begin{equation}
+    \probability{U < u, V < v}
+    = \probability{V < v}
+    = F_V(v)
+    = F(v)^2.
+\end{equation}
+В случае $u < v$ рассмотрим разложение:
+\begin{gather}
+    \event{U < v, V < v} = \event{U < u, V < v} \cup \event{u \le U < v, V < v} , \\
+    \probability{U < v, V < v} = \probability{U < u, V < v} + \probability{u \le U < v, V < v} ,
+\end{gather}
+где вероятность в левой части
+\begin{multline}
+    \probability{U < v, V < v}
+    = \probability{\min \left \{ X, Y \right \} < v, \max \left \{ X, Y \right \} < v} = \\
+    %
+    = \probability{\max \left \{ X, Y \right \} < v}
+    = F_V(v)
+    = F(v)^2,
+\end{multline}
+и вторая вероятность в правой части
+\begin{multline}
+    \probability{u \le U < v, V < v}
+    = \probability{u \le \min \left \{ X, Y \right \} < v, \max \left \{ X, Y \right \} < v} = \\
+    %
+    = \probability{u \le X < v, u \le Y < v}
+    = \probability{u \le X < v} \cdot \probability{u \le Y < v} = \\
+    %
+    = \left ( F(v) - F(u) \right ) \cdot \left ( F(v) - F(u) \right )
+    = \left ( F(v) - F(u) \right )^2 .
+\end{multline}
+Таким образом,
+\begin{gather}
+    F(v)^2 = \probability{U < u, V < v} + \left ( F(v) - F(u) \right )^2 , \\
+    \probability{U < u, V < v} = F(v)^2 - \left ( F(v) - F(u) \right )^2 ,
+\end{gather}
+и совместная функция распределения:
+\begin{equation}
+    F_{U,V}(u,v)
+    = \left \{
+    \begin{array}{ll}
+        F(v)^2,                                  & v \le u \\
+        F(v)^2 - \left ( F(v) - F(u) \right )^2, & u < v
+    \end{array}
+    \right .
+    .
+\end{equation}
+
+\subsection*{Ответ:}
+\begin{enumerate}
+    \item $F_U(u) = 1 - \left ( 1 - F(u) \right )^2$,
+    \item $F_V(v) = F(v)^2$,
+    \item $F_{U,V}(u,v)
+    = \left \{
+    \begin{array}{ll}
+        F(v)^2,                                  & v \le u \\
+        F(v)^2 - \left ( F(v) - F(u) \right )^2, & u < v
+    \end{array}
+    \right .
+    .
+    $
+\end{enumerate}
+
+\section*{Задача 18.530}
+
+Доказать композиционную устойчивость закона Пуассона и найти $\expectation{Z}$ и $\variance{Z}$, где $Z = X + Y$, $X$ и $Y$ --- независимые пуассоновские случайные величины с
+параметрами соответственно $\lambda_1$ и $\lambda_2$.
+
+\subsection*{Решение:}
+
+Вычислим вероятности событий $\event{Z = m}$:
+\begin{multline}
+    \probability{Z = m}
+    = \probability{X + Y = m}
+    = \probability{\bigcup_{k=0}^m \event{X = k, Y = m - k}} = \\
+    %
+    = \sum_{k=0}^m \probability{X = k, Y = m - k}
+    = \sum_{k=0}^m \probability{X = k} \cdot \probability{Y = m - k} = \\
+    %
+    = \sum_{k=0}^m \frac{\lambda_1^k}{k!} e^{-\lambda_1} \cdot \frac{\lambda_2^{m-k}}{(m-k)!} e^{-\lambda_2}
+    = e^{-\lambda_1} e^{-\lambda_2} \sum_{k=0}^m \frac{\lambda_1^k}{k!} \frac{\lambda_2^{m-k}}{(m-k)!} = \\
+    %
+    = e^{-(\lambda_1+\lambda_2)} \sum_{k=0}^m \frac{1}{k!(m-k)!} \lambda_1^k \lambda_2^{m-k}
+    = e^{-(\lambda_1+\lambda_2)} \sum_{k=0}^m \frac{1}{m!} \frac{m!}{k!(m-k)!} \lambda_1^k \lambda_2^{m-k} = \\
+    %
+    = e^{-(\lambda_1+\lambda_2)} \frac{1}{m!} \sum_{k=0}^m \frac{m!}{k!(m-k)!} \lambda_1^k \lambda_2^{m-k}
+    = e^{-(\lambda_1+\lambda_2)} \frac{1}{m!} \sum_{k=0}^m C_m^k \lambda_1^k \lambda_2^{m-k} = \\
+    = e^{-(\lambda_1+\lambda_2)} \frac{1}{m!} (\lambda_1 + \lambda_2)^m
+    = \frac{(\lambda_1 + \lambda_2)^m}{m!} e^{-(\lambda_1+\lambda_2)}.
+\end{multline}
+Таким образом, $Z = X + Y \sim P( \lambda_1 + \lambda_2 )$.
+
+В силу линейности математического ожидания:
+\begin{equation}
+    \expectation{Z}
+    = \expectation{X + Y}
+    = \expectation{X} + \expectation{Y}
+    = \lambda_1 + \lambda_2 .
+\end{equation}
+и в силу независимости величин $X$ и $Y$:
+\begin{equation}
+    \variance{Z}
+    = \variance{X + Y}
+    = \variance{X} + \variance{Y} + 2 \covariance{X}{Y}
+    = \lambda_1 + \lambda_2 .
+\end{equation}
+
+Первый и второй начальные моменты случайных величин, имеющих распределение Пуассона, можно вычислить следующим образом. Обозначим для краткости $\lambda = \lambda_1 + \lambda_2$,
+тогда математическое ожидание $Z$:
+\begin{multline}
+    \expectation{Z}
+    = \sum_{k=0}^{\infty} k \frac{\lambda^k}{k!} e^{-\lambda}
+    = \sum_{k=1}^{\infty} k \frac{\lambda^k}{k!} e^{-\lambda}
+    = e^{-\lambda} \lambda \sum_{k=1}^{\infty} \frac{k \lambda^{k-1}}{k!}
+    = e^{-\lambda} \lambda \sum_{k=1}^{\infty} \left ( \frac{\lambda^k}{k!} \right )_{\lambda}^{\prime} = \\
+    %
+    = e^{-\lambda} \lambda \left ( \sum_{k=1}^{\infty} \frac{\lambda^k}{k!} \right )_{\lambda}^{\prime}
+    = e^{-\lambda} \lambda \left ( 1 + \sum_{k=1}^{\infty} \frac{\lambda^k}{k!} - 1 \right )_{\lambda}^{\prime} = \\
+    = e^{-\lambda} \lambda \left ( \sum_{k=0}^{\infty} \frac{\lambda^k}{k!} - 1 \right )_{\lambda}^{\prime}
+    = e^{-\lambda} \lambda \left ( e^\lambda - 1 \right )_{\lambda}^{\prime}
+    = e^{-\lambda} \lambda e^\lambda
+    = \lambda .
+\end{multline}
+
+Второй начальный момент можно вычислить аналогично:
+\begin{multline}
+    \expectation{Z}
+    = \sum_{k=0}^{\infty} k^2 \frac{\lambda^k}{k!} e^{-\lambda}
+    = \sum_{k=1}^{\infty} k^2 \frac{\lambda^k}{k!} e^{-\lambda}
+    = e^{-\lambda} \lambda \sum_{k=1}^{\infty} k \frac{k \lambda^{k-1}}{k!}
+    = e^{-\lambda} \lambda \sum_{k=1}^{\infty} \left ( k \frac{\lambda^k}{k!} \right )_{\lambda}^{\prime} = \\
+    %
+    = e^{-\lambda} \lambda \left ( \sum_{k=1}^{\infty} k \frac{\lambda^k}{k!} \right )_{\lambda}^{\prime}
+    = e^{-\lambda} \lambda \left ( \lambda \sum_{k=1}^{\infty} \frac{k \lambda^{k-1}}{k!} \right )_{\lambda}^{\prime}
+    = e^{-\lambda} \lambda \left ( \lambda \sum_{k=1}^{\infty} \left ( \frac{\lambda^{k}}{k!} \right )_{\lambda}^{\prime} \right )_{\lambda}^{\prime} = \\
+    %
+    = e^{-\lambda} \lambda \left ( \lambda \left ( \sum_{k=1}^{\infty} \frac{\lambda^{k}}{k!} \right )_{\lambda}^{\prime} \right )_{\lambda}^{\prime}
+    = e^{-\lambda} \lambda \left ( \lambda \left ( e^\lambda - 1 \right )_{\lambda}^{\prime} \right )_{\lambda}^{\prime}
+    = e^{-\lambda} \lambda \left ( \lambda e^\lambda \right )_{\lambda}^{\prime} = \\
+    %
+    = e^{-\lambda} \lambda \left ( e^\lambda + \lambda e^\lambda \right )
+    = \lambda + \lambda^2.
+\end{multline}
+Откуда дисперсия
+\begin{equation}
+    \variance{Z}
+    = \expectation{Z^2} - \expectation{Z}^2
+    = \lambda + \lambda^2 - \lambda^2
+    = \lambda.
+\end{equation}
+
+\subsection*{Ответ:}
+$\expectation{Z} = \lambda_1 + \lambda_2$, $\variance{Z} = \lambda_1 + \lambda_2$.
+
+\section*{Задача 18.532}
+
+Доказать композиционную устойчивость нормального закона $\mathcal{N} \left ( m, \sigma^2 \right )$.
+
+\subsection*{Решение:}
+
+Пусть $X$ и $Y$ --- независимые случайные величины, имеющие распределения $X \sim \mathcal{N} \left ( m_X, \sigma_X^2 \right )$ и
+$Y \sim \mathcal{N} \left ( m_Y, \sigma_Y^2 \right )$. Функция распределения $F_Z(z)$ случайной величины $Z = X + Y$:
+\begin{multline}
+    F_Z(z)
+    = \probability{Z < z}
+    = \probability{X + Y < z} = \\
+    %
+    = \iint \limits_{X + Y < z} f_{X,Y}(x,y) dy dx
+    = \int \limits_{-\infty}^\infty \int \limits_{-\infty}^{z-x} f_{X,Y}(x,y) dy dx,
+\end{multline}
+где $f_{X,Y}(x,y)$ --- функция плотности вероятности, имеющая вид:
+\begin{multline}
+    f_{X,Y}(x,y)
+    = \frac{1}{\sqrt{2 \pi} \sigma_X} e^{- \frac{1}{2} \frac{(x - m_X)^2}{\sigma_X^2}} \cdot \frac{1}{\sqrt{2 \pi} \sigma_Y} e^{- \frac{1}{2} \frac{(y - m_Y)^2}{\sigma_Y^2}} = \\
+    %
+    = \frac{1}{2 \pi \sigma_X \sigma_Y} e^{- \frac{1}{2} \left ( \frac{(x - m_X)^2}{\sigma_X^2} + \frac{(y - m_Y)^2}{\sigma_Y^2} \right )} .
+\end{multline}
+Таким образом, получим интеграл вида:
+\begin{equation}
+    F_Z(z)
+    = \frac{1}{2 \pi \sigma_X \sigma_Y} \int \limits_{-\infty}^\infty \int \limits_{-\infty}^{z-x} e^{- \frac{1}{2} \left ( \frac{(x - m_X)^2}{\sigma_X^2} + \frac{(y - m_Y)^2}{\sigma_Y^2} \right )} dy dx .
+\end{equation}
+Данный интеграл не выражается через элементарные функции.
+
+Плотность вероятности $f_Z(z)$ случайной величины $Z$:
+\begin{multline}
+    f_Z(z)
+    = \derivative{z} F_Z(z)
+    = \derivative{z} \frac{1}{2 \pi \sigma_X \sigma_Y} \int \limits_{-\infty}^\infty \int \limits_{-\infty}^{z-x} e^{- \frac{1}{2} \left ( \frac{(x - m_X)^2}{\sigma_X^2} + \frac{(y - m_Y)^2}{\sigma_Y^2} \right )} dy dx = \\
+    %
+    = \frac{1}{2 \pi \sigma_X \sigma_Y} \int \limits_{-\infty}^\infty e^{- \frac{1}{2} \left ( \frac{(x - m_X)^2}{\sigma_X^2} + \frac{(z - x - m_Y)^2}{\sigma_Y^2} \right )} dx .
+\end{multline}
+Преобразовывая выражение в показателе, получим:
+\begin{multline}
+    \frac{(x - m_X)^2}{\sigma_X^2} + \frac{(z - x - m_Y)^2}{\sigma_Y^2}
+    = \frac{\sigma_Y^2 ( x - m_X )^2 + \sigma_X^2 (z - x - m_Y)^2}{\sigma_X^2 \sigma_Y^2} = \\
+    %
+    = \frac{\sigma_Y^2 x^2 - 2 x \sigma_Y^2 m_X + \sigma_Y^2 m_X^2 + \sigma_X^2 x^2 - 2 x \sigma_X^2 (z - m_Y) + \sigma_X^2 (z - m_Y)^2}{\sigma_X^2 \sigma_Y^2} = \\
+    %
+    = \frac{(\sigma_Y^2 + \sigma_X^2) x^2 - 2 x ( \sigma_Y^2 m_X + \sigma_X^2 (z - m_Y) ) + \sigma_Y^2 m_X^2 + \sigma_X^2 (z - m_Y)^2}{\sigma_X^2 \sigma_Y^2} = \\
+    %
+    = \frac{x^2 - 2 x \frac{\sigma_Y^2 m_X + \sigma_X^2 (z - m_Y)}{(\sigma_Y^2 + \sigma_X^2)} + \frac{\sigma_Y^2 m_X^2 + \sigma_X^2 (z - m_Y)^2}{(\sigma_Y^2 + \sigma_X^2)}}{\frac{\sigma_X^2 \sigma_Y^2}{\sigma_X^2 + \sigma_Y^2}} = \\
+    %
+    = \frac{x^2 - 2 x A + B}{\frac{\sigma_X^2 \sigma_Y^2}{\sigma_X^2 + \sigma_Y^2}}
+    = \frac{\left ( x - A \right )^2 - A^2 + B}{\frac{\sigma_X^2 \sigma_Y^2}{\sigma_X^2 + \sigma_Y^2}} .
+\end{multline}
+Таким образом,
+\begin{multline}
+    f_Z(z)
+    = \frac{1}{2 \pi \sigma_X \sigma_Y} \int \limits_{-\infty}^\infty e^{ -\frac{1}{2} \frac{\left ( x - A \right )^2 - A^2 + B}{\frac{\sigma_X^2 \sigma_Y^2}{\sigma_X^2 + \sigma_Y^2}}} dx = \\
+    %
+    = \frac{1}{\sqrt{2 \pi} \sqrt{\sigma_X^2 + \sigma_Y^2}} \left ( \frac{1}{\sqrt{2 \pi} \frac{\sigma_X \sigma_Y}{\sqrt{\sigma_X^2 + \sigma_Y^2}}} \int \limits_{-\infty}^\infty e^{ - \frac{1}{2} \frac{\left ( x - A \right )^2}{\frac{\sigma_X^2 \sigma_Y^2}{\sigma_X^2 + \sigma_Y^2}}} dx \right ) e^{ -\frac{1}{2} \frac{ - A^2 + B}{\frac{\sigma_X^2 \sigma_Y^2}{\sigma_X^2 + \sigma_Y^2}}}= \\
+    %
+    = \frac{1}{\sqrt{2 \pi} \sqrt{\sigma_X^2 + \sigma_Y^2}} e^{ -\frac{1}{2} \frac{- A^2 + B}{\frac{\sigma_X^2 \sigma_Y^2}{\sigma_X^2 + \sigma_Y^2}}} .
+\end{multline}
+где показатель без $-\frac{1}{2}$ можно преобразовать к виду:
+\begin{multline}
+    \frac{- A^2 + B}{\frac{\sigma_X^2 \sigma_Y^2}{\sigma_X^2 + \sigma_Y^2}}
+    = \frac{- \left ( \frac{\sigma_Y^2 m_X + \sigma_X^2 (z - m_Y)}{(\sigma_Y^2 + \sigma_X^2)} \right )^2 + \frac{\sigma_Y^2 m_X^2 + \sigma_X^2 (z - m_Y)^2}{(\sigma_Y^2 + \sigma_X^2)}}{\frac{\sigma_X^2 \sigma_Y^2}{\sigma_X^2 + \sigma_Y^2}} = \\
+    %
+    = \frac{- \frac{\sigma_Y^4 m_X^2 + 2 \sigma_Y^2 m_X^2 \sigma_X^2 (z - m_Y) + \sigma_X^4 (z - m_Y)^2}{(\sigma_Y^2 + \sigma_X^2)^2} + \frac{\sigma_Y^2 m_X^2 + \sigma_X^2 (z - m_Y)^2}{(\sigma_Y^2 + \sigma_X^2)}}{\frac{\sigma_X^2 \sigma_Y^2}{\sigma_X^2 + \sigma_Y^2}} = \\
+    %
+    = \frac{- \sigma_Y^4 m_X^2 - 2 \sigma_Y^2 m_X^2 \sigma_X^2 (z - m_Y) - \sigma_X^4 (z - m_Y)^2 + \left ( \sigma_Y^2 m_X^2 + \sigma_X^2 (z - m_Y)^2 \right ) (\sigma_Y^2 + \sigma_X^2)}{\sigma_X^2 \sigma_Y^2 \left ( \sigma_X^2 + \sigma_Y^2 \right )} = \\
+    %
+    = \frac{- 2 \sigma_Y^2 m_X^2 \sigma_X^2 (z - m_Y) + \sigma_X^2 \sigma_Y^2 m_X^2 + \sigma_X^2 \sigma_Y^2 (z - m_Y)^2}{\sigma_X^2 \sigma_Y^2 \left ( \sigma_X^2 + \sigma_Y^2 \right )} = \\
+    %
+    = \frac{- 2 m_X^2 (z - m_Y) + m_X^2 + (z - m_Y)^2}{\sigma_X^2 + \sigma_Y^2}
+    = \frac{(z - m_Y)^2 - 2 (z - m_Y) m_X^2 + m_X^2}{\sigma_X^2 + \sigma_Y^2} = \\
+    %
+    = \frac{(z - m_Y - m_X)^2}{\sigma_X^2 + \sigma_Y^2} .
+\end{multline}
+Таким образом,
+\begin{equation}
+    f_Z(z)
+    = \frac{1}{\sqrt{2 \pi} \sqrt{\sigma_X^2 + \sigma_Y^2}} e^{ -\frac{1}{2} \frac{(z - (m_X + m_Y))^2}{\sigma_X^2 + \sigma_Y^2}}
+\end{equation}
+и величина $Z$ имеет распределение $\mathcal{N} \left ( m_X + m_Y, \sigma_X^2 + \sigma_Y^2 \right )$.
+
+Устойчивость можно доказать с помощью характеристических функций. Пусть $E_X(t)$ и $E_Y(t)$ --- характеристические функции случайных величин $X$ и $Y$:
+\begin{gather}
+    E_X(t) =  e^{m_X t - \frac{1}{2} \sigma_X^2 t^2} , \\
+    E_Y(t) =  e^{m_Y t - \frac{1}{2} \sigma_Y^2 t^2} .
+\end{gather}
+Поскольку $X$ и $Y$ независимы, то характеристическая фукнция $E_Z(t)$:
+\begin{equation}
+    E_Z(t)
+    = E_X(t) \cdot E_Y(t)
+    = e^{m_X t - \frac{1}{2} \sigma_X^2 t^2} \cdot e^{m_Y t - \frac{1}{2} \sigma_Y^2 t^2}
+    = e^{\left ( m_X + m_Y \right ) t - \frac{1}{2} \left ( \sigma_X^2 + \sigma_Y^2 \right ) t^2} .
+\end{equation}
+Легко видеть, что полученная характеристическая функция соответствует распределению $\mathcal{N} \left ( m_X + m_Y, \sigma_X^2 + \sigma_Y^2 \right )$.
+
+\section*{Задачи для самостоятельного решения}
+
+Из раздела 18 сборника задач Ефимова и Поспелова.
+\begin{enumerate}
+    \item На занятии: 445, 459.
+    \item Дома: 439, 440, 453, 454, 464, 514, 522, 527, 531, 536, 537.
+\end{enumerate}
+
+Из сборника задач типового расчёта Чудесенко: 29, 30.
