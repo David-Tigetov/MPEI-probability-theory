@@ -1071,6 +1071,7 @@ $$
     \variance{Z}
     = \variance{X + Y}
     = \variance{X} + \variance{Y} + 2 \covariance{X}{Y}
+    = \variance{X} + \variance{Y}
     = \lambda_1 + \lambda_2 .
 \end{equation}
 
@@ -1093,7 +1094,7 @@ $$
 
 Второй начальный момент можно вычислить аналогично:
 \begin{multline}
-    \expectation{Z}
+    \expectation{Z^2}
     = \sum_{k=0}^{\infty} k^2 \frac{\lambda^k}{k!} e^{-\lambda}
     = \sum_{k=1}^{\infty} k^2 \frac{\lambda^k}{k!} e^{-\lambda}
     = e^{-\lambda} \lambda \sum_{k=1}^{\infty} k \frac{k \lambda^{k-1}}{k!}
