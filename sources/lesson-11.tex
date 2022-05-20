@@ -280,7 +280,7 @@ $p = \frac{1}{6}$ на величину менее $\Delta = 0.06$ с вероя
 
 Таким образом, для вероятности отклонения относительной частоты $X$ от вероятности $p$ справедливо приближенное равенство \eqref{introduction:approximation}:
 \begin{gather}
-    \probability{\modulus{X - \expectation{X}} < \Delta} \approx 2 \Phi \left ( \frac{\Delta}{\variance{X}} \right ) - 1 , \\
+    \probability{\modulus{X - \expectation{X}} < \Delta} \approx 2 \Phi \left ( \frac{\Delta}{\sqrt{\variance{X}}} \right ) - 1 , \\
     \probability{\modulus{X - p} < \Delta} \approx 2 \Phi \left ( \frac{\Delta}{\sqrt{\frac{p(1-p)}{n}}} \right ) - 1 .
 \end{gather}
 и необходимо сделать так, чтобы эта вероятность оказалась больше $P_\text{д}$:
