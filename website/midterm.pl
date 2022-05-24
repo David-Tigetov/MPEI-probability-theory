@@ -46,7 +46,7 @@ print "<li>Вопрос " . ($number + 1) . ". " . $questions[$number] . "</li>\n";
 $number = int(rand(5)) + 13;
 print "<li>Вопрос " . ($number + 1) . ". " . $questions[$number] . "</li>\n";
 
-print "<li>Задача " . ( int(rand(20)) + 1) . ".</li>\n";
+print "<li>Задача " . ( int(rand(26)) + 1) . ".</li>\n";
 print "</ol>\n";
 
 print "</body>\n";
